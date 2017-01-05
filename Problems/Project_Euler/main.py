@@ -504,7 +504,25 @@ print(maxProd)
 from sympy import sieve
 sum(list(sieve.primerange(1, 2e6)))
 
+# Problem 9: Special Pythagorean triplet
+# Solution 1:
+# Solution 1:
+from itertools import combinations
+def f(x):
+    return sum(x) == 1000 and x[0]**2 + x[1]**2 == x[2]**2
+[i for i in combinations(range(1000), 3) if f(i)]
 
+# Solution 2:
+# Without programming:
+# a=2mn;b=m^2-n^2;c=m^2+n^2;
+# a+b+c=1000;
+# 2mn+(m^2-n^2)+(m^2+n^2)=1000;
+# 2mn+2m^2=1000;
+# 2m(m+n)=1000;
+# m(m+n)=500;
+# m>n;
+# m=20;n=5;
+# a=200;b=375;c=425;
 
 # Problem 8: Largest product in a series
 # nTrials: 1
