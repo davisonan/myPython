@@ -1,3 +1,12 @@
+# Problem 99: Passcode derivation
+# nTrials: 3
+# Made the order of base and exponent wrong.
+
+nums=[i.split(',') for i in open('p099_base_exp.txt', 'r')]
+rslt = [(int(a), int(b.strip())) for (a, b) in nums]
+rslt2 = [(idx, math.log(a) * b) for (idx, (a, b)) in enumerate(rslt)]
+sorted(rslt2, key=itemgetter(1), reverse=False)
+
 # Problem 79: Passcode derivation
 # nTrials: 1
 # Basic idea: topological search
