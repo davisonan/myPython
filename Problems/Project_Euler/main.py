@@ -12,25 +12,28 @@ sorted(rslt2, key=itemgetter(1), reverse=False)
 # Basic idea: topological search
 
 # Problem 53: Combinatoric selections
-# nTrials: 1
+# nTrials: 3
+# The calculation of nComb is incorrect.
+# The question is asking total counts, not necessarily distinct 
+# numbers.
+# Tag: #careless
 
+import math
 def nComb(n, r):
     assert n >= r
     if r == 0 or r == n:
         return 1
-    else:    
-        tmp = prod(list(range(n-r+1, n+1)))/prod(list(range(1, r+1)))
-        try:
-            assert tmp == int(tmp)
-        except AssertionError:
-            print(list(range(n-r+1, n+1)), list(range(1, r+1)))
-        return int(tmp)
+    else:
+        # tmp = prod(range(n-r+1, n+1))/prod(range(1, r+1))
+        tmp = math.factorial(n)//math.factorial(r)//math.factorial(n-r)
+        return tmp
 
 nComb(23, 10)
 
-l0 = [(n, r) for n in range(1, 101) for r in range(n+1)]
-
-[nComb(n, r) for (n, r) in l0]
+l0 = ((n, r) for n in range(1, 101) for r in range(n+1))  # generator expression
+l1 = (nComb(n, r) for (n, r) in l0)  # generator expression
+rslt = [i for i in l1 if i > 1000000]
+len(rslt)
 
 # Problem 52: Permuted multiples
 # nTrials: 1

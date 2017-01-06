@@ -24,10 +24,7 @@ r.plot.hist(alpha=0.5, bins=100)
 RPP1=sum(rev)/sum(pv)
 RPP2=average(RPP1_User)
 
-Q: difference? RPP1 goes up, RPP2 flat or
-
 # sampling distribution
-
 l = [0,1,4,0,3,5,6,0,0,2]
 j = len(l)-1
 for i in range(len(l)-1, 0, -1):
@@ -714,6 +711,8 @@ def mysum(L):
 
 mysum([1,2,3,4,5])
 
+
+## Sum of items in nested lists
 def sumtree(L):
     tot = 0  # tot of each branch starts at 0
     for x in L:
