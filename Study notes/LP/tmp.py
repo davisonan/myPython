@@ -684,3 +684,49 @@ print(x)
 
 ###
 
+def kwonly(a, *, b, c):
+    print(a, b, c)
+kwonly(1, c=3, b=2)
+kwonly(c=3, b=2, a=1)
+kwonly(1, 2, 3)
+kwonly(1)
+
+def kwonly(a, **, b, c): print(a, b, c)
+def kwonly(a, **pargs, b, c): print(a, b, c)
+
+def func(a, b=4, c=5):
+    print(a, b, c)
+func(1, 2)
+
+def func(a, *pargs):
+    print(a, pargs)
+func(1, 2, 3)
+
+def func(a, **kargs):
+    print(a, kargs)
+func(a=1, b=2, c=3)
+
+def func(a, b, c=3, d=4): print(a, b, c, d)
+func(1, *(5, 6))
+
+def mysum(L):
+    return 0 if not L else L[0] + mysum(L[1:])
+
+mysum([1,2,3,4,5])
+
+def sumtree(L):
+    tot = 0  # tot of each branch starts at 0
+    for x in L:
+        if not isinstance(x, list):
+            tot += x
+        else:
+            tot += sumtree(x)
+    return tot
+
+L = [1, [2, [3, 4], 5], 6, [7, [[[8]]]]]
+sumtree(L)
+
+import sys
+sys.getrecursionlimit()
+
+
