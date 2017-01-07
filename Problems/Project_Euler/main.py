@@ -11,6 +11,54 @@ sorted(rslt2, key=itemgetter(1), reverse=False)
 # nTrials: 1
 # Basic idea: topological search
 
+# Problem 59: XOR decryption
+# nTrials: 1
+import string
+from itertools import combinations_with_replacement
+from collections import Counter
+
+path = '/Users/hanya/Github/myPython/Problems/Project_Euler/'
+s = open(path + 'p059_cipher.txt').readline()
+keys = [(ord(key[0]), ord(key[1]), ord(key[2])) for key in combinations_with_replacement(string.ascii_lowercase, 3)]
+l0 = [int(i) for i in s.rstrip().split(',')]
+rslt = [''.join(chr(l0[i] ^ keys[j][i % 3]) for i in range(len(l0))) for j in range(len(keys))]
+rslt2 = [i for i in rslt if 'God' in i]
+
+# Problem 57: Square root convergents
+# nTrials: 1
+from fractions import Fraction
+1 + Fraction(1, 2)  # 1
+1 + Fraction(1, 2 + Fraction(1, 2))  # 2
+1 + Fraction(1, 2 + Fraction(1, 2 + Fraction(1, 2)))  # 3
+1 + Fraction(1, 2 + Fraction(1, 2 + Fraction(1, 2 + Fraction(1, 2))))  # 4
+1 + Fraction(1, 2 + Fraction(1, 2 + Fraction(1, 2 + Fraction(1, 2 + Fraction(1, 2)))))  # 5
+
+def f(n):
+    if n == 1:
+        return 1 + Fraction(1, 2)
+    else:
+        den = 2
+        for i in range(n-1):
+            den = 2 + Fraction(1, den)
+        return 1 + Fraction(1, den)
+
+def g(x):
+    return len(str(x.numerator)) > len(str(x.denominator))
+
+sum(g(f(i)) for i in range(1, 1001))
+
+# Problem 56: Powerful digit sum
+# nTrials: 1
+def f(x):
+    total = 0
+    while x > 0:
+        total += x % 10
+        x //= 10
+    return total
+
+rslt = [(f(a**b), a, b) for a in range(100) for b in range(100)]
+sorted(rslt, reverse=True)[0][0]
+
 # Problem 53: Combinatoric selections
 # nTrials: 3
 # The calculation of nComb is incorrect.
