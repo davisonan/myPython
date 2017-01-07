@@ -11,6 +11,98 @@ sorted(rslt2, key=itemgetter(1), reverse=False)
 # nTrials: 1
 # Basic idea: topological search
 
+##### NOT FINISHED!!!!! #####
+##### NOT FINISHED!!!!! #####
+##### NOT FINISHED!!!!! #####
+##### NOT FINISHED!!!!! #####
+
+
+# Problem 61: Cyclical figurate numbers
+# nTrials: 1
+
+##### NOT FINISHED!!!!! #####
+##### NOT FINISHED!!!!! #####
+##### NOT FINISHED!!!!! #####
+##### NOT FINISHED!!!!! #####
+
+from itertools import product
+
+
+set_tri = [(j, j % 100, j // 100) for j in (i*(i+1)//2 for i in range(150)) if len(str(j)) == 4 and str(j)[-2] != '0']
+set_squ = [(j, j % 100, j // 100) for j in (i**2 for i in range(100)) if len(str(j)) == 4 and str(j)[-2] != '0']
+set_pen = [(j, j % 100, j // 100) for j in (i*(3*i-1)//2 for i in range(100)) if len(str(j)) == 4 and str(j)[-2] != '0']
+set_hex = [(j, j % 100, j // 100) for j in (i*(2*i-1) for i in range(100)) if len(str(j)) == 4 and str(j)[-2] != '0']
+set_hep = [(j, j % 100, j // 100) for j in (i*(5*i-3)//2 for i in range(100)) if len(str(j)) == 4 and str(j)[-2] != '0']
+set_oct = [(j, j % 100, j // 100) for j in (i*(3*i-2) for i in range(100)) if len(str(j)) == 4 and str(j)[-2] != '0']
+
+# Solution 1:
+l0 = [set_tri, set_squ, set_pen, set_hex, set_hep, set_oct]
+l1 = []
+for l in l0:
+    s0 = set([])
+    for (i, j, k) in l:
+        s0.add()
+
+# Solution 2:
+def f(x):
+    return x[0][1] == x[1][2]
+
+comp1 = [i for i in product(set_tri, set_squ) if f(i)]
+comp2 = [i for i in product(set_pen, set_hex) if f(i)]
+comp3 = [i for i in product(set_hep, set_oct) if f(i)]
+
+combs = product(comp1, comp2, comp3)
+
+def g(x):
+    return x[0][1] % 100 == x[1][0] // 100 and \
+            x[1][1] % 100 == x[2][0] // 100 and \
+            x[2][1] % 100 == x[0][0] // 100
+
+def g1(x):
+    return (x[0][1] % 100, x[1][0] // 100, x[1][1] % 100, x[2][0] // 100, x[2][1] % 100, x[0][0] // 100)
+
+def g2(x):
+    return (x[0][1][1] == x[1][0][2] and x[1][1][1] == x[2][0][2] and x[2][1][1] == x[0][0][2])
+
+list(filter(g2, combs))
+
+list(map(g1, combs))
+
+# Solution 3:
+comp2 = [(i, j, k) for ((i, j), k) in product(comp1, set_pen) if f((j, k))]
+comp3 = [(i, j, k, m) for ((i, j, k), m) in product(comp2, set_pen) if f((k, m))]
+comp4 = [(i, j, k, m, n) for ((i, j, k, m), n) in product(comp3, set_pen) if f((m, n))]
+comp5 = [(i, j, k, m, n, o) for ((i, j, k, m, n), o) in product(comp4, set_pen) if f((n, o))]
+comp6 = [(i, j, k, m, n, o) for (i, j, k, m, n, o) in comp5 if f((o, i))]
+
+## 
+def fn(n):
+    return (3, n*(n+1)/2), (4, n*n), (5, n*(3*n-1)/2), (6, n*(2*n-1)), (7, n*(5*n-3)/2), (8, n*(3*n-2))
+ 
+def next(types, data):
+    if len(types) == 6 and data[0] // 100 == data[-1] % 100:
+        print(data, sum(data))
+    else:
+        for t, n in ds.get((types[-1], data[-1]), []):
+            if t not in types:
+                next(types+[t], data+[n])
+p = []
+n = 19
+while n < 141:
+    for type, data in fn(n):
+        if 1000 <= data <= 9999 and data % 100 > 9:
+            p.append( (type, data) ) 
+    n += 1
+
+ds = {}
+for t1, d1 in p:
+    for t2, d2 in p:
+        if t1 != t2 and d1 % 100 == d2 // 100:
+            ds[t1, d1] = ds.get((t1, d1),[]) + [(t2, d2)] 
+
+print("Project Euler 61 Solution Set")
+for type, data in ds: next([type], [data])
+
 # Problem 59: XOR decryption
 # nTrials: 1
 import string
@@ -58,6 +150,57 @@ def f(x):
 
 rslt = [(f(a**b), a, b) for a in range(100) for b in range(100)]
 sorted(rslt, reverse=True)[0][0]
+
+# Problem 55: Lychrel numbers
+# nTrials: 1
+def isPalInt(x):
+    n = x
+    div = 1
+    while n > 0:
+        n //= 10  # Make sure this is integer division //
+        div *= 10
+    div //= 10  # Make sure this is integer division //
+    while x > 0:
+        firstDigit = x // div  # Make sure this is integer division //
+        lastDigit = x % 10
+        if firstDigit != lastDigit:
+            return False
+        else:
+            x = (x - firstDigit * div) // 10
+            div //= 100
+    return True
+
+def reverseInt(x):
+    assert x >= 0  # This function only for positive input
+    n = 0
+    while x > 0:
+        n = 10 * n + x % 10
+        x //= 10
+    return n
+
+# Make sure 50 is the correct number to put below.
+# In the problem, 50 is inclusive.
+def isLychrel(x):
+    for i in range(50):
+        x = x + reverseInt(x)
+        if isPalInt(x):
+            return False
+    else:
+        return (True, i)
+
+rslt = list(map(isLychrel, range(10000)))
+sum(rslt)
+
+# Comment: every function should contain the minimal 
+# functionality possible in a program for readability
+# and conciseness. reverseInt above is an example.
+
+# Problem 54: Poker hands
+# nTrials: 1
+
+
+
+
 
 # Problem 53: Combinatoric selections
 # nTrials: 3
