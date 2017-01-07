@@ -506,3 +506,31 @@ def f(n):
             return arr[n]
 
 f(36)
+
+##### Find the Median #####
+# You are given an array of integers, sorted in ascending order, and an integer k.
+# Find the median of the subarray that contains values less than or equal to k.
+# If the subarray contains an even number of elements, then the median is the mean of 
+# the two middle elements.
+# Only efficient solutions (in terms of time complexity) will be accepted.
+
+# Assumptions:
+# array has at least 1 element
+# k exists in the array
+
+def subarray_median(arr, k):
+    idx0 = arr.index(k)
+    while idx0+1 < len(arr) and arr[idx0+1] == k:
+        idx0 += 1
+    l = arr[:idx0+1]
+    n = len(l)
+    return (l[n//2-1] + l[n//2])/2.0 if n % 2 == 0 else l[n//2]
+
+##### Matrix Rotation #####
+# Given a matrix of arbitrary size write a function to rotate the matrix by 90 degrees counter-clockwise.
+# The input to the function will be a list of lists of integers. The input matrix is not necessarily a 
+# square matrix.
+
+def rotate(matrix):
+    return list(reversed(list(zip(*matrix))))
+
