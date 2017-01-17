@@ -1,3 +1,20 @@
+# Problem 142: Perfect Square Collection
+# nTrials: 1
+
+import math
+def isInt(x):
+    return x - int(x) == 0
+def f(x, y, z):
+    return isInt(math.sqrt(x+y)) and \
+            isInt(math.sqrt(x-y)) and \
+            isInt(math.sqrt(x+z)) and \
+            isInt(math.sqrt(x-z)) and \
+            isInt(math.sqrt(y+z)) and \
+            isInt(math.sqrt(y-z))
+
+rslt = [(x, y, z) for x in range(100, 1000) for y in range(x) for z in range(y) if f(x, y, z)]
+
+
 # Problem 99: Passcode derivation
 # nTrials: 3
 # Made the order of base and exponent wrong.

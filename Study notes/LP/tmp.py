@@ -711,7 +711,6 @@ def mysum(L):
 
 mysum([1,2,3,4,5])
 
-
 ## Sum of items in nested lists
 def sumtree(L):
     tot = 0  # tot of each branch starts at 0
@@ -728,4 +727,167 @@ sumtree(L)
 import sys
 sys.getrecursionlimit()
 
+# Generators are single-iteration objects
+# Built-in data types support multiple iterators and passes
+L = [1, 2, 3, 4]
+I1, I2 = iter(L), iter(L)
+
+
+def both(N):
+    for i in range(N): yield i
+    for i in (x ** 2 for x in range(N)) : yield i
+
+list(both(10))
+
+[x ** 2 for x in range(10)]
+(x ** 2 for x in range(10))
+{x ** 2 for x in range(10)}
+{x:x ** 2 for x in range(10)}
+
+(x for x in range(5))  # x is local
+
+x = 99
+[x for x in range(5)]  # again, x is local
+x
+
+y = 99
+for y in range(5): pass  # loop statements don't localize names
+y
+
+
+
+# timer
+import time, sys
+try:
+    timer = time.perf_counter
+except:
+    timer = time.clock if sys.platform[:3] == 'win' else time.time
+
+def myTimer(reps, func, *pargs, **kargs):
+    repslist = list(range(reps))
+    times = []
+    for i in repslist:
+        start = timer()
+        ret = func(*pargs, **kargs)
+        elapsed = timer() - start
+        times.append(elapsed)
+    times.sort()
+    return (times[0], times[reps//2], times[-1])
+
+myTimer(1000, pow, 2, 1000)
+myTimer(1000, str.upper, 'spam')
+myTimer(1000, operator.mul, 'spam', 5)
+
+import time
+time.perf_counter()
+time.process_time()
+
+
+# test list builders
+reps = 100000
+repslist = list(range(reps))
+
+def forloop():
+    res = []
+    for x in repslist:
+        # res.append(abs(x))
+        res.append(x + 10)
+    return res
+
+def listComp():
+    # return [abs(x) for x in repslist]
+    return [x + 10 for x in repslist]
+
+def mapCall():
+    # return list(map(abs, repslist))
+    return list(map(lambda x: x + 10, repslist))
+
+def genExpr():
+    # return list(abs(x) for x in repslist)
+    return list(x + 10 for x in repslist)
+
+def genFunc():
+    def gen():
+        for x in repslist:
+            # yield abs(x)
+            yield x + 10
+    return list(gen())
+
+for test in (forloop, listComp, mapCall, genExpr, genFunc):
+    theMin, theMed, theMax = myTimer(1000, test)
+    print('%-9s: min %.5f, med %.5f and max %.5f' %(test.__name__, theMin, theMed, theMax))
+
+# When abs(x), a built-in function is used:
+# forloop  : min 0.01350, med 0.01493 and max 0.03956
+# listComp : min 0.00810, med 0.00930 and max 0.01564
+# mapCall  : min 0.00598, med 0.00682 and max 0.01059
+# genExpr  : min 0.01116, med 0.01208 and max 0.02150
+# genFunc  : min 0.01096, med 0.01257 and max 0.01693
+
+# When x + 10, a user-defined function is used:
+# forloop  : min 0.01192, med 0.01282 and max 0.02471
+# listComp : min 0.00650, med 0.00767 and max 0.01263
+# mapCall  : min 0.01477, med 0.01575 and max 0.03093
+# genExpr  : min 0.00939, med 0.01033 and max 0.01542
+# genFunc  : min 0.00959, med 0.00998 and max 0.01686
+
+x = 99
+def selector():
+    import __main__  # Interactive namespace is a module
+    print(__main__.x)  # It reaches the global version of x
+    x = 88
+    print(x)
+selector()
+
+def saver(x=[]):
+    x.append(1)
+    print(x)
+
+saver([2])  # [2, 1]
+saver()  # [1]
+saver()  # [1, 1]
+saver()  # [1, 1, 1]
+# The mutable defaults are evaluated at def time, not call time.
+# The list keeps growing even though interrupted by other calls.
+
+a = []
+b = []
+c = a or b
+c is a
+c is b
+
+## state retention
+def saver():
+    saver.x.append(1)
+    print(saver.x)
+
+saver()  # need to initialize saver.x
+saver.x = []
+saver()  # achieve state retention
+
+## closures
+def makeActions():
+    acts = []
+    for i in range(5):
+        acts.append(lambda x: i ** x)
+    return acts
+acts = makeActions()
+acts[0](2)  # 16
+acts[1](2)  # 16
+acts[2](2)  # 16
+acts[3](2)  # 16
+acts[4](2)  # 16
+## Comment: The enclosing scope variable is looked up when the 
+## functions are called, they all effectively remember the same
+## value, the value the loop variable had on the last loop.
+
+
+list = [1, 2]  # list can be overwritten
+list(map(abs, range(5)))  # list will not work
+del list  # del list
+list(map(abs, range(5)))  # list resumes being effective
+
+
+###### Part IV Exercises #####
+# 1. The basics
 
