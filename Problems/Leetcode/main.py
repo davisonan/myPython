@@ -1,4 +1,3 @@
-
 # 461. Hamming Distance
 # nTrials: 2
 # Didn't notice that 0 digit doesn't count 
@@ -47,4 +46,3 @@ class Solution(object):
 
 sol = Solution()
 sol.hammingDistance(1, 4)
-

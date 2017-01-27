@@ -461,7 +461,7 @@ def isFifthPower(x):
         n //= 10
     return (x, total == x)
 
-l = [isFifthPower(x) for x in range(1000000)]
+l = [isFifthPower(x) for x in range(10000)]
 sum([i[0] for i in l if i[1]])
 
 # Problem 29: Distinct power
@@ -888,7 +888,6 @@ def f(x):
 rslt = [a * b for (a, b) in nums if f(a * b)]
 max(rslt)
 
-
 def isPalindrome(x):
     div = 1
     while x // div >= 10:
@@ -941,4 +940,3 @@ print(total)
 # Problem 1
 # nTrials: 1
 print(sum([i for i in range(1000) if i % 3 == 0 or i % 5 == 0]))
-
