@@ -588,3 +588,228 @@ class Solution(object):
         return False
 
 
+# 66. Plus One
+class Solution(object):
+    def plusOne(self, digits):
+        """
+        :type digits: List[int]
+        :rtype: List[int]
+        """
+        carry = 1
+        n = len(digits)
+        rslt = []
+        for idx in range(n-1, -1, -1):
+            num = digits[idx] + carry
+            carry = num // 10
+            rslt.append(num % 10)
+        if num == 10: rslt.append(1)  # When [9] or [9, 9] are the input lists, one more digit is needed.
+        return list(reversed(rslt))
+
+sol = Solution()
+digits = [9, 9]
+sol.plusOne(digits)
+
+class Solution(object):
+    def plusOne(self, digits):
+        """
+        :type digits: List[int]
+        :rtype: List[int]
+        """
+        num = int(''.join([str(i) for i in digits])) + 1
+        return [int(i) for i in list(str(num))]
+
+sol = Solution()
+digits = [9, 9]
+sol.plusOne(digits)
+
+# Comment: The second method is faster sincer it's not using for loop 
+# but list comprehension.
+
+
+# 434. Number of Segments in a String
+class Solution(object):
+    def countSegments(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        return len([i for i in s.split(' ') if i != ''])
+
+sol = Solution()
+s = "Hello, my name is  John"
+sol.countSegments(s)
+
+# 118. Pascal's Triangle
+class Solution(object):
+    def generate(self, numRows):
+        """
+        :type numRows: int
+        :rtype: List[List[int]]
+        """
+        if numRows == 1:
+            return [[1]]
+        elif numRows == 2:
+            return [[1], [1, 1]]
+        else:
+            rslt = [[1], [1, 1]]
+            for i in range(2, numRows):
+                newRow = [1] * (i + 1)
+                newRow
+
+# 441. Arranging Coins
+class Solution(object):
+    def arrangeCoins(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        return int((-1 + sqrt(1 + 8 * n))/2)  # The parentheses were not put correctly.
+
+sol = Solution()
+n = 8
+sol.arrangeCoins(n)
+
+
+# 141. Linked List Cycle
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution(object):
+    def hasCycle(self, head):
+        """
+        :type head: ListNode
+        :rtype: bool
+        """
+        try:
+            slower = head
+            faster = head.next
+            while slower is not faster:
+                slower = slower.next
+                faster = faster.next.next
+            else:
+                return True
+        except:
+            return False
+
+
+# 20. Valid Parentheses
+class Solution(object):
+    def isValid(self, s):
+        """
+        :type s: str
+        :rtype: bool
+        """
+        if len(s) == 0: return True
+        if len(s) % 2 != 0: return False
+        if s[0] in ')]}': return False
+        aQ = [s[0]]
+        for i in range(1, len(s)):
+            if len(aQ) > 0 and aQ[-1]+s[i] in ['()', '{}', '[]']:
+                del aQ[-1]
+            elif len(aQ) == 0 and s[i] in '({[':
+                aQ.append(s[i])
+            elif len(aQ) > 0 and aQ[-1] in '({[' and s[i] in '({[':
+                aQ.append(s[i])
+            else:
+                return False
+        return True if len(aQ) == 0 else False  # THis is key, because s might be "(("
+
+sol = Solution()
+s = '()[]{}'
+sol.isValid(s)
+
+# Comment: Still don't check all the edge cases
+
+# 205. Isomorphic Strings
+class Solution(object):
+    def isIsomorphic(self, s, t):
+        """
+        :type s: str
+        :type t: str
+        :rtype: bool
+        """
+        if len(s) != len(t): return False
+        if len(s) == 0: return True
+        d1, d2 = {}, {}
+        for idx, char in enumerate(s):
+            if char in d1:
+                d1[char].add(idx)
+            else:
+                d1[char] = set([idx])
+        for idx, char in enumerate(t):
+            if char in d2:
+                d2[char].add(idx)
+            else:
+                d2[char] = set([idx])
+        return sorted(list(d1.values()), key=lambda x: min(x)) == sorted(list(d2.values()), key=lambda x: min(x))
+
+# Comment: I've made this mistakes many times, set(idx) is wrong since
+# idx is an integer, not an iterable.
+# Although the list of elements can be sorted, but the order of a set element is unpredictable, 
+# however, the minimum of a set is unique, therefore, should be used as the key to sort a list
+# of set elements.
+
+sol = Solution()
+s = 'ab'
+t = 'ca'
+sol.isIsomorphic(s, t)
+
+
+
+# 290. Word Pattern
+class Solution(object):
+    def wordPattern(self, pattern, str):
+        """
+        :type pattern: str
+        :type str: str
+        :rtype: bool
+        """
+        d1, d2 = {}, {}
+        for idx, val in enumerate(pattern):
+            if val in d1:
+                d1[val].append(idx)
+            else:
+                d1[val] = [idx]
+        for idx, val in enumerate(str.split()):
+            if val in d2:
+                d2[val].append(idx)
+            else:
+                d2[val] = [idx]
+        return sorted(list(d1.values()), key=lambda x: min(x)) == sorted(list(d2.values()), key=lambda x: min(x))
+
+sol = Solution()
+pattern = 'aaaa'
+str = "cat cat cat cat"
+sol.wordPattern(pattern, str)
+
+# Another solution using map.
+# Need some time to absorb the spirit in this.
+class Solution(object):
+    def wordPattern(self, pattern, str):
+        s = pattern
+        t = str.split()
+        return list(map(s.find, s)) == list(map(t.index, t))
+
+sol = Solution()
+pattern = 'aaaa'
+str = "cat cat cat cat"
+sol.wordPattern(pattern, str)
+
+# The third solution using zip
+# Need some time to absorb the spirit in this.
+class Solution(object):
+    def wordPattern(self, pattern, str):
+        s = pattern
+        t = str.split()
+        return len(set(zip(s, t))) == len(set(s)) == len(set(t)) and len(s) == len(t)
+
+sol = Solution()
+pattern = 'aaaa'
+str = "cat cat cat cat"
+sol.wordPattern(pattern, str)
+
+
+
