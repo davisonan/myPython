@@ -313,3 +313,278 @@ sol = Solution()
 findNums = [4, 1, 2]
 nums = [1, 3, 4, 2]
 sol.nextGreaterElement(findNums, nums)
+
+
+# 383. Ransom Note
+class Solution(object):
+    def canConstruct(self, ransomNote, magazine):
+        """
+        :type ransomNote: str
+        :type magazine: str
+        :rtype: bool
+        """
+        dict1, dict2 = [0] * 26, [0] * 26
+        for j in ransomNote:
+            dict1[ord(j)-ord('a')] += 1
+        for i in magazine:
+            dict2[ord(i)-ord('a')] += 1
+        for i in range(26):
+            if dict1[i] > dict2[i]:
+                return False
+        return True
+
+# 409 Longest Palindrome
+class Solution(object):
+    def longestPalindrome(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        dict = {}
+        for i in s:
+            dict[i] = dict.get(i, 0) + 1
+        total = 0
+        firstOdd = True
+        for key, val in dict.items():
+            if val % 2 == 0:
+                total += val
+            elif firstOdd:
+                total += val
+                firstOdd = False
+            else:
+                total += val - 1
+        return total
+
+class Solution(object):
+    def readBinaryWatch(self, num):
+        """
+        :type num: int
+        :rtype: List[str]
+        """
+
+# 268. Missing Number
+class Solution(object):
+    def missingNumber(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        n = len(nums)
+        return int(n*(1+n)/2-sum(nums))
+
+sol = Solution()
+nums = [0, 1, 3]
+sol.missingNumber(nums)
+
+# 350. Intersection of Two Arrays II
+
+
+# 447. Number of Boomerangs
+res = 0
+for p in points:
+    cmap = {}
+    for q in points:
+        f = p[0]-q[0]
+        s = p[1]-q[1]
+        cmap[f*f + s*s] = 1 + cmap.get(f*f + s*s, 0)
+    for k in cmap:
+        res += cmap[k] * (cmap[k] -1)
+return res
+
+# 415. Add Strings
+class Solution(object):
+    def addStrings(self, num1, num2):
+        """
+        :type num1: str
+        :type num2: str
+        :rtype: str
+        """
+        i, j = len(num1)-1, len(num2)-1
+        carry = 0
+        l = []
+        while i >= 0 and j >= 0:
+            singleSum = int(num1[i]) + int(num2[j]) + carry
+            l.append(str(singleSum % 10))
+            carry = singleSum // 10
+            i -= 1
+            j -= 1
+        while j >= 0:
+            singleSum = int(num2[j]) + carry
+            l.append(str(singleSum % 10))
+            carry = singleSum // 10
+            j -= 1
+        while i >= 0:
+            singleSum = int(num1[i]) + carry
+            l.append(str(singleSum % 10))
+            carry = singleSum // 10
+            i -= 1
+        if carry != 0:
+            l.append(str(carry))
+        return ''.join(list(reversed(l)))
+
+# 202. Happy Number
+class Solution(object):
+    def isHappy(self, n):
+        """
+        :type n: int
+        :rtype: bool
+        """
+        curNum = n
+        nums = set([n])
+        while True:
+            total = 0
+            while curNum > 0:
+                total += (curNum % 10) ** 2
+                curNum //= 10
+            if total == 1:
+                return True
+            elif total in nums:
+                return False
+            else:
+                curNum = total
+                nums.add(curNum)
+
+sol = Solution()
+sol.isHappy(2)
+
+
+# 53. Maximum Subarray
+class Solution(object):
+    def maxSubArray(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        curSum = maxSum = nums[0]
+        for num in nums[1:]:
+            curSum = max(num, curSum + num)
+            maxSum = max(maxSum, curSum)
+        return maxSum
+
+
+# 35. Search Insert Position
+class Solution(object):
+    def searchInsert(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: int
+        """
+        if nums[0] > target: return 0
+        if nums[-1] < target: return len(nums)        
+        for i in range(len(nums)):
+            if nums[i] == target:
+                return i
+            if nums[i] < target and nums[i+1] > target and i < len(nums) - 1:
+                return i+1
+
+# Comments: As you program more and more, you should be able to see through a problem 
+# right away and come up with all the edge cases. It's like a Venn diagram, 
+
+# 459. Repeated Substring Pattern
+class Solution(object):
+    def repeatedSubstringPattern(self, str):
+        """
+        :type str: str
+        :rtype: bool
+        """
+        n = len(str)
+        if n == 1: return False  # This edge case is easily forgotten.
+        for i in range(int(math.sqrt(n))+1, 0, -1):
+            if n % i == 0:
+                if str[:i] * (n//i) == str and i < n:  # i < n: this condition must be met.
+                    return True
+                elif str[:n//i] * i == str and i > 1:  # i > 1: this condition must be met.
+                    return True
+        return False
+
+sol = Solution()
+sol.repeatedSubstringPattern('aba')
+# I need to make this clear that the entire string could not repeat itself.
+# The single letter can repeat itself n times.
+
+
+# 21. Merge Two Sorted Lists
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution(object):
+    def mergeTwoLists(self, l1, l2):
+        """
+        :type l1: ListNode
+        :type l2: ListNode
+        :rtype: ListNode
+        """
+
+
+
+# iteratively
+def mergeTwoLists1(self, l1, l2):
+    dummy = cur = ListNode(0)
+    while l1 and l2:
+        if l1.val < l2.val:
+            cur.next = l1
+            l1 = l1.next
+        else:
+            cur.next = l2
+            l2 = l2.next
+        cur = cur.next
+    cur.next = l1 or l2
+    return dummy.next
+    
+# recursively    
+def mergeTwoLists2(self, l1, l2):
+    if not l1 or not l2:
+        return l1 or l2
+    if l1.val < l2.val:
+        l1.next = self.mergeTwoLists(l1.next, l2)
+        return l1
+    else:
+        l2.next = self.mergeTwoLists(l1, l2.next)
+        return l2
+        
+# in-place, iteratively        
+def mergeTwoLists(self, l1, l2):
+    if None in (l1, l2):
+        return l1 or l2
+    dummy = cur = ListNode(0)
+    dummy.next = l1
+    while l1 and l2:
+        if l1.val < l2.val:
+            l1 = l1.next
+        else:
+            nxt = cur.next
+            cur.next = l2
+            tmp = l2.next
+            l2.next = nxt
+            l2 = tmp
+        cur = cur.next
+    cur.next = l1 or l2
+    return dummy.next
+
+
+# 367. Valid Perfect Square
+class Solution(object):
+    def isPerfectSquare(self, num):
+        """
+        :type num: int
+        :rtype: bool
+        """
+        if num == 1: return True
+        start, mid, end = 1, num//2, num
+        while start <= end:
+            sqrNum = mid * mid
+            if sqrNum == num:
+                return True
+            elif sqrNum < num:
+                start = mid + 1
+                mid = (start + end)//2
+            else:
+                end = mid - 1
+                mid = (start + end)//2
+        return False
+
+
