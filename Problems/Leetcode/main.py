@@ -1000,3 +1000,165 @@ class Solution(object):
                     a[a.index(min(a))]=c
         return min(a) if len(a)>=3 else max(a)
 
+
+# 14. Longest Common Prefix
+class Solution(object):
+    def longestCommonPrefix(self, strs):
+        """
+        :type strs: List[str]
+        :rtype: str
+        """
+        if len(strs) == 0: return ""
+        strs.sort()
+        n = 0
+        while True:
+            try:
+                if strs[0][n] == strs[-1][n]:
+                    n += 1
+                else:
+                    return strs[0][:n]
+            except:
+                return strs[0][:n]
+
+# 400. Nth Digit
+class Solution(object):
+    def findNthDigit(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        def gen():
+            a = 1
+            while True:
+                yield a
+                a += 1
+        f = gen()
+        nDigits = 0
+        while nDigits < n:
+            num = next(f)
+            nDigits += len(str(num))
+        return int(str(num)[n-nDigits+len(str(num))-1])
+
+sol = Solution()
+n = 100000000
+sol.findNthDigit(n)
+
+
+class Solution(object):
+    def findNthDigit(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        s0, num = '', 1
+        while len(s0) < n:
+            s0 += str(num)
+            num += 1
+        return int(s0[n])
+
+sol = Solution()
+n = 100000000
+%timeit sol.findNthDigit(n)
+
+class Solution(object):
+    def findNthDigit(self, n):
+        start, size = 1, 1
+        while n > size:
+            n, start = n - size, start + 1
+            size = len(str(start))
+        return int(str(start)[n-1])
+
+sol = Solution()
+n = 100000000
+%timeit sol.findNthDigit(n)
+
+# Straight forward way to solve the problem in 3 steps:
+# find the length of the number where the nth digit is from
+# find the actual number where the nth digit is from
+# find the nth digit and return
+
+class Solution(object):
+    def findNthDigit(self, n):
+        start, count, size = 1, 9, 1
+        while n > count * size:
+            n, start, size = n - size * count, start*10, size+1
+        return int(str(start)[n-1])
+
+sol = Solution()
+n = 100000000
+%timeit sol.findNthDigit(n)
+
+
+# 190. Reverse Bits
+class Solution:
+    # @param n, an integer
+    # @return an integer
+    def reverseBits(self, n):
+        l0 = bin(n)[2:][::-1]
+        l1 = l0 + ['0'] * (32 - len(l0))
+        return int(''.join(l1), 2)
+
+class Solution:
+    # @param n, an integer
+    # @return an integer
+    def reverseBits(self, n):
+        oribin = '{0:032b}'.format(n)
+        reversebin = oribin[::-1]
+        return int(reversebin, 2)
+
+# Comment: the second solution is apparently more pythonic.
+# String formating, I only know the basics.
+
+
+# 69. Sqrt(x)
+class Solution(object):
+    def mySqrt(self, x):
+        """
+        :type x: int
+        :rtype: int
+        """
+        r = x
+        while r*r > x:
+            r = (r + x/r) / 2
+            print(r)
+        return r
+
+sol = Solution()
+n = 10
+sol.mySqrt(n)
+
+
+# 278. First Bad Version
+# The isBadVersion API is already defined for you.
+# @param version, an integer
+# @return a bool
+# def isBadVersion(version):
+
+class Solution(object):
+    def firstBadVersion(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+
+
+
+# 7. Reverse Integer
+class Solution(object):
+    def reverse(self, x):
+        """
+        :type x: int
+        :rtype: int
+        """
+        sgn = x > 0
+        x = abs(x)
+        y = 0
+        while x > 0:
+            y = y * 10 + x % 10
+            x //= 10
+        if len(bin(y)) > 33:  # The control of digits is still unclear.
+            return 0
+        else:
+            return y if sgn else -y
+
+# Comment: Not sure how to control # of digits
