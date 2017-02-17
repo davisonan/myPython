@@ -47,7 +47,7 @@ class Solution(object):
 sol = Solution()
 sol.hammingDistance(1, 4)
 
-
+# 500. Keyboard Row
 class Solution(object):
     def findWords(self, words):
         """
@@ -67,9 +67,7 @@ sol = Solution()
 words = ["Hello", "Alaska", "Dad", "Peace"]
 sol.findWords(words)
 
-
-
-
+# 485. Max Consecutive Ones
 class Solution(object):
     def findMaxConsecutiveOnes(self, nums):
         """
@@ -136,18 +134,15 @@ class Solution(object):
                 j += 1
             elif nums[i] < j:
                 i += 1
-
         while j <= len(nums):
             output.append(j)
             j += 1
         return output
 
-
 sol = Solution()
 nums = [4, 3, 2, 7, 8, 2, 3, 1]
 nums = [4, 4, 4, 4, 4, 4, 4, 4]
 sol.findDisappearedNumbers(nums)
-
 
 class Solution(object):
     def findDisappearedNumbers(self, nums):
@@ -170,6 +165,9 @@ nums = [4, 3, 2, 7, 8, 2, 3, 1]
 # nums = [4, 4, 4, 4, 4, 4, 4, 4]
 sol.findDisappearedNumbers(nums)
 
+
+
+# 1. Two Sum II - Input array is sorted
 class Solution(object):
     def twoSum(self, numbers, target):
         """
@@ -184,7 +182,7 @@ class Solution(object):
                 break
             elif firstNum == secondNum and numbers.count(firstNum) >= 2:
                 break
-        
+
         if firstNum > secondNum: firstNum, secondNum = secondNum, firstNum
         
         i, idx1, idx2 = 0, 0, 0
@@ -206,7 +204,6 @@ nums = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 target = 5
 sol.twoSum(nums, target)
 
-
 # two-pointer
 def twoSum1(self, numbers, target):
     l, r = 0, len(numbers)-1
@@ -218,8 +215,8 @@ def twoSum1(self, numbers, target):
             l += 1
         else:
             r -= 1
- 
-# dictionary           
+
+# dictionary     
 def twoSum2(self, numbers, target):
     dic = {}
     for i, num in enumerate(numbers):
@@ -758,7 +755,6 @@ t = 'ca'
 sol.isIsomorphic(s, t)
 
 
-
 # 290. Word Pattern
 class Solution(object):
     def wordPattern(self, pattern, str):
@@ -1127,7 +1123,6 @@ sol = Solution()
 n = 10
 sol.mySqrt(n)
 
-
 # 278. First Bad Version
 # The isBadVersion API is already defined for you.
 # @param version, an integer
@@ -1140,7 +1135,6 @@ class Solution(object):
         :type n: int
         :rtype: int
         """
-
 
 
 # 7. Reverse Integer
@@ -1162,3 +1156,36 @@ class Solution(object):
             return y if sgn else -y
 
 # Comment: Not sure how to control # of digits
+
+
+
+# 303. Range Sum Query - Immutable
+class NumArray(object):
+    def __init__(self, nums):
+        """
+        :type nums: List[int]
+        """
+        self.nums, self.cdf, cumSum = nums, [], 0
+        for i in self.nums:
+            cumSum += i
+            self.cdf.append(cumSum)
+
+    def sumRange(self, i, j):
+        """
+        :type i: int
+        :type j: int
+        :rtype: int
+        """
+        return self.cdf[j] - self.cdf[i] + self.nums[j]
+
+# Your NumArray object will be instantiated and called as such:
+# obj = NumArray(nums)
+# param_1 = obj.sumRange(i,j)
+
+# Comment: The key is this class will be used repeatedly.
+# Therefore, caching the numbers and doing a lookup are much 
+# simpler and quicker than using the summation very time.
+# which was what I previously did.
+
+
+
