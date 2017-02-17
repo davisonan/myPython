@@ -94,7 +94,6 @@ class Solution(object):
         return [str(i[0]+1) if i[0] > 2 else ['Gold Medal', 'Silver Medal', 'Bronze Medal'][i[0]] for i in sorted(enumerate(sorted(enumerate(nums), key=lambda x: x[1], reverse=True)), key=lambda x:x[1][0])]
 
 
-
 # 492. Construct the Rectangle
 class Solution(object):
     def constructRectangle(self, area):
