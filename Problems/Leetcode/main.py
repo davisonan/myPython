@@ -112,7 +112,6 @@ sol = Solution()
 area = 5
 sol.constructRectangle(area)
 
-
 # Comment: int and floor are equivalent for positive integers
 
 # 448. Find All Numbers Disappeared in an Array
@@ -260,8 +259,6 @@ class Solution(object):
             else:
                 return ''.join([str(i) for i in list(reversed(l))])
 
-
-
 # 242. Valid Anagram
 def isAnagram1(self, s, t):
     dic1, dic2 = {}, {}
@@ -281,7 +278,6 @@ def isAnagram2(self, s, t):
     
 def isAnagram3(self, s, t):
     return sorted(s) == sorted(t)
-
 
 # 476. Number Complement
 class Solution(object):
@@ -310,7 +306,6 @@ sol = Solution()
 findNums = [4, 1, 2]
 nums = [1, 3, 4, 2]
 sol.nextGreaterElement(findNums, nums)
-
 
 # 383. Ransom Note
 class Solution(object):
@@ -939,13 +934,12 @@ class Solution(object):
                 r -= 1
             if s[l].lower() != s[r].lower():
                 return False
-            l +=1; r -= 1
+            l += 1; r -= 1
         return True
 
 # Comment: An in-place solution is cooler.
 # You can ask if an in-place solution is desirable. Otherwise, 
 # user extra memeory could make the problem more clear.
-
 
 # 414. Third Maximum Number
 class Solution(object):
@@ -987,15 +981,14 @@ class Solution(object):
         :type nums: List[int]
         :rtype: int
         """
-        a=[]
-        for i,c in enumerate(nums):
-            if len(a)<3 and c not in a:
+        a = []
+        for i, c in enumerate(nums):
+            if len(a) < 3 and c not in a:
                 a.append(c)
             else:
-                if c not in a and min(a)<c:
-                    a[a.index(min(a))]=c
-        return min(a) if len(a)>=3 else max(a)
-
+                if c not in a and min(a) < c:
+                    a[a.index(min(a))] = c
+        return min(a) if len(a) >= 3 else max(a)
 
 # 14. Longest Common Prefix
 class Solution(object):
@@ -1136,7 +1129,6 @@ class Solution(object):
         :rtype: int
         """
 
-
 # 7. Reverse Integer
 class Solution(object):
     def reverse(self, x):
@@ -1156,8 +1148,9 @@ class Solution(object):
             return y if sgn else -y
 
 # Comment: Not sure how to control # of digits
-
-
+# Not sure if I need to split the sign out of the integer, 
+# but I feel this is cleaner esp. when I'm not sure how 
+# the sign works. It's all about the little details.
 
 # 303. Range Sum Query - Immutable
 class NumArray(object):
@@ -1188,4 +1181,118 @@ class NumArray(object):
 # which was what I previously did.
 
 
+
+
+# 88. Merge Sorted Array
+class Solution(object):
+    def merge(self, nums1, m, nums2, n):
+        """
+        :type nums1: List[int]
+        :type m: int
+        :type nums2: List[int]
+        :type n: int
+        :rtype: void Do not return anything, modify nums1 in-place instead.
+        """
+        if m == 0 and n > 0: nums1[:n] = nums2[:]
+        if m > 0 and n > 0:
+            i, j, k = m-1, n-1, m+n-1
+            while i > -1 and j > -1:
+                if nums1[i] > nums2[j]:
+                    nums1[k] = nums1[i]
+                    i, k = i-1, k-1
+                else:
+                    nums1[k] = nums2[j]
+                    j, k = j-1, k-1
+            if i == -1:
+                nums1[:k+1] = nums2[:j+1]
+            if j == -1:
+                nums1[:k+1] = nums1[:i+1]
+
+# Comment: In the last two rows, be careful about k+1 and j+1.
+# Because k has been reduced by 1, and slicing doesn't include 
+# the last element, therefore, k should be added by 1.
+
+
+# 136. Single Number
+class Solution(object):
+    def singleNumber(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        num = 0
+        for i in nums:
+            num ^= i
+        return num
+
+class Solution(object):
+    def singleNumber(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        return reduce(lambda x, y: x ^ y, nums)
+
+
+# 389. Find the Difference
+class Solution(object):
+    def findTheDifference(self, s, t):
+        return chr(reduce(operator.xor, map(ord, s + t)))
+
+
+
+# 283. Move Zeroes
+class Solution(object):
+    def moveZeroes(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: void Do not return anything, modify nums in-place instead.
+        """
+        n = len(nums)
+        flag = True
+        while flag:
+            flag = False
+            for i in range(n-1):
+                if nums[i] == 0:
+                    nums[i], nums[i+1] = nums[i+1], nums[i]
+                    flag = True
+            n -= 1
+
+sol = Solution()
+nums = [0, 1, 0, 3, 12]
+sol.moveZeroes(nums)
+
+class Solution(object):
+    def moveZeroes(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: void Do not return anything, modify nums in-place instead.
+        """
+        nums.sort(key= lambda x: 1 if x == 0 else 0)
+
+sol = Solution()
+nums = [0, 1, 0, 3, 12]
+sol.moveZeroes(nums)
+
+# in-place
+class Solution(object):
+    def moveZeroes(self, nums):
+        zero = 0  # records the position of "0"
+        for i in range(len(nums)):
+            print(i, zero)
+            print(nums)
+            if nums[i] != 0:
+                nums[i], nums[zero] = nums[zero], nums[i]
+                zero += 1
+        print(i, zero)
+        print(nums)
+
+sol = Solution()
+nums = [4, 0, 1, 0, 3, 12]
+sol.moveZeroes(nums)
+
+# Comment: Just one simple problem, there are three solutions.
+# How amazing computer science can be.
+# How I wish I could realize the beauty of programming earlier.
+# Cheer up and move on. You can still do it all right!
 
