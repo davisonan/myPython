@@ -812,4 +812,191 @@ str = "cat cat cat cat"
 sol.wordPattern(pattern, str)
 
 
+# 234. Palindrome Linked List
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution(object):
+    def isPalindrome(self, head):
+        """
+        :type head: ListNode
+        :rtype: bool
+        """
+        fast = slow = head
+        # find the mid node
+        while fast and fast.next:
+            fast = fast.next.next
+            slow = slow.next
+        # reverse the second half
+        node = None
+        while slow:
+            nxt = slow.next
+            slow.next = node
+            node = slow
+            slow = nxt
+        # compare the first and second half nodes
+        while node: # while node and head:
+            if node.val != head.val:
+                return False
+            node = node.next
+            head = head.next
+        return True
+
+
+# 219. Contains Duplicate II
+class Solution(object):
+    def containsNearbyDuplicate(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: bool
+        """
+        dic = {}
+        for i, v in enumerate(nums):
+            if v in dic and i - dic[v] <= k:
+                return True
+            dic[v] = i
+        return False
+
+# Comment: the secret is if v is in dic and it's new index is within k,
+# return True, else, it's either not in the dic, or it's k away, then it 
+# will be udpated with the furthest since none of the next values would
+# ever be possible to be within k units. It's useless to keep it in the 
+# dictionary.
+
+# 58. Length of Last Word
+class Solution(object):
+    def lengthOfLastWord(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        if len(s) == 0: return 0
+        return len(s.split()[-1]) if len(s.split()) > 0 else 0
+
+# Comment: when s='', the length is 0, this case is ruled out;
+# however, when s=' ', s.split() has a length of 0, and this case
+# was not ruled out.
+# So many traps and gotta be extremely careful.
+
+# 67. Add Binary
+class Solution(object):
+    def addBinary(self, a, b):
+        """
+        :type a: str
+        :type b: str
+        :rtype: str
+        """
+        return bin(int(a, 2) + int(b, 2))[2:]
+
+
+# 189. Rotate Array
+class Solution(object):
+    def rotate(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: void Do not return anything, modify nums in-place instead.
+        """
+        n = len(nums)
+        nums[:] = nums[-(k%n):] + nums[:-(k%n)]
+
+sol = Solution()
+nums = [1,2,3,4,5,6,7]
+k = 3
+sol.rotate(nums, k)
+print(nums)
+
+## Comment: it's just moving a chunk of list from behind to the front
+
+# 125. Valid Palindrome
+class Solution(object):
+    def isPalindrome(self, s):
+        """
+        :type s: str
+        :rtype: bool
+        """
+        s0 = [c.lower() for c in s if c.lower().isalnum()]  # isalhum, isalpha, isnumeric
+        if len(s0) <= 1: return True
+        i, j = 0, len(s0)-1
+        while i <= j:
+            if s0[i] != s0[j]:
+                return False
+            i += 1
+            j -= 1
+        return True
+
+sol = Solution()
+s = "race a car"
+sol.isPalindrome(s)
+
+class Solution(object):
+    def isPalindrome(self, s):
+        l, r = 0, len(s)-1
+        while l < r:
+            while l < r and not s[l].isalnum():
+                l += 1
+            while l <r and not s[r].isalnum():
+                r -= 1
+            if s[l].lower() != s[r].lower():
+                return False
+            l +=1; r -= 1
+        return True
+
+# Comment: An in-place solution is cooler.
+# You can ask if an in-place solution is desirable. Otherwise, 
+# user extra memeory could make the problem more clear.
+
+
+# 414. Third Maximum Number
+class Solution(object):
+    def thirdMax(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        try:
+            s = list(set(nums))
+            m1, m2, m3 = sorted(s[:3], reverse=True)
+            for i in s[3:]:
+                if i > m1:
+                    m1, m2, m3 = i, m1, m2
+                elif m1 > i > m2:
+                    m2, m3 = i, m2
+                elif m2 > i > m3:
+                    m3 = i
+            return m3
+        except:
+            return max(nums)
+
+sol = Solution()
+nums = [2, 3, 2]
+sol.thirdMax(nums)
+
+class Solution(object):
+    def thirdMax(self, nums):
+        nums = set(nums)
+        if len(nums) < 3:
+            return max(nums)
+        nums.remove(max(nums))
+        nums.remove(max(nums))
+        return max(nums)
+
+class Solution(object):
+    def thirdMax(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        a=[]
+        for i,c in enumerate(nums):
+            if len(a)<3 and c not in a:
+                a.append(c)
+            else:
+                if c not in a and min(a)<c:
+                    a[a.index(min(a))]=c
+        return min(a) if len(a)>=3 else max(a)
 
