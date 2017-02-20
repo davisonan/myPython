@@ -1295,3 +1295,97 @@ sol.moveZeroes(nums)
 # How I wish I could realize the beauty of programming earlier.
 # Cheer up and move on. You can still do it all right!
 
+
+# 438. Find All Anagrams in a String
+class Solution(object):
+    def findAnagrams(self, s, p):
+        """
+        :type s: str
+        :type p: str
+        :rtype: List[int]
+        """
+        p = sorted(p)  # String has not sort method, i.e., p.sort() is invalid.
+        n_p = len(p)
+        n_s = len(s)
+        if n_p == n_s and sorted(s) == p: return [0]
+        rslt = []
+        for i in range(n_s-n_p+1):  # Always check the edge index
+            if sorted(s[i:i+n_p]) == p:
+                rslt.append(i)
+        return rslt
+
+# Comment: This one exceeds the time limit. The alternative is
+# to use dictionary.
+
+#####!!!!! This solution needs to be looked at again for better organization.
+class Solution(object):
+    def findAnagrams(self, s, p):
+        """
+        :type s: str
+        :type p: str
+        :rtype: List[int]
+        """
+        rslt = []
+        n_s, n_p = len(s), len(p)
+        if n_s < n_p: return rslt
+        if n_p == 1: return [i for i in range(n_s) if s[i] == p]
+        d_p, d_s = {}, {}
+        for char in p: d_p[char] = d_p.get(char, 0) + 1
+        for char in s[:n_p]: d_s[char] = d_s.get(char, 0) + 1
+        for i in range(n_s-n_p+1):
+            if d_s == d_p: rslt.append(i)
+            d_s[s[i]] -= 1
+            if d_s[s[i]] == 0: del d_s[s[i]]
+            if i < n_s-n_p:
+                d_s[s[i+n_p]] = d_s.get(s[i+n_p], 0) + 1
+        else:
+            if d_s == d_p: rslt.append(i)
+        return rslt
+
+sol = Solution()
+s = "cbaebabacd"
+p = "abc"
+sol.findAnagrams(s, p)
+# Comment: it beats 88.30%, 188ms.
+# The reason mine is faster is comparing dictionaries is quicker than
+# Comparing two lists of 123 numbers, but the later is cleaner than 
+# using a dictionary. This is the loss of a quicker solution. 
+# This is the trade-off between readability and speed. Now I can 
+# see it.
+
+## Solution found on forum.
+class Solution(object):
+    def findAnagrams(self, s, p):
+        """
+        :type s: str
+        :type p: str
+        :rtype: List[int]
+        """
+        res = []
+        n, m = len(s), len(p)
+        if n < m: return res
+        phash, shash = [0]*123, [0]*123
+        for x in p:
+            phash[ord(x)] += 1
+        for x in s[:m-1]:
+            shash[ord(x)] += 1
+        for i in range(m-1, n):
+            shash[ord(s[i])] += 1
+            if i-m >= 0:
+                shash[ord(s[i-m])] -= 1
+            if shash == phash:
+                res.append(i - m + 1)
+        return res
+
+# Runtime: 62.29%, 229 ms.
+# Cleaner.
+
+# 475. Heaters
+class Solution(object):
+    def findRadius(self, houses, heaters):
+        """
+        :type houses: List[int]
+        :type heaters: List[int]
+        :rtype: int
+        """
+        
