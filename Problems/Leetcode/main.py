@@ -1488,7 +1488,6 @@ sol.countBattleships(board)
 
 # Comment: there must be a method based on an overview.
 
-
 # 413. Arithmetic Slices
 class Solution(object):
     def numberOfArithmeticSlices(self, A):
@@ -1520,5 +1519,27 @@ sol.numberOfArithmeticSlices(A)
 # of slices are just (n-1)(n-2)/2, which is, n-2 + n-3 + ... + n-(n-1) 
 # for each n. Then just create a list of maximum lengths of blocks 
 # and apply the above formula. Enjoy!
+
+class Solution(object):
+    def numberOfArithmeticSlices(self, A):
+        """
+        :type A: List[int]
+        :rtype: int
+        """
+        opt, i = [0, 0], 1
+        for j in range(2, len(A)):
+            if A[j] - A[j-1] == A[j-1] - A[j-2]:
+                opt.append(opt[j-1] + i)
+                i += 1
+            else:
+                opt.append(opt[j-1])
+                i = 1
+            print(i)
+            print(opt)
+        return opt[-1]
+
+sol = Solution()
+A = [1, 2, 3, 4, 7, 9, 11, 13, 15]
+sol.numberOfArithmeticSlices(A)
 
 
