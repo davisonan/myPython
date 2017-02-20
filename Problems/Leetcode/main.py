@@ -1402,3 +1402,37 @@ class Solution(object):
 # a fundamental difference between a computer scientist's thinking
 # versus me, a guy trained in other ways.
 
+
+# 338. Counting Bits
+class Solution(object):
+    def countBits(self, num):
+        """
+        :type num: int
+        :rtype: List[int]
+        """
+
+
+# 419. Battleships in a Board
+class Solution(object):
+    def countBattleships(self, board):
+        """
+        :type board: List[List[str]]
+        :rtype: int
+        """
+        total = 0
+        for i in range(len(board)):
+            for j in range(len(board[0])):
+                if board[i][j] == 'X':
+                    flag = 1
+                    if j > 0 and board[i][j-1] == 'X': flag = 0
+                    if i > 0 and board[i-1][j] == 'X': flag = 0
+                    total += flag
+        return total
+
+sol = Solution()
+board = ["X..X","...X","...X"]
+sol.countBattleships(board)
+
+# Comment: there must be a method based on an overview.
+
+
