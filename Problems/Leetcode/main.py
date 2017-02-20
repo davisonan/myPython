@@ -1411,6 +1411,59 @@ class Solution(object):
         :rtype: List[int]
         """
 
+        # Judge the interval i is in by the power of 2
+        # Judge if there's a jump by i
+        # Once there is, reset the iterator to 0 
+        # upto a new power
+        # Add 1 to all the numbers in the previous results
+
+        if num <= 1: return list(range(num+1))
+        rslt = [0, 1]
+        pwr = 1
+        for i in range(2, num+1):
+            if i < 2 ** pwr:
+                rslt.append(rslt[j] + 1)
+                j += 1
+            else:
+                pwr += 1
+                rslt.append(rslt[0] + 1)
+                j = 1
+        return rslt
+
+sol = Solution()
+num = 10000
+rslt = sol.countBits(num)
+plt.plot(rslt)
+
+## Comment: 228ms, 41.23%
+
+# Solution found on-line.
+class Solution(object):
+    def countBits(self, num):
+        """
+        :type num: int
+        :rtype: List[int]
+        """
+        res = [0]
+        while len(res) <= num:
+            res += [i+1 for i in res]
+        return res[:num+1]
+sol = Solution()
+num = 10000
+rslt = sol.countBits(num)
+plt.plot(rslt)
+
+# Comment: 229ms, 38.45%
+# A much cleaner solution.
+# I didn't think through about extending list. 
+# I was still thinking adding 1 to each individual element 
+# without combining them into lists. By looking at the graph,
+# I should be able to guess that, because the pattern repeats 
+# itself in chunks and shifted by 1.
+
+# Plotting is a useful intuition generation method.
+import matplotlib.pyplot as plt
+plt.plot([bin(i)[2:].count('1') for i in range(128)])
 
 # 419. Battleships in a Board
 class Solution(object):
@@ -1434,5 +1487,38 @@ board = ["X..X","...X","...X"]
 sol.countBattleships(board)
 
 # Comment: there must be a method based on an overview.
+
+
+# 413. Arithmetic Slices
+class Solution(object):
+    def numberOfArithmeticSlices(self, A):
+        """
+        :type A: List[int]
+        :rtype: int
+        """
+        if len(A) < 3: return 0
+        ns, n = [], 0
+        for i in range(2, len(A)):
+            if A[i] - A[i-1] == A[i-1] - A[i-2]:
+                n += 1
+            else:
+                if n >= 1: ns.append(n+2)
+                n = 0
+        else:
+            if n >= 1: ns.append(n+2)
+        return int(sum(list(map(lambda x: (x-1)*(x-2)/2, ns))))
+
+sol = Solution()
+A = [1, 2, 3, 4]
+sol.numberOfArithmeticSlices(A)
+# Comment: Make sure you are crystal clear about what n is above.
+
+# The key idea is to find blocks with the same difference, i.e., 
+# for [1,2,3,4,7,9,11,13,15], the [1,2,3,4] and [7,9,11,13,15] 
+# are two blocks with difference 1 and 2, respectively.
+# Once we know the lengths, which are 4 and 5, then the number 
+# of slices are just (n-1)(n-2)/2, which is, n-2 + n-3 + ... + n-(n-1) 
+# for each n. Then just create a list of maximum lengths of blocks 
+# and apply the above formula. Enjoy!
 
 
