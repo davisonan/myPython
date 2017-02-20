@@ -1128,6 +1128,8 @@ class Solution(object):
         :rtype: int
         """
 
+
+
 # 7. Reverse Integer
 class Solution(object):
     def reverse(self, x):
@@ -1388,4 +1390,15 @@ class Solution(object):
         :type heaters: List[int]
         :rtype: int
         """
-        
+        maxDis = 0 if len(heaters) == 1 else max([heaters[i]-heaters[i-1] for i in range(1, len(heaters))])
+        maxDisLeft = heaters[0] - houses[0] if heaters[0] - houses[0] > 0 else 0
+        maxDisRight = houses[-1] - heaters[-1] if houses[-1] - heaters[-1] > 0 else 0
+        if maxDis % 2 == 0:
+            return max(maxDisLeft, maxDisRight, maxDis//2)
+        else:
+            return max(maxDisLeft, maxDisRight, (maxDis-1)//2)
+
+# Comment: This is not a working solution, but it reveals
+# a fundamental difference between a computer scientist's thinking
+# versus me, a guy trained in other ways.
+
