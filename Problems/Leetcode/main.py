@@ -47,6 +47,7 @@ class Solution(object):
 sol = Solution()
 sol.hammingDistance(1, 4)
 
+
 # 500. Keyboard Row
 class Solution(object):
     def findWords(self, words):
@@ -66,6 +67,7 @@ class Solution(object):
 sol = Solution()
 words = ["Hello", "Alaska", "Dad", "Peace"]
 sol.findWords(words)
+
 
 # 485. Max Consecutive Ones
 class Solution(object):
@@ -112,6 +114,7 @@ area = 5
 sol.constructRectangle(area)
 
 # Comment: int and floor are equivalent for positive integers
+
 
 # 448. Find All Numbers Disappeared in an Array
 class Solution(object):
@@ -236,6 +239,7 @@ def twoSum(self, numbers, target):
             else:
                 r = mid-1
 
+
 # 504. Base 7
 class Solution(object):
     def convertToBase7(self, num):
@@ -258,6 +262,7 @@ class Solution(object):
             else:
                 return ''.join([str(i) for i in list(reversed(l))])
 
+
 # 242. Valid Anagram
 def isAnagram1(self, s, t):
     dic1, dic2 = {}, {}
@@ -278,10 +283,12 @@ def isAnagram2(self, s, t):
 def isAnagram3(self, s, t):
     return sorted(s) == sorted(t)
 
+
 # 476. Number Complement
 class Solution(object):
     def findComplement(self, num):
         return -num-1+2**int(math.log(num,2)+1)
+
 
 # 496. Next Greater Element I
 class Solution(object):
@@ -306,6 +313,7 @@ findNums = [4, 1, 2]
 nums = [1, 3, 4, 2]
 sol.nextGreaterElement(findNums, nums)
 
+
 # 383. Ransom Note
 class Solution(object):
     def canConstruct(self, ransomNote, magazine):
@@ -323,6 +331,7 @@ class Solution(object):
             if dict1[i] > dict2[i]:
                 return False
         return True
+
 
 # 409 Longest Palindrome
 class Solution(object):
@@ -382,6 +391,7 @@ for p in points:
         res += cmap[k] * (cmap[k] -1)
 return res
 
+
 # 415. Add Strings
 class Solution(object):
     def addStrings(self, num1, num2):
@@ -412,6 +422,7 @@ class Solution(object):
         if carry != 0:
             l.append(str(carry))
         return ''.join(list(reversed(l)))
+
 
 # 202. Happy Number
 class Solution(object):
@@ -471,6 +482,7 @@ class Solution(object):
 
 # Comments: As you program more and more, you should be able to see through a problem 
 # right away and come up with all the edge cases. It's like a Venn diagram, 
+
 
 # 459. Repeated Substring Pattern
 class Solution(object):
@@ -630,6 +642,7 @@ sol = Solution()
 s = "Hello, my name is  John"
 sol.countSegments(s)
 
+
 # 118. Pascal's Triangle
 class Solution(object):
     def generate(self, numRows):
@@ -646,6 +659,7 @@ class Solution(object):
             for i in range(2, numRows):
                 newRow = [1] * (i + 1)
                 newRow
+
 
 # 441. Arranging Coins
 class Solution(object):
@@ -713,6 +727,7 @@ s = '()[]{}'
 sol.isValid(s)
 
 # Comment: Still don't check all the edge cases
+
 
 # 205. Isomorphic Strings
 class Solution(object):
@@ -857,6 +872,7 @@ class Solution(object):
 # ever be possible to be within k units. It's useless to keep it in the 
 # dictionary.
 
+
 # 58. Length of Last Word
 class Solution(object):
     def lengthOfLastWord(self, s):
@@ -871,6 +887,7 @@ class Solution(object):
 # however, when s=' ', s.split() has a length of 0, and this case
 # was not ruled out.
 # So many traps and gotta be extremely careful.
+
 
 # 67. Add Binary
 class Solution(object):
@@ -901,6 +918,7 @@ sol.rotate(nums, k)
 print(nums)
 
 ## Comment: it's just moving a chunk of list from behind to the front
+
 
 # 125. Valid Palindrome
 class Solution(object):
@@ -939,6 +957,7 @@ class Solution(object):
 # Comment: An in-place solution is cooler.
 # You can ask if an in-place solution is desirable. Otherwise, 
 # user extra memeory could make the problem more clear.
+
 
 # 414. Third Maximum Number
 class Solution(object):
@@ -989,6 +1008,7 @@ class Solution(object):
                     a[a.index(min(a))] = c
         return min(a) if len(a) >= 3 else max(a)
 
+
 # 14. Longest Common Prefix
 class Solution(object):
     def longestCommonPrefix(self, strs):
@@ -1007,6 +1027,7 @@ class Solution(object):
                     return strs[0][:n]
             except:
                 return strs[0][:n]
+
 
 # 400. Nth Digit
 class Solution(object):
@@ -1115,6 +1136,7 @@ sol = Solution()
 n = 10
 sol.mySqrt(n)
 
+
 # 278. First Bad Version
 # The isBadVersion API is already defined for you.
 # @param version, an integer
@@ -1127,7 +1149,6 @@ class Solution(object):
         :type n: int
         :rtype: int
         """
-
 
 
 # 7. Reverse Integer
@@ -1180,8 +1201,6 @@ class NumArray(object):
 # Therefore, caching the numbers and doing a lookup are much 
 # simpler and quicker than using the summation very time.
 # which was what I previously did.
-
-
 
 
 # 88. Merge Sorted Array
@@ -1241,7 +1260,6 @@ class Solution(object):
         return chr(reduce(operator.xor, map(ord, s + t)))
 
 
-
 # 283. Move Zeroes
 class Solution(object):
     def moveZeroes(self, nums):
@@ -1296,7 +1314,6 @@ sol.moveZeroes(nums)
 # How amazing computer science can be.
 # How I wish I could realize the beauty of programming earlier.
 # Cheer up and move on. You can still do it all right!
-
 
 # 438. Find All Anagrams in a String
 class Solution(object):
@@ -1541,5 +1558,8 @@ class Solution(object):
 sol = Solution()
 A = [1, 2, 3, 4, 7, 9, 11, 13, 15]
 sol.numberOfArithmeticSlices(A)
+
+
+# a new problem
 
 
