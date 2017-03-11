@@ -1643,7 +1643,6 @@ while True:
 
 l3 = sol.addTwoNumbers(l1, l2)
 
-
 def addTwoNumbers(l1, l2):
     carry = 0;
     res = n = ListNode(0);
@@ -1662,6 +1661,10 @@ def addTwoNumbers(l1, l2):
 # the most efficient solutions online apparently combine multiple 
 # operations in a concise way. This is definitely what I need to 
 # learn.
+# My thinking is still the raw thinking, not concise or processed
+# thinking. The natural thinking can be improved by deliberate polishing
+# my thinkings. 
+# Hammer my thinkings.
 
 # 3. Longest Substring Without Repeating Characters
 class Solution(object):
@@ -1705,6 +1708,8 @@ class Solution(object):
         """
         return word.isupper() or word.islower() or word.istitle()
 
+# Comment: this is a perfect example illustrating the importance 
+# of knowing the language.
 
 # 495. Teemo Attacking
 class Solution(object):
@@ -1739,3 +1744,5 @@ class Solution(object):
         return output
 
 # Comment: this is a good solution. I'm happy about it.
+
+
