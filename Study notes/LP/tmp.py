@@ -756,5 +756,5 @@ list(map(abs, range(5)))  # list resumes being effective
 # 1. The basics
 
 
-
 ## Chapter 26
+

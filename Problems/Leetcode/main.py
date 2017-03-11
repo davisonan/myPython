@@ -1560,6 +1560,182 @@ A = [1, 2, 3, 4, 7, 9, 11, 13, 15]
 sol.numberOfArithmeticSlices(A)
 
 
-# a new problem
+# 2. Add Two Numbers
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution(object):
+    def addTwoNumbers(self, l1, l2):
+        """
+        :type l1: ListNode
+        :type l2: ListNode
+        :rtype: ListNode
+        """
+        if l1.next is None and l1.val == 0: return l2
+        if l2.next is None and l2.val == 0: return l1
+        begin = None
+        cur = None
+        flag = True
+        carry = 0
+        while l1 and l2:
+            tmp = l1.val + l2.val + carry
+            val = tmp % 10
+            carry = tmp // 10
+            l1 = l1.next
+            l2 = l2.next
+            if flag:
+                cur = ListNode(val)
+                begin = cur
+                flag = False
+            else:
+                cur.next = ListNode(val)
+                cur = cur.next                
+
+        while l1:
+            tmp = l1.val + carry
+            val = tmp % 10
+            carry = tmp // 10
+            cur.next = ListNode(val)
+            cur = cur.next
+            l1 = l1.next
+
+        while l2:
+            tmp = l2.val + carry
+            val = tmp % 10
+            carry = tmp // 10
+            cur.next = ListNode(val)
+            cur = cur.next
+            l2 = l2.next
+
+        if carry != 0:
+            cur.next = ListNode(carry)
+        return begin
+
+sol = Solution()
+
+class ListNode(object):
+    def __init__(self, x):
+        self.val = x
+        self.next = None
+
+l1 = ListNode(2)
+l1.next = ListNode(4)
+l1.next.next = ListNode(3)
+
+while True:
+    print(l1.val)
+    l1 = l1.next
+    if not l1:
+        break
+
+l2 = ListNode(5)
+l2.next = ListNode(6)
+l2.next.next = ListNode(4)
+
+while True:
+    print(l2.val)
+    l2 = l2.next
+    if not l2:
+        break
+
+l3 = sol.addTwoNumbers(l1, l2)
 
 
+def addTwoNumbers(l1, l2):
+    carry = 0;
+    res = n = ListNode(0);
+    while l1 or l2 or carry:
+        if l1:
+            carry += l1.val
+            l1 = l1.next;
+        if l2:
+            carry += l2.val;
+            l2 = l2.next;
+        carry, val = divmod(carry, 10)
+        n.next = n = ListNode(val);
+    return res.next;
+
+# Comment: My solution as usual is very detail-oriented. One of  
+# the most efficient solutions online apparently combine multiple 
+# operations in a concise way. This is definitely what I need to 
+# learn.
+
+# 3. Longest Substring Without Repeating Characters
+class Solution(object):
+    def lengthOfLongestSubstring(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        used = {}
+        max_length = start = 0
+        for i, c in enumerate(s):
+            if c in used and start <= used[c]:
+                start = used[c] + 1
+            else:
+                max_length = max(max_length, i - start + 1)
+            used[c] = i
+        return max_length
+
+sol = Solution()
+s = 'pwweke'
+sol.lengthOfLongestSubstring(s)
+
+
+https://discuss.leetcode.com/topic/4996/share-my-o-log-min-m-n-solution-with-explanation
+https://leetcode.com/problems/median-of-two-sorted-arrays/?tab=Description
+class Solution(object):
+    def findMedianSortedArrays(self, nums1, nums2):
+        """
+        :type nums1: List[int]
+        :type nums2: List[int]
+        :rtype: float
+        """
+        
+
+# 520. Detect Capital
+class Solution(object):
+    def detectCapitalUse(self, word):
+        """
+        :type word: str
+        :rtype: bool
+        """
+        return word.isupper() or word.islower() or word.istitle()
+
+
+# 495. Teemo Attacking
+class Solution(object):
+    def findPoisonedDuration(self, timeSeries, duration):
+        """
+        :type timeSeries: List[int]
+        :type duration: int
+        :rtype: int
+        """
+        n = len(timeSeries)
+        if n == 0: return 0
+        if n == 1: return duration        
+        total = 0
+        for i in range(1, n):
+            total += min(duration, timeSeries[i] - timeSeries[i-1])
+        total += duration
+        return total
+
+# Comment: this is a good solution. I'm very happy about it.
+
+# 451. Sort Characters By Frequency
+class Solution(object):
+    def frequencySort(self, s):
+        """
+        :type s: str
+        :rtype: str
+        """
+        d, output = {}, ''
+        for c in s: d[c] = d.get(c, 0) + 1
+        for key in sorted(d, key=lambda x: d[x], reverse=True):
+            output += key * d[key]
+        return output
+
+# Comment: this is a good solution. I'm happy about it.
