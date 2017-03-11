@@ -1,0 +1,8 @@
+# misc.txt
+
+1. In R, check the class of an object using class(a)
+class(1)
+
+In Python, check the type of an object using type(a)
+type(1)
+
