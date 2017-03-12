@@ -1,6 +1,6 @@
 # myPython
 
-Many tools are designed in the python ecosystem for data science and organizing the toolbox regularly can give you a crystal clear idea about what you can do and what you cannot do with them.
+Many tools are designed in the python ecosystem for data science. Organizing the toolbox well can give certainly help create a crystal view about what can be achieved and what cannot.
 
 - Python
 
@@ -12,21 +12,21 @@ The fundamental Python programming language, given its high-level OOP style plus
 
 - string
 
+- random
+
+- math
+
 - time
 
 - datetime
 
 - pickle
 
-- random
-
 - functools
 
 - copy
 
 - fractions
-
-- math
 
 - collections
 
