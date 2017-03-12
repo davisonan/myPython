@@ -6,3 +6,12 @@ class(1)
 In Python, check the type of an object using type(a)
 type(1)
 
+2. In Python, what's the difference between a package and a module?
+A Python module is simply a Python source file, which can expose classes, functions and global variables.
+When imported from another Python source file, the file name is treated as a namespace.
+A Python package is simply a directory of Python module(s).
+For example, imagine the following directory tree in /usr/lib/python/site-packages:
+mypackage/__init__.py <-- this is what tells Python to treat this directory as a package
+mypackage/mymodule.py
+
+3. 
