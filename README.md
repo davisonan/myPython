@@ -26,6 +26,8 @@ The fundamental Python programming language, given its high-level OOP style plus
 
 - sqlite3
 
+- urllib
+
 - functools
 
 - copy
