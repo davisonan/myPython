@@ -22,6 +22,8 @@ The fundamental Python programming language, given its high-level OOP style plus
 
 - pickle
 
+- JSON
+
 - functools
 
 - copy
