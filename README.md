@@ -26,7 +26,9 @@ The fundamental Python programming language, given its high-level OOP style plus
 
 - sqlite3
 
-- urllib
+- requests (urllib, urllib2)
+
+It's said (here)[http://stackoverflow.com/questions/2018026/what-are-the-differences-between-the-urllib-urllib2-and-requests-module] that requests is better than the other two most of the cases. Given my current usage of the url related functionalities, I'd accept that statement and focus on understanding the functionalities of this module.
 
 - bs4
 
