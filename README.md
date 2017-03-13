@@ -28,6 +28,8 @@ The fundamental Python programming language, given its high-level OOP style plus
 
 - urllib
 
+- bs4
+
 - functools
 
 - copy
