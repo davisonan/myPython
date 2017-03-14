@@ -1687,7 +1687,6 @@ sol = Solution()
 s = 'pwweke'
 sol.lengthOfLongestSubstring(s)
 
-
 https://discuss.leetcode.com/topic/4996/share-my-o-log-min-m-n-solution-with-explanation
 https://leetcode.com/problems/median-of-two-sorted-arrays/?tab=Description
 class Solution(object):
@@ -1698,7 +1697,6 @@ class Solution(object):
         :rtype: float
         """
         
-
 # 520. Detect Capital
 class Solution(object):
     def detectCapitalUse(self, word):
@@ -1744,5 +1742,3 @@ class Solution(object):
         return output
 
 # Comment: this is a good solution. I'm happy about it.
-
-
