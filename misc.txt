@@ -15,3 +15,6 @@ mypackage/__init__.py <-- this is what tells Python to treat this directory as a
 mypackage/mymodule.py
 
 3. 
+
+
+export BLPAPI_ROOT=/Users/hanya/Downloads/blpapi_cpp_3.8.1.1/include
