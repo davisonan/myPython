@@ -772,11 +772,15 @@ c) What percentage of time are the clerks idle?</p>
 <span class="k">class</span> <span class="nc">Customer</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arrivalTime</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">arrivalTime</span> <span class="o">=</span> <span class="n">arrivalTime</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">departureTime</span> <span class="o">=</span> <span class="n">arrivalTime</span>
     <span class="k">def</span> <span class="nf">depart</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">departureTime</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">departureTime</span> <span class="o">=</span> <span class="n">departureTime</span>
     <span class="k">def</span> <span class="nf">calTime</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">departureTime</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">arrivalTime</span> <span class="o">+</span> <span class="mi">1</span>
-
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">departureTime</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">arrivalTime</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Departure time is before the arrival</span>
+<span class="n">time</span><span class="err">!</span><span class="s2">&quot;)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">departureTime</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">arrivalTime</span> <span class="o">+</span> <span class="mi">1</span>
 <span class="c1"># A Simulator class</span>
 <span class="k">class</span> <span class="nc">Simulator</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pNewArrive</span><span class="p">,</span> <span class="n">pComplete</span><span class="p">,</span> <span class="n">pLeave</span><span class="p">):</span>
@@ -882,10 +886,10 @@ c) What percentage of time are the clerks idle?</p>
 <span class="n">aSim</span><span class="o">.</span><span class="n">sim</span><span class="p">()</span>
 <span class="n">aSim</span><span class="o">.</span><span class="n">showResult</span><span class="p">()</span>
 </pre></div>
-<div class="highlight"><pre><span></span>The average time a customer spends in the post office is: 7.39
+<div class="highlight"><pre><span></span>The average time a customer spends in the post office is: 7.40
 minutes.
-The percentage of customers leave without being served is 21.34%.
-The percentage of time the clerks are idle is 5.81%.
+The percentage of customers leave without being served is 21.27%.
+The percentage of time the clerks are idle is 5.70%.
 </pre></div>
 
 <h1>Question 3:</h1>
@@ -915,7 +919,7 @@ contains the exact numbers.</p>
     <div class="footer">
       <p>Published from <a href="forBinary.py">forBinary.py</a>
     using <a href="http://mpastell.com/pweave">Pweave</a> 0.25
-    on 15-03-2017.<p></div>
+    on 16-03-2017.<p></div>
 
             </div>
         </div>

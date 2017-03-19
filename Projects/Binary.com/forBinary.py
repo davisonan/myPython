@@ -137,11 +137,14 @@ import random, time
 class Customer(object):
     def __init__(self, arrivalTime):
         self.arrivalTime = arrivalTime
+        self.departureTime = arrivalTime
     def depart(self, departureTime):
         self.departureTime = departureTime
     def calTime(self):
-        return self.departureTime - self.arrivalTime + 1
-
+        if self.departureTime < self.arrivalTime:
+            raise Exception("Departure time is before the arrival time!")
+        else:
+            return self.departureTime - self.arrivalTime + 1
 # A Simulator class
 class Simulator(object):
     def __init__(self, pNewArrive, pComplete, pLeave):
