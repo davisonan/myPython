@@ -23,6 +23,7 @@ class ListNode(object):
 ln0 = ListNode(1)
 ln1 = ListNode(2)
 
+# 203. Remove Linked List Elements
 class Solution(object):
     def removeElements(self, head, val):
         """
@@ -46,3 +47,34 @@ sol = Solution()
 sol.removeElements(ln0, 1)
 
 
+class Solution(object):
+    def removeElements(self, head, val):
+        """
+        :type head: ListNode
+        :type val: int
+        :rtype: ListNode
+        """
+        dummy = ListNode(-1)
+        dummy.next = head
+        cur = dummy
+        while cur and cur.next:
+            if cur.next.val == val:
+                cur.next = cur.next.next
+            else:
+                cur = cur.next
+        return dummy.next
+
+
+# 160. Intersection of Two Linked Lists
+class Solution(object):
+    def getIntersectionNode(self, headA, headB):
+        """
+        :type head1, head1: ListNode
+        :rtype: ListNode
+        """
+        if not (headA and headB): return None
+        pa, pb = headA, headB
+        while pa != pb:
+            pa = headB if pa is None else pa.next
+            pb = headA if pb is None else pb.next
+        return pa

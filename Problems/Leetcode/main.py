@@ -1420,6 +1420,8 @@ class Solution(object):
 # versus me, a guy trained in other ways.
 
 
+
+
 # 338. Counting Bits
 class Solution(object):
     def countBits(self, num):
@@ -1814,4 +1816,81 @@ class Solution(object):
             return None
 
 # Solution online
+# The dummy node trick.
+class Solution(object):
+    def removeElements(self, head, val):
+        """
+        :type head: ListNode
+        :type val: int
+        :rtype: ListNode
+        """
+        dummy = ListNode(-1)
+        dummy.next = head
+        cur = dummy
+        while cur and cur.next:
+            if cur.next.val == val:
+                cur.next = cur.next.next
+            else:
+                cur = cur.next
+        return dummy.next
 
+
+# 160. Intersection of Two Linked Lists
+class Solution(object):
+    def getIntersectionNode(self, headA, headB):
+        """
+        :type head1, head1: ListNode
+        :rtype: ListNode
+        """
+        if not (headA and headB): return None
+        pa, pb = headA, headB
+        while pa != pb:
+            pa = headB if pa is None else pa.next
+            pb = headA if pb is None else pb.next
+        return pa
+
+
+# 463. Island Perimeter
+# Clever solution
+def islandPerimeter(self, grid):
+    return sum(sum(map(operator.ne, [0] + row, row + [0])) for row in grid + map(list, zip(*grid)))
+
+# Straight-forward and clean solution
+class Solution(object):
+    def islandPerimeter(self, grid):
+        """
+        :type grid: List[List[int]]
+        :rtype: int
+        """
+        if not grid: return 0
+        n, m = len(grid), len(grid[0])
+
+        def countAdj(i, j):
+            adjs = (i-1, j), (i+1, j), (i, j-1), (i, j+1)
+            res = 0
+            for x, y in adjs:
+                if x < 0 or y < 0 or x == n or y == m or grid[x][y] == 0:
+                    res += 1
+            return res
+
+        return sum([countAdj(i, j) for i in range(n) for j in range(m) if grid[i][j] == 1])
+
+
+
+# 226. Invert Binary Tree
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution(object):
+    def invertTree(self, root):
+        """
+        :type root: TreeNode
+        :rtype: TreeNode
+        """
+        
+
+        
