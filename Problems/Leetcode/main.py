@@ -1792,8 +1792,8 @@ class MyStack(object):
 # param_4 = obj.empty()
 
 
-
 # 203. Remove Linked List Elements
+# My solution
 class Solution(object):
     def removeElements(self, head, val):
         """
@@ -1812,4 +1812,6 @@ class Solution(object):
             return start
         else:
             return None
+
+# Solution online
 

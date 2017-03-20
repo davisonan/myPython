@@ -5,6 +5,9 @@
 #' # Background
 #' This writeup consists of the tree-based problems in leetcode. 
 
+#' In linked list, it seems a stnadard approach to use a dummy variable to 
+#' point to the beginning of the linked list.
+
 #' # List Node class
 class ListNode(object):
     def __init__(self, x):
@@ -41,3 +44,5 @@ class Solution(object):
 
 sol = Solution()
 sol.removeElements(ln0, 1)
+
+
