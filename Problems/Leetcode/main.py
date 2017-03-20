@@ -1892,5 +1892,80 @@ class Solution(object):
         :rtype: TreeNode
         """
         
+# 28. Implement strStr()
+class Solution(object):
+    def strStr(self, haystack, needle):
+        """
+        :type haystack: str
+        :type needle: str
+        :rtype: int
+        """
+        return haystack.index(needle) if needle in haystack else -1
 
-        
+
+
+# 155. Min Stack
+class MinStack(object):
+
+    def __init__(self):
+        """
+        initialize your data structure here.
+        """
+        self.q = []
+
+    def push(self, x):
+        """
+        :type x: int
+        :rtype: void
+        """
+        curMin = self.getMin()
+        curMin = min(x, curMin) if curMin is not None else x  # curMin can be None or 0
+        self.q.append((x, curMin))
+
+    def pop(self):
+        """
+        :rtype: void
+        """
+        self.q.pop()
+
+    def top(self):
+        """
+        :rtype: int
+        """
+        if len(self.q) > 0:
+            return self.q[-1][0]
+        else:
+            return None
+
+    def getMin(self):
+        """
+        :rtype: int
+        """
+        if len(self.q) > 0:
+            return self.q[-1][1]
+        else:
+            return None
+
+
+# Your MinStack object will be instantiated and called as such:
+# obj = MinStack()
+# obj.push(x)
+# obj.pop()
+# param_3 = obj.top()
+# param_4 = obj.getMin()
+
+# Comment: The use of a tuple to maintain the value and the minimum value
+# is amazingly clever.
+
+
+# 532. K-diff Pairs in an Array
+class Solution(object):
+    def findPairs(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: int
+        """
+        d = {}
+        for i in nums:
+            
