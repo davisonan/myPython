@@ -1792,3 +1792,24 @@ class MyStack(object):
 # param_4 = obj.empty()
 
 
+
+# 203. Remove Linked List Elements
+class Solution(object):
+    def removeElements(self, head, val):
+        """
+        :type head: ListNode
+        :type val: int
+        :rtype: ListNode
+        """
+        while head and head.val == val: head = head.next
+        if head:
+            start = head
+            while head.next:
+                if head.next.val == val:
+                    head.next = head.next.next if head.next.next else None
+                else:
+                    head = head.next
+            return start
+        else:
+            return None
+
