@@ -1966,6 +1966,31 @@ class Solution(object):
         :type k: int
         :rtype: int
         """
-        d = {}
-        for i in nums:
-            
+        d, n = set(), len(nums)
+        if n < 2: return 0
+        for i in range(n-1):
+            for j in range(i+1, n):
+                a, b = nums[i], nums[j] if nums[i] >= nums[j] else nums[j], nums[i]
+                if a-b == k and (a, b) not in d:
+                    d.add((a, b))
+        return len(d)
+
+# Comment: this solution exceeds the time limit.
+
+class Solution(object):
+    def findPairs(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: int
+        """
+        from collections import Counter
+        if k > 0:
+            return len(set(nums) & set(i + k for i in nums))
+        elif k == 0:
+            return sum(v>1 for v in Counter(nums).values())
+        else:
+            return 0
+
+# Commment: This is neat.
+
