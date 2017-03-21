@@ -64,6 +64,7 @@ class Solution(object):
                 cur = cur.next
         return dummy.next
 
+
 # 160. Intersection of Two Linked Lists
 class Solution(object):
     def getIntersectionNode(self, headA, headB):
@@ -77,4 +78,3 @@ class Solution(object):
             pa = headB if pa is None else pa.next
             pb = headA if pb is None else pb.next
         return pa
-
