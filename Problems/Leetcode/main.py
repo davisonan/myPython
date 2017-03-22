@@ -2159,5 +2159,3 @@ class Solution(object):
 # param_1 = obj.reset()
 # param_2 = obj.shuffle()
 
-
-
