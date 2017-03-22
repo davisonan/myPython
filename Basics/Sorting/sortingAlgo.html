@@ -861,11 +861,72 @@ array being sorted.</p>
 <li><strong>Sorting in-place</strong>: Yes</li>
 <li><strong>Stable</strong>: No</li>
 </ul>
+<h1>Use searching algorithms to find the k-th largest element</h1>
+<p>This is actually based on the problem 215. Kth Largest Element in an Array
+on Leetcode. One <a href="https://discuss.leetcode.com/topic/22159/python-different-solutions-with-comments-bubble-sort-selection-sort-heap-sort-and-quick-sort">solution</a>
+gives a comprehensive list of solutions based on the common searching ideas
+this tutorial covered before. And I think this sets up a good example of 
+organizing knoweldge and applying knowledge on new problems. This is a 
+good inspiration and I'll keep doing that starting from here.</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">timeit</span>
+
+<span class="c1"># O(nlog(n)) solution-1</span>
+<span class="c1"># A little more typing</span>
+<span class="k">def</span> <span class="nf">findKthLargest1</span><span class="p">(</span><span class="n">nums</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">nums</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="bp">True</span><span class="p">)[</span><span class="n">k</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="n">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+<span class="n">arr2</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">10000</span><span class="p">))</span>
+<span class="n">findKthLargest1</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="c1"># timeit.timeit(&#39;findKthLargest1(arr2, 3)&#39;, setup=&quot;from __main__</span>
+<span class="kn">import</span> <span class="nn">findKthLargest1</span><span class="o">,</span> <span class="nn">arr2</span><span class="s2">&quot;, number=1000)</span>
+
+<span class="c1"># O(nlog(n)) solution-2</span>
+<span class="c1"># In-place; no additional memory.</span>
+<span class="k">def</span> <span class="nf">findKthLargest2</span><span class="p">(</span><span class="n">nums</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+    <span class="n">nums</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">reverse</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">nums</span><span class="p">[</span><span class="n">k</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="n">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+<span class="n">arr2</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">10000</span><span class="p">))</span>
+<span class="n">findKthLargest2</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="c1"># timeit.timeit(&#39;findKthLargest2(arr2, 3)&#39;, setup=&quot;from __main__</span>
+<span class="kn">import</span> <span class="nn">findKthLargest2</span><span class="o">,</span> <span class="nn">arr2</span><span class="s2">&quot;, number=1000)</span>
+
+<span class="c1"># O(nlog(n)) solution-3</span>
+<span class="c1"># A clean and concise solution</span>
+<span class="k">def</span> <span class="nf">findKthLargest3</span><span class="p">(</span><span class="n">nums</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">nums</span><span class="p">)[</span><span class="o">-</span><span class="n">k</span><span class="p">]</span>
+
+<span class="n">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+<span class="n">arr2</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">10000</span><span class="p">))</span>
+<span class="n">findKthLargest3</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="c1"># timeit.timeit(&#39;findKthLargest3(arr2, 3)&#39;, setup=&quot;from __main__</span>
+<span class="kn">import</span> <span class="nn">findKthLargest3</span><span class="o">,</span> <span class="nn">arr2</span><span class="s2">&quot;, number=1000)</span>
+
+<span class="c1"># O(nk) solution-1</span>
+<span class="c1"># Based on bubble sort</span>
+<span class="k">def</span> <span class="nf">findKthLargest4</span><span class="p">(</span><span class="n">nums</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">k</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">nums</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">nums</span><span class="p">[</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+                <span class="n">nums</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="n">nums</span><span class="p">[</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">nums</span><span class="p">[</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">nums</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+        <span class="n">n</span> <span class="o">-=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">nums</span><span class="p">[</span><span class="o">-</span><span class="n">k</span><span class="p">]</span>
+
+<span class="n">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+<span class="n">arr2</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">10000</span><span class="p">))</span>
+<span class="n">findKthLargest4</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="c1"># timeit.timeit(&#39;findKthLargest4(arr2, 3)&#39;, setup=&quot;from __main__</span>
+<span class="kn">import</span> <span class="nn">findKthLargest4</span><span class="o">,</span> <span class="nn">arr2</span><span class="s2">&quot;, number=1000)</span>
+</pre></div>
+
     <HR/>
     <div class="footer">
       <p>Published from <a href="sortingAlgo.py">sortingAlgo.py</a>
     using <a href="http://mpastell.com/pweave">Pweave</a> 0.25
-    on 20-03-2017.<p></div>
+    on 22-03-2017.<p></div>
 
             </div>
         </div>

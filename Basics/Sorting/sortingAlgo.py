@@ -117,6 +117,15 @@ print(arr)
 #' The best, average and worst cases all have $O(n^2)$ time complexity. This 
 #' makes this algorithm not suitable for large $n$.
 
+#' ## Heap sort
+#' Heap sort is 
+
+
+def heapSort(arr):
+    
+
+
+
 #' ## Merge sort
 #' Merge sort is a divide and conque algorithm by dividing the array into 
 #' multiple subarrays and merging them in a structured way such that the 
@@ -197,3 +206,89 @@ print(arr)
 #' - __Boundary cases__: Insertion sort takes minimum time $O(nlog(n))$ when elements are already sorted.
 #' - __Sorting in-place__: Yes
 #' - __Stable__: No
+
+
+#' # Use searching algorithms to find the k-th largest element
+#' This is actually based on the problem 215. Kth Largest Element in an Array
+#' on Leetcode. One [solution](https://discuss.leetcode.com/topic/22159/python-different-solutions-with-comments-bubble-sort-selection-sort-heap-sort-and-quick-sort)
+#' gives a comprehensive list of solutions based on the common searching ideas
+#' this tutorial covered before. And I think this sets up a good example of 
+#' organizing knoweldge and applying knowledge on new problems. This is a 
+#' good inspiration and I'll keep doing that starting from here.
+
+# O(nlog(n)) solution-1
+# A little more typing
+def findKthLargest1(nums, k):
+    return sorted(nums, reverse=True)[k-1]
+
+arr = [6, 5, 3, 4, 1, 8, 7, 2, 4]
+findKthLargest1(arr, 3)
+
+# O(nlog(n)) solution-2
+# In-place; no additional memory.
+def findKthLargest2(nums, k):
+    nums.sort(reverse=True)
+    return nums[k-1]
+
+arr = [6, 5, 3, 4, 1, 8, 7, 2, 4]
+findKthLargest2(arr, 3)
+
+# O(nlog(n)) solution-3
+# A clean and concise solution
+def findKthLargest3(nums, k):
+    return sorted(nums)[-k]
+
+arr = [6, 5, 3, 4, 1, 8, 7, 2, 4]
+findKthLargest3(arr, 3)
+
+# O(nk) solution
+# Based on bubble sort
+def findKthLargest4(nums, k):
+    n = len(nums)
+    for i in range(k):
+        for j in range(1, n):
+            if nums[j] < nums[j-1]:
+                nums[j], nums[j-1] = nums[j-1], nums[j]
+        n -= 1
+    return nums[-k]
+
+arr = [6, 5, 3, 4, 1, 8, 7, 2, 4]
+findKthLargest4(arr, 3)
+
+# O(nk) solution-2
+# Based on selection sort
+# Faster than bubble sort, maybe due to the maximum routine
+def findKthLargest5(nums, k):
+    for i in range(k):
+        idx = nums.index(max(nums[i:]))
+        nums[i], nums[idx] = nums[idx], nums[i]
+    return nums[k-1]
+
+arr = [6, 5, 3, 4, 1, 8, 7, 2, 4]
+findKthLargest5(arr, 4)
+
+# The insertion sort is not an idea to build the algorithm upon. Because
+# all the numbers would need to be inserted into the proper place to complete
+# the insertion sort. Therefore, it's still a O(n^2) algorithm.
+
+# 
+# Faster than bubble sort, maybe due to the maximum routine
+def findKthLargest6(nums, k):
+    for i in range(k):
+        idx = nums.index(max(nums[i:]))
+        nums[i], nums[idx] = nums[idx], nums[i]
+    return nums[k-1]
+
+arr = [6, 5, 3, 4, 1, 8, 7, 2, 4]
+findKthLargest5(arr, 4)
+
+
+
+
+# To time the functions, use the following chunk of code to
+# do that.
+# import timeit
+# timeit.timeit('findKthLargest(arr, 3)', 
+#     setup="from __main__ import findKthLargest, arr", 
+#     number=1000)
+
