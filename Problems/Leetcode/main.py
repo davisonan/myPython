@@ -1994,3 +1994,169 @@ class Solution(object):
 
 # Commment: This is neat.
 
+
+# 442. Find All Duplicates in an Array
+class Solution(object):
+    def findDuplicates(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[int]
+        """
+        output = []
+        n = len(nums)
+        for i in nums:
+            idx = abs(i)
+            if nums[idx-1] > 0:
+                nums[idx-1] *= -1
+            else:
+                output.append(idx)
+        return output
+
+nums = [4,3,2,7,8,2,3,1]
+sol = Solution()
+sol.findDuplicates(nums)
+
+
+
+# 238. Product of Array Except Self
+class Solution(object):
+    def productExceptSelf(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[int]
+        """
+        p, n = 1, len(nums)
+        output = []
+        for i in nums:
+            output.append(p)
+            p *= i
+        p = 1
+        for i in range(n-1, -1, -1):
+            output[i] *= p
+            p *= nums[i]
+        return output
+
+sol = Solution()
+nums = [1, 2, 3, 4, 5, 6]
+sol.productExceptSelf(nums)
+
+# Comment: this is really clever. Going back and forth.
+
+
+# 260. Single Number III
+class Solution(object):
+    def singleNumber(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[int]
+        """
+        for i in nums:
+            idx = abs(i) - 1
+            nums[idx] *= -1
+        n, output = len(nums), []
+        for i in range(n):
+            if nums[i] < 0:
+                output.append(i+1)
+        return output
+
+# Comment: this is a wrong solution. Because the problem didn't
+# state if the numbers are between 1 and N, let alone all positive.
+# Since this is a similar solution I knew, I simply applied it on this
+# problem without thinking too much.
+
+# The correct solution is beyond my computer science knowledge and I don't
+# complain about not knowing the answer. And the answer is actual briliant.
+# It is given below. 
+
+class Solution(object):
+    def singleNumber(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[int]
+        """
+        a, b, xor = 0, 0, 0
+        for i in nums: xor ^= i
+        mask = 1
+        while mask & xor == 0: mask <<= 1
+        for i in nums:
+            if mask & i == 0:
+                a ^= i
+            else:
+                b ^= i
+        return [a, b]
+
+nums = [1, 2, 1, 3, 2, 5]
+sol = Solution()
+sol.singleNumber(nums)
+
+# Comment: xor is the number of all the xor operations. The single digit 1
+# indicates the two numbers are different in this digit. Mask is to find the 
+# first such digit from right to left. Once it's found, this mask is effectively
+# separating the numbers into two subgroups, one with this digit as 1, and the
+# other with this digit 0. However, since each number appears twice, all the
+# others could be canceled by the xor operation, except the only number in 
+# each subgroup.
+
+
+
+
+# 347. Top K Frequent Elements
+class Solution(object):
+    def topKFrequent(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: List[int]
+        """
+        import collections
+        return [i[0] for i in collections.Counter(nums).most_common(k)]
+        
+
+# 287. Find the Duplicate Number
+class Solution(object):
+    def findDuplicate(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        for i in nums:
+            idx = abs(i) - 1
+            if nums[idx] < 0:
+                return abs(i)
+            else:
+                nums[idx] *= -1
+
+
+
+# 384. Shuffle an Array
+class Solution(object):
+
+    def __init__(self, nums):
+        """
+        :type nums: List[int]
+        """
+        self.nums = nums
+
+    def reset(self):
+        """
+        Resets the array to its original configuration and return it.
+        :rtype: List[int]
+        """
+        return self.nums
+
+    def shuffle(self):
+        """
+        Returns a random shuffling of the array.
+        :rtype: List[int]
+        """
+        nums = self.nums[:]
+        import random
+        random.shuffle(nums)
+        return nums
+
+
+# Your Solution object will be instantiated and called as such:
+# obj = Solution(nums)
+# param_1 = obj.reset()
+# param_2 = obj.shuffle()
+

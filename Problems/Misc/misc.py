@@ -91,3 +91,11 @@ isPalindrome(101010101010101010101)
 %timeit isPalindrome(101010101010101010101)
 
 
+#' # Shuffling
+#' This chunk of code is from leetcode.
+
+for i in range(len(ans)-1, 0, -1):     # start from end
+    j = random.randrange(0, i+1)    # generate random index 
+    ans[i], ans[j] = ans[j], ans[i]    # swap
+
+#' Another exercise was from a video on Udacity.
