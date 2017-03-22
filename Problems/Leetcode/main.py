@@ -2127,7 +2127,6 @@ class Solution(object):
                 nums[idx] *= -1
 
 
-
 # 384. Shuffle an Array
 class Solution(object):
 
@@ -2159,4 +2158,6 @@ class Solution(object):
 # obj = Solution(nums)
 # param_1 = obj.reset()
 # param_2 = obj.shuffle()
+
+
 

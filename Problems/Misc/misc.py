@@ -99,3 +99,9 @@ for i in range(len(ans)-1, 0, -1):     # start from end
     ans[i], ans[j] = ans[j], ans[i]    # swap
 
 #' Another exercise was from a video on Udacity.
+
+
+
+#' # Combinations
+#' This chunk of code is for algorithms generating all combinations of an 
+#' array.
