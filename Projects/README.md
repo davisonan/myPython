@@ -1,5 +1,4 @@
-This folder mainly contains the progrmming projects I got for the job interviews.
+This folder contains the projects I got for job interviews.
 
-- [Binary.com](https://www.binary.com/) is for a quantitative researcher role.
-- Hangman is for [trexquant.com](http://trexquant.com/).
-- 
+- [Binary.com](https://www.binary.com/)
+- Hangman is for [trexquant.com](http://trexquant.com/)
