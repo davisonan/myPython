@@ -7,6 +7,10 @@
 #' sort, selection sort, merge sort and quick sort. THroughout this article, 
 #' only an ascending order of an array is seeked.
 
+#' # Basic concepts
+#' - __stable sort__: 
+
+
 #' ## Bubble sort
 #' Bubble sort is constantly moving the largest value to the end by comparing 
 #' elements pairwise from the beginning to the end iteratively. The whole 
@@ -118,6 +122,7 @@ print(arr)
 #' makes this algorithm not suitable for large $n$.
 
 #' ## Heap sort
+#' ### What is a heap?
 #' Heap sort is 
 
 
