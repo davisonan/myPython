@@ -3,17 +3,18 @@
 1. What is Python?
     1.1 Interpreted language
     1.2 Syntax encourages readibility
+
 2. Why Python?
-   2.1 Efficiency
-   2.2 OOP
-   2.3 
+    2.1 Efficiency
+    2.2 OOP
+    2.3 
 3. Installation of Python
-   3.1 Mac OS X
-   3.2 Modules
-   3.3 
+    3.1 Mac OS X
+    3.2 Modules
+    3.3 
 4. Basic operations
-  4.1 Arithmetic operations
-  4.2 Boolean operations
+    4.1 Arithmetic operations
+    4.2 Boolean operations
 5. Controls
   5.1 If else
   5.2 for
