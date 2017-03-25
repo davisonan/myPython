@@ -1,8 +1,8 @@
 # Python Knowledge Encyclipedia
 
 1. What is Python?
-    1.1 Interpreted language
-    1.2 Syntax encourages readibility
+    1.1. Interpreted language
+    1.2. Syntax encourages readibility
 2. Why Python?
     2.1 Efficiency
     2.2 OOP
