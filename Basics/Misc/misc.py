@@ -2,6 +2,18 @@
 #' % Xu Tian
 #' % 2017/03/14
 
+#' # Landau notation
+#' $O$, $\Omega$, $\Theta$ represents the worst, best and average speed of 
+#' growth of computations with respect to the sample size $n$. Read this [post](http://cs.stackexchange.com/questions/57/how-does-one-know-which-notation-of-time-complexity-analysis-to-use)
+#' for a clear explantion.
+
+#' # Big O notation
+#' Big O specifically describes the worst-case scenario, and can be used to 
+#' describe the execution time required or the space used (e.g. in memory or on 
+#' disk) by an algorithm. This is why it's also said "big-O uppper bound runtime
+#' for a function".
+
+
 #' # Resorvior sampling
 #' Resorvior sampling is a sampling method for streaming of data. For a 
 #' sample of $n$ data points in the stream, the probability that each point
@@ -47,7 +59,7 @@ print(Counter(rslt))
 
 # String efficient recursive
 def isPalindrome1(x):
-    if len(x) in [0, 1]:
+    if len(x) <= 1:
         return True
     return x[0] == x[-1] and isPalindrome1(x[1:-1])
 
