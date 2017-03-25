@@ -7,26 +7,26 @@
     1. Efficiency
     2. OOP
 3. Installation of Python
-    3.1 Mac OS X
-    3.2 Modules
-    3.3 
+    1. Mac OS X
+    2. Modules
+    3. 
 4. Basic operations
-    4.1 Arithmetic operations
-    4.2 Boolean operations
+    1. Arithmetic operations
+    2. Boolean operations
 5. Controls
-  5.1 If else
-  5.2 for
-  5.3 while
+    1. If else
+    2. for
+    3. while
 6. Functions
-  6.1 Definition
-  6.2 Function factory
-  6.3 Closure
-  6.4 Decorator
+    1. Definition
+    2. Function factory
+    3. Closure
+    4. Decorator
 7. Data Structures
-  7.1 List
-  7.2 Tuple
-  7.3 Set
-  7.4 Dictionary
-  7.5 Others
+    1. List
+    2. Tuple
+    3. Set
+    4. Dictionary
+    5. Others
 8. Objective Oriented Programming (OOP)
 9. Modules
