@@ -1,45 +1,45 @@
 README.md
 
-Introduction and Efficiency
-Course Introduction
-Syntax
-Efficiency
-Notation of Efficiency
-List-Based Collections
-Lists/Arrays
-Linked Lists
-Stacks
-Queues
-Searching and Sorting
-Binary Search
-Recursion
-Bubble Sort
-Merge Sort
-Quick Sort
-Maps and Hashing
-Maps
-Hashing
-Collisions
-Hashing Conventions
-Trees
-Trees
-Tree Traversal
-Binary Trees
-Binary Search Trees
-Heaps
-Self-Balancing Trees
-Graphs
-Graphs
-Graph Properties
-Graph Representation
-Graph Traversal
-Graph Paths
-Case Studies in Algorithms
-Shortest Path Problem
-Knapsack Problem
-Traveling Salesman Problem
-Technical Interview Tips
-Mock Interview Breakdown
-Additional Tips
-Practice with Pramp
-Next Steps
+1. Introduction and Efficiency
+  1. Course Introduction
+  2. Syntax
+  3. Efficiency
+  4. Notation of Efficiency
+2. List-Based Collections
+  1. Lists/Arrays
+  2. Linked Lists
+  3. Stacks
+  4. Queues
+3. Searching and Sorting
+  1. Binary Search
+  2. Recursion
+  3. Bubble Sort
+  4. Merge Sort
+  5. Quick Sort
+4. Maps and Hashing
+  1. Maps
+  2. Hashing
+  3. Collisions
+  4. Hashing Conventions
+5. Trees
+  1. Trees
+  2. Tree Traversal
+  3. Binary Trees
+  4. Binary Search Trees
+  5. Heaps
+  6. Self-Balancing Trees
+6. Graphs
+  1. Graphs
+  2. Graph Properties
+  3. Graph Representation
+  4. Graph Traversal
+  5. Graph Paths
+7. Case Studies in Algorithms
+  1. Shortest Path Problem
+  2. Knapsack Problem
+  3. Traveling Salesman Problem
+8. Technical Interview Tips
+  1. Mock Interview Breakdown
+  2. Additional Tips
+  3. Practice with Pramp
+  4. Next Steps
