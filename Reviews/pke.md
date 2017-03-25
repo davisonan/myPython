@@ -1,6 +1,7 @@
 # Python Knowledge Encyclipedia
 
 1. What is Python?
+
     1.1 Interpreted language
     1.2 Syntax encourages readibility
 
