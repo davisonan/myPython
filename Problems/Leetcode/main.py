@@ -2099,7 +2099,6 @@ sol.singleNumber(nums)
 
 
 
-
 # 347. Top K Frequent Elements
 class Solution(object):
     def topKFrequent(self, nums, k):
@@ -2159,3 +2158,23 @@ class Solution(object):
 # param_1 = obj.reset()
 # param_2 = obj.shuffle()
 
+
+# 206. Reverse Linked List
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+class Solution(object):
+    def reverseList(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        prev = None
+        while head:
+            curr = head
+            head = head.next
+            curr.next = prev
+            prev = curr
+        return prev
