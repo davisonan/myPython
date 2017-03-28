@@ -662,19 +662,38 @@ methods are somehow always customized depending upon the needs. Usually
 interview problems will split functionalities of this class into
 subproblems, but once they are better orgnized, you'll see these problems
 are really just fundamental in data structurs.</p>
+<p>The following code is the correct version because if cur is None,
+then the previous node could refer to this newNode since the previous
+node's next pointer is still pointing to None.</p>
+<p>The following code is the definition of a LinkedList class with the following
+member methods:
+- <strong>init</strong>:
+- <strong>len</strong>:
+- append:
+- getAt:
+- insert:
+- delete:
+- deleteAll:
+- reverse:
+- printForward:
+- printBackward:</p>
 <div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">LinkedList</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">head</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">head</span> <span class="o">=</span> <span class="n">head</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">length</span> <span class="o">=</span> <span class="mi">0</span>
 
-    <span class="k">def</span> <span class="nf">append</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_node</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">length</span>
+
+    <span class="k">def</span> <span class="nf">append</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newNode</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Append a new node at the end of the list.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">length</span> <span class="o">+=</span> <span class="mi">1</span>
         <span class="n">cur</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">head</span>
         <span class="k">if</span> <span class="n">cur</span><span class="p">:</span>
-            <span class="k">while</span> <span class="n">cur</span><span class="p">:</span>
-                <span class="n">cur</span> <span class="o">=</span> <span class="n">cur</span><span class="o">.</span><span class="n">next</span>
-            <span class="n">cur</span> <span class="o">=</span> <span class="n">new_node</span>
+            <span class="k">while</span> <span class="n">cur</span><span class="o">.</span><span class="n">next</span><span class="p">:</span> <span class="n">cur</span> <span class="o">=</span> <span class="n">cur</span><span class="o">.</span><span class="n">next</span>
+            <span class="n">cur</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">newNode</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">head</span> <span class="o">=</span> <span class="n">new_node</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">head</span> <span class="o">=</span> <span class="n">newNode</span>
 
     <span class="k">def</span> <span class="nf">getAt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pos</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Get an element from a particular position.</span>
@@ -685,94 +704,141 @@ are really just fundamental in data structurs.</p>
         <span class="k">while</span> <span class="n">cur</span> <span class="ow">and</span> <span class="n">curPos</span> <span class="o">!=</span> <span class="n">pos</span><span class="p">:</span>
             <span class="n">curPos</span><span class="p">,</span> <span class="n">cur</span> <span class="o">=</span> <span class="n">curPos</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">cur</span><span class="o">.</span><span class="n">next</span>
         <span class="k">if</span> <span class="n">cur</span> <span class="ow">and</span> <span class="n">curPos</span> <span class="o">==</span> <span class="n">pos</span><span class="p">:</span> <span class="k">return</span> <span class="n">cur</span>
-        <span class="k">if</span> <span class="n">cur</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span> <span class="k">return</span> <span class="bp">None</span>
+        <span class="k">if</span> <span class="n">cur</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span> <span class="k">raise</span> <span class="ne">IndexError</span><span class="p">(</span><span class="s2">&quot;No value at Position</span>
+<span class="p">{}</span><span class="o">.</span><span class="s2">&quot;.format(pos))</span>
 
-    <span class="k">def</span> <span class="nf">insert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_element</span><span class="p">,</span> <span class="n">position</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">insert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newNode</span><span class="p">,</span> <span class="n">pos</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Insert a new node at the given position.</span>
-<span class="sd">        Assume the first position is &quot;1&quot;.</span>
-<span class="sd">        Inserting at position 3 means between</span>
+<span class="sd">        Inserting at position 2 means between</span>
 <span class="sd">        the 2nd and 3rd elements.&quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">position</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-            <span class="n">new_element</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">head</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">head</span> <span class="o">=</span> <span class="n">new_element</span>
-        <span class="k">if</span> <span class="n">position</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-            <span class="n">curPos</span> <span class="o">=</span> <span class="mi">1</span>
-            <span class="n">cur</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">head</span>
-            <span class="k">while</span> <span class="n">cur</span> <span class="ow">and</span> <span class="n">curPos</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">!=</span> <span class="n">position</span><span class="p">:</span>
-                <span class="n">curPos</span> <span class="o">+=</span> <span class="mi">1</span>
-                <span class="n">cur</span> <span class="o">=</span> <span class="n">cur</span><span class="o">.</span><span class="n">next</span>
-            <span class="k">if</span> <span class="n">cur</span> <span class="ow">and</span> <span class="n">curPos</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">==</span> <span class="n">position</span><span class="p">:</span>
-                <span class="n">new_element</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">cur</span><span class="o">.</span><span class="n">next</span>
-                <span class="n">cur</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">new_element</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">length</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="n">pos</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">newNode</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">head</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">head</span> <span class="o">=</span> <span class="n">newNode</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">curPos</span><span class="p">,</span> <span class="n">cur</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">head</span>
+            <span class="k">while</span> <span class="n">cur</span> <span class="ow">and</span> <span class="n">curPos</span><span class="o">+</span><span class="mi">1</span> <span class="o">!=</span> <span class="n">pos</span><span class="p">:</span>
+                <span class="n">cur</span><span class="p">,</span> <span class="n">curPos</span> <span class="o">=</span> <span class="n">cur</span><span class="o">.</span><span class="n">next</span><span class="p">,</span> <span class="n">curPos</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="k">if</span> <span class="n">cur</span> <span class="ow">and</span> <span class="n">curPos</span><span class="o">+</span><span class="mi">1</span> <span class="o">==</span> <span class="n">pos</span><span class="p">:</span>
+                <span class="n">newNode</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">cur</span><span class="o">.</span><span class="n">next</span>
+                <span class="n">cur</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">newNode</span>
 
-    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Delete the first node with a given value.&quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">head</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="n">value</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">head</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">head</span><span class="o">.</span><span class="n">next</span>
         <span class="n">cur</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">head</span>
-        <span class="k">while</span> <span class="n">cur</span> <span class="ow">and</span> <span class="n">cur</span><span class="o">.</span><span class="n">next</span> <span class="ow">and</span> <span class="n">cur</span><span class="o">.</span><span class="n">next</span><span class="o">.</span><span class="n">value</span> <span class="o">!=</span> <span class="n">value</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">length</span> <span class="o">-=</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="n">cur</span> <span class="ow">and</span> <span class="n">cur</span><span class="o">.</span><span class="n">val</span> <span class="o">==</span> <span class="n">val</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">head</span> <span class="o">=</span> <span class="n">cur</span><span class="o">.</span><span class="n">next</span>
+        <span class="k">while</span> <span class="n">cur</span> <span class="ow">and</span> <span class="n">cur</span><span class="o">.</span><span class="n">next</span> <span class="ow">and</span> <span class="n">cur</span><span class="o">.</span><span class="n">next</span><span class="o">.</span><span class="n">val</span> <span class="o">!=</span> <span class="n">val</span><span class="p">:</span>
             <span class="n">cur</span> <span class="o">=</span> <span class="n">cur</span><span class="o">.</span><span class="n">next</span>
-        <span class="k">if</span> <span class="n">cur</span> <span class="ow">and</span> <span class="n">cur</span><span class="o">.</span><span class="n">next</span> <span class="ow">and</span> <span class="n">cur</span><span class="o">.</span><span class="n">next</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="n">value</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">cur</span> <span class="ow">and</span> <span class="n">cur</span><span class="o">.</span><span class="n">next</span> <span class="ow">and</span> <span class="n">cur</span><span class="o">.</span><span class="n">next</span><span class="o">.</span><span class="n">val</span> <span class="o">==</span> <span class="n">val</span><span class="p">:</span>
             <span class="n">cur</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">cur</span><span class="o">.</span><span class="n">next</span><span class="o">.</span><span class="n">next</span>
 
-
-<span class="c1"># 203. Remove Linked List Elements</span>
-<span class="k">class</span> <span class="nc">Solution</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">removeElements</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">head</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        :type head: ListNode</span>
-<span class="sd">        :type val: int</span>
-<span class="sd">        :rtype: ListNode</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">while</span> <span class="n">head</span> <span class="ow">and</span> <span class="n">head</span><span class="o">.</span><span class="n">val</span> <span class="o">==</span> <span class="n">val</span><span class="p">:</span> <span class="n">head</span> <span class="o">=</span> <span class="n">head</span><span class="o">.</span><span class="n">next</span>
-        <span class="k">if</span> <span class="n">head</span><span class="p">:</span>
-            <span class="n">start</span> <span class="o">=</span> <span class="n">head</span>
-            <span class="k">while</span> <span class="n">head</span><span class="o">.</span><span class="n">next</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">head</span><span class="o">.</span><span class="n">next</span><span class="o">.</span><span class="n">val</span> <span class="o">==</span> <span class="n">val</span><span class="p">:</span>
-                    <span class="n">head</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">head</span><span class="o">.</span><span class="n">next</span><span class="o">.</span><span class="n">next</span> <span class="k">if</span> <span class="n">head</span><span class="o">.</span><span class="n">next</span><span class="o">.</span><span class="n">next</span> <span class="k">else</span>
-<span class="bp">None</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="n">head</span> <span class="o">=</span> <span class="n">head</span><span class="o">.</span><span class="n">next</span>
-            <span class="k">return</span> <span class="n">start</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">None</span>
-
-<span class="n">ln0</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">sol</span> <span class="o">=</span> <span class="n">Solution</span><span class="p">()</span>
-<span class="n">sol</span><span class="o">.</span><span class="n">removeElements</span><span class="p">(</span><span class="n">ln0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-
-
-<span class="k">class</span> <span class="nc">Solution</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">removeElements</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">head</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        :type head: ListNode</span>
-<span class="sd">        :type val: int</span>
-<span class="sd">        :rtype: ListNode</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">dummy</span> <span class="o">=</span> <span class="n">ListNode</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-        <span class="n">dummy</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">head</span>
+    <span class="k">def</span> <span class="nf">deleteAll</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Delete all the nodes with a given value.&quot;&quot;&quot;</span>
+        <span class="n">dummy</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">dummy</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">head</span>
         <span class="n">cur</span> <span class="o">=</span> <span class="n">dummy</span>
         <span class="k">while</span> <span class="n">cur</span> <span class="ow">and</span> <span class="n">cur</span><span class="o">.</span><span class="n">next</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">cur</span><span class="o">.</span><span class="n">next</span><span class="o">.</span><span class="n">val</span> <span class="o">==</span> <span class="n">val</span><span class="p">:</span>
                 <span class="n">cur</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">cur</span><span class="o">.</span><span class="n">next</span><span class="o">.</span><span class="n">next</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">length</span> <span class="o">-=</span> <span class="mi">1</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">cur</span> <span class="o">=</span> <span class="n">cur</span><span class="o">.</span><span class="n">next</span>
-        <span class="k">return</span> <span class="n">dummy</span><span class="o">.</span><span class="n">next</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">head</span> <span class="o">=</span> <span class="n">dummy</span><span class="o">.</span><span class="n">next</span>
 
+    <span class="k">def</span> <span class="nf">reverse</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Reverse the linked list.&quot;&quot;&quot;</span>
+        <span class="n">prev</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">head</span><span class="p">:</span>
+            <span class="n">curr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">head</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">head</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">head</span><span class="o">.</span><span class="n">next</span>
+            <span class="n">curr</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">prev</span>
+            <span class="n">prev</span> <span class="o">=</span> <span class="n">curr</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">head</span> <span class="o">=</span> <span class="n">prev</span>
 
-<span class="c1"># 160. Intersection of Two Linked Lists</span>
-<span class="k">class</span> <span class="nc">Solution</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">getIntersectionNode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">headA</span><span class="p">,</span> <span class="n">headB</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        :type head1, head1: ListNode</span>
-<span class="sd">        :rtype: ListNode</span>
+    <span class="k">def</span> <span class="nf">printForward</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Print the nodes&#39; values forwards recursively.</span>
+<span class="sd">            f is a wrapper function for recursive calls.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">headA</span> <span class="ow">and</span> <span class="n">headB</span><span class="p">):</span> <span class="k">return</span> <span class="bp">None</span>
-        <span class="n">pa</span><span class="p">,</span> <span class="n">pb</span> <span class="o">=</span> <span class="n">headA</span><span class="p">,</span> <span class="n">headB</span>
-        <span class="k">while</span> <span class="n">pa</span> <span class="o">!=</span> <span class="n">pb</span><span class="p">:</span>
-            <span class="n">pa</span> <span class="o">=</span> <span class="n">headB</span> <span class="k">if</span> <span class="n">pa</span> <span class="ow">is</span> <span class="bp">None</span> <span class="k">else</span> <span class="n">pa</span><span class="o">.</span><span class="n">next</span>
-            <span class="n">pb</span> <span class="o">=</span> <span class="n">headA</span> <span class="k">if</span> <span class="n">pb</span> <span class="ow">is</span> <span class="bp">None</span> <span class="k">else</span> <span class="n">pb</span><span class="o">.</span><span class="n">next</span>
-        <span class="k">return</span> <span class="n">pa</span>
+        <span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="nb">list</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">list</span><span class="p">:</span>
+                <span class="k">print</span><span class="p">(</span><span class="nb">list</span><span class="o">.</span><span class="n">val</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
+                <span class="n">f</span><span class="p">(</span><span class="nb">list</span><span class="o">.</span><span class="n">next</span><span class="p">)</span>
+        <span class="n">curr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">head</span>
+        <span class="n">f</span><span class="p">(</span><span class="n">curr</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">printBackward</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Print the nodes&#39; values backwards recursively.</span>
+<span class="sd">            g is a wrapper function for recursive calls.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">def</span> <span class="nf">g</span><span class="p">(</span><span class="nb">list</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">list</span><span class="p">:</span>
+                <span class="n">g</span><span class="p">(</span><span class="nb">list</span><span class="o">.</span><span class="n">next</span><span class="p">)</span>
+                <span class="k">print</span><span class="p">(</span><span class="nb">list</span><span class="o">.</span><span class="n">val</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span> <span class="s1">&#39; &#39;</span><span class="p">)</span>
+        <span class="n">curr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">head</span>
+        <span class="n">g</span><span class="p">(</span><span class="n">curr</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">isPalindrome</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return True if the linked list forms a palindrome.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">True</span>
+
+    <span class="k">def</span> <span class="nf">sort</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;sort the linked list&quot;&quot;&quot;</span>
+        <span class="k">pass</span>
+
+
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="n">ll</span> <span class="o">=</span> <span class="n">LinkedList</span><span class="p">()</span>
+<span class="n">nNodes</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nNodes</span><span class="p">):</span>
+    <span class="n">ll</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Node</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">)))</span>
+
+<span class="n">ll</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">ll</span><span class="o">.</span><span class="n">getAt</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">val</span><span class="p">,</span> <span class="n">ll</span><span class="o">.</span><span class="n">getAt</span><span class="p">(</span><span class="n">nNodes</span><span class="o">-</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">val</span><span class="p">)</span>
+
+
+
+<span class="n">ll</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Node</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+<span class="n">ll</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Node</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">ll</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Node</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+<span class="nb">len</span><span class="p">(</span><span class="n">ll</span><span class="p">)</span>
+<span class="n">ll</span><span class="o">.</span><span class="n">getAt</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">val</span>
+<span class="n">ll</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">Node</span><span class="p">(</span><span class="mf">2.3</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">ll</span><span class="o">.</span><span class="n">getAt</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">val</span>
+<span class="nb">len</span><span class="p">(</span><span class="n">ll</span><span class="p">)</span>
+<span class="n">ll</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Node</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+<span class="n">ll</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Node</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+<span class="n">ll</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Node</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+<span class="n">ll</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Node</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+<span class="n">ll</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span>
+<span class="n">ll</span><span class="o">.</span><span class="n">deleteAll</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="nb">len</span><span class="p">(</span><span class="n">ll</span><span class="p">)</span>
+<span class="n">ll</span><span class="o">.</span><span class="n">deleteAll</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="nb">len</span><span class="p">(</span><span class="n">ll</span><span class="p">)</span>
+
+<span class="p">[</span><span class="n">ll</span><span class="o">.</span><span class="n">getAt</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">val</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ll</span><span class="p">))]</span>
+</pre></div>
+<div class="highlight"><pre><span></span>7 2
+3 0
+6 9
+2 2
+2 2
+</pre></div>
+
+<h1>Misunderstandings and mistakes</h1>
+<p>Many concepts if not understood well can lead to mistakes. This section
+emphasizes the concepts or points that I made mistakes about or had
+misunderstandings.</p>
+<div class="highlight"><pre><span></span><span class="c1"># if cur:</span>
+<span class="c1">#     while cur:</span>
+<span class="c1">#         cur = cur.next</span>
+<span class="c1">#     cur = newNode</span>
+<span class="c1"># else:</span>
+<span class="c1">#     self.head = newNode</span>
 </pre></div>
 
 <h1>List and linked List</h1>
@@ -782,126 +848,6 @@ the time proportional to the length of the linked list. However though,
 a list does have the characteristics of a list, taking different types of
 objects, etc. The pointers are allocated with the same amount of memory,
 but the objects the pointers point to can be different, in CPython.</p>
-<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Node</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="bp">None</span>
-
-<span class="k">class</span> <span class="nc">LinkedList</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">head</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">head</span> <span class="o">=</span> <span class="n">head</span>
-    <span class="k">def</span> <span class="nf">append</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newNode</span><span class="p">):</span>
-        <span class="n">cur</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">head</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">head</span><span class="p">:</span>
-            <span class="k">while</span> <span class="n">cur</span><span class="o">.</span><span class="n">next</span><span class="p">:</span>
-                <span class="n">cur</span> <span class="o">=</span> <span class="n">cur</span><span class="o">.</span><span class="n">next</span>
-            <span class="n">cur</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">newNode</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">head</span> <span class="o">=</span> <span class="n">newNode</span>
-
-<span class="k">class</span> <span class="nc">Element</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="bp">None</span>
-
-<span class="k">class</span> <span class="nc">LinkedList</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">head</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">head</span> <span class="o">=</span> <span class="n">head</span>
-
-    <span class="k">def</span> <span class="nf">append</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_element</span><span class="p">):</span>
-        <span class="n">cur</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">head</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">head</span><span class="p">:</span>
-            <span class="k">while</span> <span class="n">cur</span><span class="o">.</span><span class="n">next</span><span class="p">:</span>
-                <span class="n">cur</span> <span class="o">=</span> <span class="n">cur</span><span class="o">.</span><span class="n">next</span>
-            <span class="n">cur</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">new_element</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">head</span> <span class="o">=</span> <span class="n">new_element</span>
-
-    <span class="k">def</span> <span class="nf">get_position</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Get an element from a particular position.</span>
-<span class="sd">        Assume the first position is &quot;1&quot;.</span>
-<span class="sd">        Return &quot;None&quot; if position is not in the list.&quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">position</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">None</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">curPos</span> <span class="o">=</span> <span class="mi">1</span>
-            <span class="n">cur</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">head</span>
-            <span class="k">while</span> <span class="n">cur</span> <span class="ow">and</span> <span class="n">curPos</span> <span class="o">!=</span> <span class="n">position</span><span class="p">:</span>
-                <span class="n">curPos</span> <span class="o">+=</span> <span class="mi">1</span>
-                <span class="n">cur</span> <span class="o">=</span> <span class="n">cur</span><span class="o">.</span><span class="n">next</span>
-            <span class="k">if</span> <span class="n">cur</span> <span class="ow">and</span> <span class="n">curPos</span> <span class="o">==</span> <span class="n">position</span><span class="p">:</span>
-                <span class="k">return</span> <span class="n">cur</span>
-            <span class="k">if</span> <span class="n">cur</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-                <span class="k">return</span> <span class="bp">None</span>
-
-    <span class="k">def</span> <span class="nf">insert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_element</span><span class="p">,</span> <span class="n">position</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Insert a new node at the given position.</span>
-<span class="sd">        Assume the first position is &quot;1&quot;.</span>
-<span class="sd">        Inserting at position 3 means between</span>
-<span class="sd">        the 2nd and 3rd elements.&quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">position</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-            <span class="n">new_element</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">head</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">head</span> <span class="o">=</span> <span class="n">new_element</span>
-        <span class="k">if</span> <span class="n">position</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-            <span class="n">curPos</span> <span class="o">=</span> <span class="mi">1</span>
-            <span class="n">cur</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">head</span>
-            <span class="k">while</span> <span class="n">cur</span> <span class="ow">and</span> <span class="n">curPos</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">!=</span> <span class="n">position</span><span class="p">:</span>
-                <span class="n">curPos</span> <span class="o">+=</span> <span class="mi">1</span>
-                <span class="n">cur</span> <span class="o">=</span> <span class="n">cur</span><span class="o">.</span><span class="n">next</span>
-            <span class="k">if</span> <span class="n">cur</span> <span class="ow">and</span> <span class="n">curPos</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">==</span> <span class="n">position</span><span class="p">:</span>
-                <span class="n">new_element</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">cur</span><span class="o">.</span><span class="n">next</span>
-                <span class="n">cur</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">new_element</span>
-
-    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Delete the first node with a given value.&quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">head</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="n">value</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">head</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">head</span><span class="o">.</span><span class="n">next</span>
-        <span class="n">cur</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">head</span>
-        <span class="k">while</span> <span class="n">cur</span> <span class="ow">and</span> <span class="n">cur</span><span class="o">.</span><span class="n">next</span> <span class="ow">and</span> <span class="n">cur</span><span class="o">.</span><span class="n">next</span><span class="o">.</span><span class="n">value</span> <span class="o">!=</span> <span class="n">value</span><span class="p">:</span>
-            <span class="n">cur</span> <span class="o">=</span> <span class="n">cur</span><span class="o">.</span><span class="n">next</span>
-        <span class="k">if</span> <span class="n">cur</span> <span class="ow">and</span> <span class="n">cur</span><span class="o">.</span><span class="n">next</span> <span class="ow">and</span> <span class="n">cur</span><span class="o">.</span><span class="n">next</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="n">value</span><span class="p">:</span>
-            <span class="n">cur</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">cur</span><span class="o">.</span><span class="n">next</span><span class="o">.</span><span class="n">next</span>
-
-<span class="c1"># Test cases</span>
-<span class="c1"># Set up some Elements</span>
-<span class="n">e1</span> <span class="o">=</span> <span class="n">Element</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">e2</span> <span class="o">=</span> <span class="n">Element</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">e3</span> <span class="o">=</span> <span class="n">Element</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
-<span class="n">e4</span> <span class="o">=</span> <span class="n">Element</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
-
-<span class="c1"># Start setting up a LinkedList</span>
-<span class="n">ll</span> <span class="o">=</span> <span class="n">LinkedList</span><span class="p">(</span><span class="n">e1</span><span class="p">)</span>
-<span class="n">ll</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">e2</span><span class="p">)</span>
-<span class="n">ll</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">e3</span><span class="p">)</span>
-
-<span class="c1"># Test get_position</span>
-<span class="c1"># Should print 3</span>
-<span class="k">print</span><span class="p">(</span><span class="n">ll</span><span class="o">.</span><span class="n">head</span><span class="o">.</span><span class="n">next</span><span class="o">.</span><span class="n">next</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
-<span class="c1"># Should also print 3</span>
-<span class="k">print</span><span class="p">(</span><span class="n">ll</span><span class="o">.</span><span class="n">get_position</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
-
-<span class="c1"># Test insert</span>
-<span class="n">ll</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">e4</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
-<span class="c1"># Should print 4 now</span>
-<span class="k">print</span><span class="p">(</span><span class="n">ll</span><span class="o">.</span><span class="n">get_position</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
-
-<span class="c1"># Test delete</span>
-<span class="n">ll</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-<span class="c1"># Should print 2 now</span>
-<span class="k">print</span><span class="p">(</span><span class="n">ll</span><span class="o">.</span><span class="n">get_position</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
-<span class="c1"># Should print 4 now</span>
-<span class="k">print</span><span class="p">(</span><span class="n">ll</span><span class="o">.</span><span class="n">get_position</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
-<span class="c1"># Should print 3 now</span>
-<span class="k">print</span><span class="p">(</span><span class="n">ll</span><span class="o">.</span><span class="n">get_position</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
-</pre></div>
-<div class="highlight"><pre><span></span>3
-3
-4
-2
-4
-3
-</pre></div>
-
     <HR/>
     <div class="footer">
       <p>Published from <a href="linkedList.py">linkedList.py</a>

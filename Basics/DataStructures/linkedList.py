@@ -40,6 +40,19 @@ class ListNode(object):
 #' then the previous node could refer to this newNode since the previous
 #' node's next pointer is still pointing to None.
 
+#' The following code is the definition of a LinkedList class with the following
+#' member methods:
+#' - __init__:
+#' - __len__:
+#' - append:
+#' - getAt:
+#' - insert:
+#' - delete:
+#' - deleteAll:
+#' - reverse:
+#' - printForward:
+#' - printBackward:
+
 
 class LinkedList(object):
     def __init__(self, head=None):
@@ -111,10 +124,60 @@ class LinkedList(object):
 
     def reverse(self):
         """Reverse the linked list."""
+        prev = None
+        while self.head:
+            curr = self.head
+            self.head = self.head.next
+            curr.next = prev
+            prev = curr
+        self.head = prev
+
+    def printForward(self):
+        """Print the nodes' values forwards recursively.
+            f() is a wrapper function for recursive calls.
+        """
+        def f(list):
+            if list:
+                print(list.val, end=' ')
+                f(list.next)
+        curr = self.head
+        f(curr)
+        print()
+
+    def printBackward(self):
+        """Print the nodes' values backwards recursively.
+            g() is a wrapper function for recursive calls.
+        """
+        def g(list):
+            if list:
+                g(list.next)
+                print(list.val, end= ' ')
+        curr = self.head
+        g(curr)
+        print()
+
+    def isPalindrome(self):
+        """Return True if the linked list forms a palindrome."""
+        return True
+
+    def sort(self):
+        """sort the linked list"""
+        pass
 
 
-
+import random
 ll = LinkedList()
+nNodes = 100
+for i in range(nNodes):
+    ll.append(Node(random.randint(0, 10)))
+
+ll.reverse()
+
+for i in range(5):
+    print(ll.getAt(i).val, ll.getAt(nNodes-i-1).val)
+
+
+
 ll.append(Node(1))
 ll.append(Node(2))
 ll.append(Node(3))
@@ -127,11 +190,19 @@ ll.append(Node(3))
 ll.append(Node(3))
 ll.append(Node(3))
 ll.append(Node(3))
+ll.reverse()
 ll.deleteAll(2)
 len(ll)
 ll.deleteAll(3)
 len(ll)
 
+[ll.getAt(i).val for i in range(len(ll))]
+
+
+#' # Misunderstandings and mistakes
+#' Many concepts if not understood well can lead to mistakes. This section
+#' emphasizes the concepts or points that I made mistakes about or had
+#' misunderstandings.
 
 # if cur:
 #     while cur:
@@ -139,23 +210,6 @@ len(ll)
 #     cur = newNode
 # else:
 #     self.head = newNode
-
-
-
-# 160. Intersection of Two Linked Lists
-class Solution(object):
-    def getIntersectionNode(self, headA, headB):
-        """
-        :type head1, head1: ListNode
-        :rtype: ListNode
-        """
-        if not (headA and headB): return None
-        pa, pb = headA, headB
-        while pa != pb:
-            pa = headB if pa is None else pa.next
-            pb = headA if pb is None else pb.next
-        return pa
-
 
 #' # List and linked List
 #' List is implemented as an array. The proof is indexing takes constant time

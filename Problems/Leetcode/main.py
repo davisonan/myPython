@@ -2165,6 +2165,8 @@ class Solution(object):
 #     def __init__(self, x):
 #         self.val = x
 #         self.next = None
+
+# This is the iterative approach.
 class Solution(object):
     def reverseList(self, head):
         """
@@ -2178,3 +2180,19 @@ class Solution(object):
             curr.next = prev
             prev = curr
         return prev
+
+# This is the recursive approach.
+class Solution(object):
+    def reverseList(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        return self.__reverse(head)
+
+    def __f(self, node, prev=None):
+        if not node: return prev
+        n = node.next
+        node.next = prev
+        return self._reverse(n, node)
+
