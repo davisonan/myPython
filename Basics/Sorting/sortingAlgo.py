@@ -3,18 +3,19 @@
 #' % 2017/03/17
 
 #' # Background of sorting algorithms
-#' This write-up covers the following algorithms: bubble sort, insertion 
-#' sort, selection sort, merge sort and quick sort. THroughout this article, 
+#' This write-up covers the following algorithms: bubble sort, insertion
+#' sort, selection sort, merge sort and quick sort. THroughout this article,
 #' only an ascending order of an array is seeked.
 
 #' # Basic concepts
-#' - __stable sort__: 
+#' - __stable sort__:
+
 
 
 #' ## Bubble sort
-#' Bubble sort is constantly moving the largest value to the end by comparing 
-#' elements pairwise from the beginning to the end iteratively. The whole 
-#' process is like emerging the largest value like a bubble to the surface and 
+#' Bubble sort is constantly moving the largest value to the end by comparing
+#' elements pairwise from the beginning to the end iteratively. The whole
+#' process is like emerging the largest value like a bubble to the surface and
 #' hence the name.
 
 def bubbleSort(arr):
@@ -35,9 +36,9 @@ bubbleSort(arr)
 
 #' We can clearly see that in every iteration, the largest value is moved to
 #' the back of the array. Therefore, we can shrink the for loop by 1 in every
-#' iteration. The flag is set to False whenever there's a swap. When there's 
-#' no swap, the sorting is completed. The duplicated values are not an issue 
-#' since the same values will not be swaped and other values can still be 
+#' iteration. The flag is set to False whenever there's a swap. When there's
+#' no swap, the sorting is completed. The duplicated values are not an issue
+#' since the same values will not be swaped and other values can still be
 #' compared as in the regular case.
 
 #' Here's the summary of key attributes of an algorithm:
@@ -50,8 +51,8 @@ bubbleSort(arr)
 #' - __Stable__: Yes
 
 #' ## Insertion sort
-#' The idea of insertion sort is by maintaining the array at the beginning 
-#' sorted and moving the first element in the remaining unsorted array to 
+#' The idea of insertion sort is by maintaining the array at the beginning
+#' sorted and moving the first element in the remaining unsorted array to
 #' the right place in the beginning.
 
 def insertionSort(arr):
@@ -79,17 +80,17 @@ print(arr)
 #' - __Sorting in-place__: Yes
 #' - __Stable__: Yes
 
-#' The idea is to move the first element of the remaining unsorted array into 
+#' The idea is to move the first element of the remaining unsorted array into
 #' the right place in the already sorted array. Since this is done in-place,
-#' the new element is compared one by one starting from the end of the sorted 
-#' array. Duplicates don't matter since there's a swap only when the new 
+#' the new element is compared one by one starting from the end of the sorted
+#' array. Duplicates don't matter since there's a swap only when the new
 #' element is smaller than the previous one.
 
 
 #' ## Selection sort
-#' Selection sort is similar to the insertion sort except that every time we 
-#' move the smallest element in the remaining array to the beginning of this 
-#' remaining array such that the array in the front upto this element is 
+#' Selection sort is similar to the insertion sort except that every time we
+#' move the smallest element in the remaining array to the beginning of this
+#' remaining array such that the array in the front upto this element is
 #' sorted.
 
 def selectionSort(arr):
@@ -103,8 +104,8 @@ arr = [6, 5, 3, 1, 8, 7, 2, 4]
 selectionSort(arr)
 print(arr)
 
-#' The current element also needs to be compared with the smallest of the 
-#' rest. Therefore, in the fourth row, it's min(arr[i:]) including the 
+#' The current element also needs to be compared with the smallest of the
+#' rest. Therefore, in the fourth row, it's min(arr[i:]) including the
 #' i-th element in the array. If the i-th element happens to be the smallest,
 #' it doesn't hurt to swap the value with itself. And this redundancy is well
 #' compensated by the clarity of the code.
@@ -118,22 +119,33 @@ print(arr)
 #' - __Sorting in-place__: Yes
 #' - __Stable__: Yes
 
-#' The best, average and worst cases all have $O(n^2)$ time complexity. This 
+#' The best, average and worst cases all have $O(n^2)$ time complexity. This
 #' makes this algorithm not suitable for large $n$.
 
 #' ## Heap sort
 #' ### What is a heap?
-#' Heap sort is 
+#' ### Priority queue
+#' Implements a set $s$ of elements, each of elements is associated with a key.
+#' - insert(s, x): insert element x into set s.
+#' - max(s): return element of s with the largest key
+#' - extract_max(s): return element of s with the largest key and remove it from s.
+#' - increase_key(s, x, k): increase the value of x's key to the new value k.
+#' -
 
+
+#' A heap is an implementation of a priority queue. An array visualized as a
+#' __nearly complete__ binary tree.
+
+arr = [16, 14, 10, 8, 7, 9, 3, 2, 4, 1]
 
 def heapSort(arr):
-    
+
 
 
 
 #' ## Merge sort
-#' Merge sort is a divide and conque algorithm by dividing the array into 
-#' multiple subarrays and merging them in a structured way such that the 
+#' Merge sort is a divide and conque algorithm by dividing the array into
+#' multiple subarrays and merging them in a structured way such that the
 #' returned array is sorted. It's a faster algorithm than the previous methods.
 
 def merge(l, r):
@@ -175,9 +187,9 @@ arrSorted = mergeSort(arr)
 #' - __Stable__: Yes
 
 #' ## Quick sort
-#' Quick sort is a divide and conquer algorithm. It has two steps: one is to 
+#' Quick sort is a divide and conquer algorithm. It has two steps: one is to
 #' partition the array by a pivot point usually at the end of the array being
-#' sorted; the other is to move the values that are smaller than the pivot 
+#' sorted; the other is to move the values that are smaller than the pivot
 #' point to the left and those larger than the pivot point to the right in the
 #' array being sorted.
 
@@ -217,13 +229,12 @@ print(arr)
 
 
 
-
 #' # Use searching algorithms to find the k-th largest element
 #' This is actually based on the problem 215. Kth Largest Element in an Array
 #' on Leetcode. One [solution](https://discuss.leetcode.com/topic/22159/python-different-solutions-with-comments-bubble-sort-selection-sort-heap-sort-and-quick-sort)
 #' gives a comprehensive list of solutions based on the common searching ideas
-#' this tutorial covered before. And I think this sets up a good example of 
-#' organizing knoweldge and applying knowledge on new problems. This is a 
+#' this tutorial covered before. And I think this sets up a good example of
+#' organizing knoweldge and applying knowledge on new problems. This is a
 #' good inspiration and I'll keep doing that starting from here.
 
 # O(nlog(n)) solution-1
@@ -281,7 +292,7 @@ findKthLargest5(arr, 4)
 # all the numbers would need to be inserted into the proper place to complete
 # the insertion sort. Therefore, it's still a O(n^2) algorithm.
 
-# 
+#
 # Faster than bubble sort, maybe due to the maximum routine
 def findKthLargest6(nums, k):
     for i in range(k):
@@ -294,12 +305,9 @@ findKthLargest5(arr, 4)
 
 
 
-
 # To time the functions, use the following chunk of code to
 # do that.
 # import timeit
-# timeit.timeit('findKthLargest(arr, 3)', 
-#     setup="from __main__ import findKthLargest, arr", 
+# timeit.timeit('findKthLargest(arr, 3)',
+#     setup="from __main__ import findKthLargest, arr",
 #     number=1000)
-
-

@@ -2196,3 +2196,30 @@ class Solution(object):
         node.next = prev
         return self._reverse(n, node)
 
+
+# 404. Sum of left leaves
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution(object):
+    def sumOfLeftLeaves(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+        def f(root, flag):
+            if root is None: return 0
+            if root.left is None and root.right is None:
+                if flag:
+                    return root.val
+                else:
+                    return 0
+            return f(root.left, True) + f(root.right, False)
+        
+        return f(root, False)
+
+
