@@ -3,13 +3,15 @@
 #' % 2017/03/20
 
 #' # Background
-#' This writeup consists of the tree-based problems in leetcode.
-#' In linked list, it seems a well-known trick to use a dummy variable to
-#' point to the beginning of the linked list.
-
+#' This document contains the major issues about a linked list including
+#' designing a well behaved linked list class with many more member methods than
+#' an ordinary linked list class would have. These member methods are ususally
+#' coming from problems on leetcode about linked lists.
 
 #' # List Node class
-#' This is the Node class in a linked list.
+#' The linked list is a list of linked nodes where each node is an instance of
+#' the following Node class.
+
 class Node(object):
     def __init__(self, val):
         self.val = val
@@ -42,6 +44,7 @@ class ListNode(object):
 
 #' The following code is the definition of a LinkedList class with the following
 #' member methods:
+
 #' - __init__:
 #' - __len__:
 #' - append:
@@ -52,6 +55,9 @@ class ListNode(object):
 #' - reverse:
 #' - printForward:
 #' - printBackward:
+#' - isPalindrome:
+#' - sort:
+#' - hasCycle:
 
 
 class LinkedList(object):
@@ -161,48 +167,60 @@ class LinkedList(object):
         return True
 
     def sort(self):
-        """sort the linked list"""
+        """Sort the linked list"""
         pass
 
+    def hasCycle(self):
+        """Return True if there's a cycle in the LinkedList."""
+        try:
+            slow = self.head
+            fast = self.head.next
+            while slow is not fast:
+                slow = slow.next
+                fast = fast.next.next
+            else:
+                return True
+        except:
+            return False
 
-import random
-ll = LinkedList()
-nNodes = 100
-for i in range(nNodes):
-    ll.append(Node(random.randint(0, 10)))
 
-ll.reverse()
+def main():
+    import random
+    ll = LinkedList()
+    nNodes = 100
+    for i in range(nNodes):
+        ll.append(Node(random.randint(0, 10)))
+    ll.reverse()
+    for i in range(5):
+        print(ll.getAt(i).val, ll.getAt(nNodes-i-1).val)
+    ll.append(Node(1))
+    ll.append(Node(2))
+    ll.append(Node(3))
+    len(ll)
+    ll.getAt(1).val
+    ll.insert(Node(2.3), 1)
+    ll.getAt(1).val
+    len(ll)
+    ll.append(Node(3))
+    ll.append(Node(3))
+    ll.append(Node(3))
+    ll.append(Node(3))
+    ll.reverse()
+    ll.deleteAll(2)
+    len(ll)
+    ll.deleteAll(3)
+    len(ll)
+    [ll.getAt(i).val for i in range(len(ll))]
 
-for i in range(5):
-    print(ll.getAt(i).val, ll.getAt(nNodes-i-1).val)
-
-
-
-ll.append(Node(1))
-ll.append(Node(2))
-ll.append(Node(3))
-len(ll)
-ll.getAt(1).val
-ll.insert(Node(2.3), 1)
-ll.getAt(1).val
-len(ll)
-ll.append(Node(3))
-ll.append(Node(3))
-ll.append(Node(3))
-ll.append(Node(3))
-ll.reverse()
-ll.deleteAll(2)
-len(ll)
-ll.deleteAll(3)
-len(ll)
-
-[ll.getAt(i).val for i in range(len(ll))]
-
+if __name__ == '__main__':
+    main()
 
 #' # Misunderstandings and mistakes
 #' Many concepts if not understood well can lead to mistakes. This section
 #' emphasizes the concepts or points that I made mistakes about or had
-#' misunderstandings.
+#' misunderstandings. In linked list, it seems a well-known trick to use a
+#' dummy variable to point to the beginning of the linked list.
+
 
 # if cur:
 #     while cur:

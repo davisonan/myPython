@@ -95,6 +95,7 @@ print(isPalindrome3(s0))
 
 #' The palindrome can also happen on integers, however, the exact 
 #' algorithm is slightly different. 
+
 # Palindrome integer 
 def isPalindrome(x):
     div = 1
@@ -109,15 +110,15 @@ def isPalindrome(x):
     return True
 
 isPalindrome(101010101010101010101)
-%timeit isPalindrome(101010101010101010101)
+# %timeit isPalindrome(101010101010101010101)
 
 
 #' # Shuffling
 #' This chunk of code is from leetcode.
 
-for i in range(len(ans)-1, 0, -1):     # start from end
-    j = random.randrange(0, i+1)    # generate random index 
-    ans[i], ans[j] = ans[j], ans[i]    # swap
+# for i in range(len(ans)-1, 0, -1):     # start from end
+#     j = random.randrange(0, i+1)    # generate random index 
+#     ans[i], ans[j] = ans[j], ans[i]    # swap
 
 #' Another exercise was from a video on Udacity.
 
@@ -137,7 +138,10 @@ class child(parent):
 
 obj = child(5)
 # __init__ is overwritten, therefore, self.v1 never exists.
-print(obj.v1, obj.v2)
+try:
+    print(obj.v1, obj.v2)
+except:
+    print("The object has no attribute 'v1'.")
 
 #' # The essence of object reference and variable name
 #' A variable name is essentially a reference to an object, even in the 
@@ -145,3 +149,35 @@ print(obj.v1, obj.v2)
 #' an assignment is a binding to a piece of memory where the value of 
 #' the variable name resides, whereas in Python the name is essentially
 #' a reference to an object.
+
+
+#' # Visualizing the time complexity of a searching algorithm in Python
+#' This is a small study to show that the time complexity of the function 
+#' ```sorted``` in Python is indeed a $O(nlog(n))$ algorithm. 
+
+import timeit
+import random
+import matplotlib.pyplot as plt
+import numpy as np
+
+# def test(arr):
+#     sorted(arr)
+
+# times = []
+arr0 = [10, 50, 100, 500, 1e3, 5e3, 1e4, 5e4, 1e5, 5e5, 1e6, 5e6, 1e7, 5e7]
+# for idx, val in enumerate(arr0):
+#     print(val)
+#     arr = [random.random() for _ in range(int(val))]
+#     times.append(timeit.timeit("test(arr)", setup="from __main__ import test, arr", number=int((20-log(val))**2)).real)
+
+
+times = np.array([0.00027, 0.00133, 0.00275, 
+    0.01583, 0.03339, 0.15277, 0.29951, 
+    1.30919, 2.75746, 12.3195, 23.6044, 
+    87.7369, 150.790, 362.974])
+
+arr1 = np.array(times)/np.array(arr0)
+c = arr1[-1]
+plt.plot(arr0, c * np.array(arr0))
+plt.plot(arr0, np.array(times))
+plt.plot(arr0, c ** 1.2 * np.array(arr0) * np.log(np.array(arr0)))

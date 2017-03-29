@@ -6,7 +6,7 @@
 #' This is based on the course Udacity 513.
 
 #' # Stacks
-#' This is an abstract data structure. It can be implemented using 
+#' This is an abstract data structure. It can be implemented using
 #' other data structures. FIFO.
 
 #' # 155. Min Stack
@@ -64,11 +64,11 @@ class Element(object):
     def __init__(self, value):
         self.value = value
         self.next = None
-        
+
 class LinkedList(object):
     def __init__(self, head=None):
         self.head = head
-        
+
     def append(self, new_element):
         current = self.head
         if self.head:
@@ -112,7 +112,7 @@ class Stack(object):
     def pop(self):
         "Pop (remove) the first element off the top of the stack and return it"
         return self.ll.delete_first()
-    
+
 # Test cases
 # Set up some Elements
 e1 = Element(1)
@@ -145,6 +145,4 @@ print(stack.pop().value)
 #' # Queues
 #' FILO, enqueue, dequeue.
 #' Deques, priority_queue
-#' 
-
-
+#'

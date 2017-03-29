@@ -630,11 +630,13 @@ img {max-width : 100%}
 <p><strong>Author:</strong>  Xu Tian <BR/>
 <strong>Date:</strong>  2017/03/20 <BR/></p>
 <h1>Background</h1>
-<p>This writeup consists of the tree-based problems in leetcode.
-In linked list, it seems a well-known trick to use a dummy variable to
-point to the beginning of the linked list.</p>
+<p>This document contains the major issues about a linked list including
+designing a well behaved linked list class with many more member methods than
+an ordinary linked list class would have. These member methods are ususally
+coming from problems on leetcode about linked lists.</p>
 <h1>List Node class</h1>
-<p>This is the Node class in a linked list.</p>
+<p>The linked list is a list of linked nodes where each node is an instance of
+the following Node class.</p>
 <div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Node</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">val</span>
@@ -666,17 +668,22 @@ are really just fundamental in data structurs.</p>
 then the previous node could refer to this newNode since the previous
 node's next pointer is still pointing to None.</p>
 <p>The following code is the definition of a LinkedList class with the following
-member methods:
-- <strong>init</strong>:
-- <strong>len</strong>:
-- append:
-- getAt:
-- insert:
-- delete:
-- deleteAll:
-- reverse:
-- printForward:
-- printBackward:</p>
+member methods:</p>
+<ul>
+<li><strong>init</strong>:</li>
+<li><strong>len</strong>:</li>
+<li>append:</li>
+<li>getAt:</li>
+<li>insert:</li>
+<li>delete:</li>
+<li>deleteAll:</li>
+<li>reverse:</li>
+<li>printForward:</li>
+<li>printBackward:</li>
+<li>isPalindrome:</li>
+<li>sort:</li>
+<li>hasCycle:</li>
+</ul>
 <div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">LinkedList</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">head</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">head</span> <span class="o">=</span> <span class="n">head</span>
@@ -758,7 +765,7 @@ member methods:
 
     <span class="k">def</span> <span class="nf">printForward</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Print the nodes&#39; values forwards recursively.</span>
-<span class="sd">            f is a wrapper function for recursive calls.</span>
+<span class="sd">            f() is a wrapper function for recursive calls.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="nb">list</span><span class="p">):</span>
             <span class="k">if</span> <span class="nb">list</span><span class="p">:</span>
@@ -770,7 +777,7 @@ member methods:
 
     <span class="k">def</span> <span class="nf">printBackward</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Print the nodes&#39; values backwards recursively.</span>
-<span class="sd">            g is a wrapper function for recursive calls.</span>
+<span class="sd">            g() is a wrapper function for recursive calls.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">def</span> <span class="nf">g</span><span class="p">(</span><span class="nb">list</span><span class="p">):</span>
             <span class="k">if</span> <span class="nb">list</span><span class="p">:</span>
@@ -785,54 +792,60 @@ member methods:
         <span class="k">return</span> <span class="bp">True</span>
 
     <span class="k">def</span> <span class="nf">sort</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;sort the linked list&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Sort the linked list&quot;&quot;&quot;</span>
         <span class="k">pass</span>
 
+    <span class="k">def</span> <span class="nf">hasCycle</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return True if there&#39;s a cycle in the LinkedList.&quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">slow</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">head</span>
+            <span class="n">fast</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">head</span><span class="o">.</span><span class="n">next</span>
+            <span class="k">while</span> <span class="n">slow</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">fast</span><span class="p">:</span>
+                <span class="n">slow</span> <span class="o">=</span> <span class="n">slow</span><span class="o">.</span><span class="n">next</span>
+                <span class="n">fast</span> <span class="o">=</span> <span class="n">fast</span><span class="o">.</span><span class="n">next</span><span class="o">.</span><span class="n">next</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">True</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">False</span>
 
-<span class="kn">import</span> <span class="nn">random</span>
-<span class="n">ll</span> <span class="o">=</span> <span class="n">LinkedList</span><span class="p">()</span>
-<span class="n">nNodes</span> <span class="o">=</span> <span class="mi">100</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nNodes</span><span class="p">):</span>
-    <span class="n">ll</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Node</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">)))</span>
 
-<span class="n">ll</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span>
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="kn">import</span> <span class="nn">random</span>
+    <span class="n">ll</span> <span class="o">=</span> <span class="n">LinkedList</span><span class="p">()</span>
+    <span class="n">nNodes</span> <span class="o">=</span> <span class="mi">100</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nNodes</span><span class="p">):</span>
+        <span class="n">ll</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Node</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">)))</span>
+    <span class="n">ll</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">ll</span><span class="o">.</span><span class="n">getAt</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">val</span><span class="p">,</span> <span class="n">ll</span><span class="o">.</span><span class="n">getAt</span><span class="p">(</span><span class="n">nNodes</span><span class="o">-</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">val</span><span class="p">)</span>
+    <span class="n">ll</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Node</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+    <span class="n">ll</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Node</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+    <span class="n">ll</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Node</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+    <span class="nb">len</span><span class="p">(</span><span class="n">ll</span><span class="p">)</span>
+    <span class="n">ll</span><span class="o">.</span><span class="n">getAt</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">val</span>
+    <span class="n">ll</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">Node</span><span class="p">(</span><span class="mf">2.3</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">ll</span><span class="o">.</span><span class="n">getAt</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">val</span>
+    <span class="nb">len</span><span class="p">(</span><span class="n">ll</span><span class="p">)</span>
+    <span class="n">ll</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Node</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+    <span class="n">ll</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Node</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+    <span class="n">ll</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Node</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+    <span class="n">ll</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Node</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+    <span class="n">ll</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span>
+    <span class="n">ll</span><span class="o">.</span><span class="n">deleteAll</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    <span class="nb">len</span><span class="p">(</span><span class="n">ll</span><span class="p">)</span>
+    <span class="n">ll</span><span class="o">.</span><span class="n">deleteAll</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+    <span class="nb">len</span><span class="p">(</span><span class="n">ll</span><span class="p">)</span>
+    <span class="p">[</span><span class="n">ll</span><span class="o">.</span><span class="n">getAt</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">val</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ll</span><span class="p">))]</span>
 
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
-    <span class="k">print</span><span class="p">(</span><span class="n">ll</span><span class="o">.</span><span class="n">getAt</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">val</span><span class="p">,</span> <span class="n">ll</span><span class="o">.</span><span class="n">getAt</span><span class="p">(</span><span class="n">nNodes</span><span class="o">-</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">val</span><span class="p">)</span>
-
-
-
-<span class="n">ll</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Node</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
-<span class="n">ll</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Node</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
-<span class="n">ll</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Node</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
-<span class="nb">len</span><span class="p">(</span><span class="n">ll</span><span class="p">)</span>
-<span class="n">ll</span><span class="o">.</span><span class="n">getAt</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">val</span>
-<span class="n">ll</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">Node</span><span class="p">(</span><span class="mf">2.3</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
-<span class="n">ll</span><span class="o">.</span><span class="n">getAt</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">val</span>
-<span class="nb">len</span><span class="p">(</span><span class="n">ll</span><span class="p">)</span>
-<span class="n">ll</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Node</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
-<span class="n">ll</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Node</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
-<span class="n">ll</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Node</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
-<span class="n">ll</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Node</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
-<span class="n">ll</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span>
-<span class="n">ll</span><span class="o">.</span><span class="n">deleteAll</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="nb">len</span><span class="p">(</span><span class="n">ll</span><span class="p">)</span>
-<span class="n">ll</span><span class="o">.</span><span class="n">deleteAll</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
-<span class="nb">len</span><span class="p">(</span><span class="n">ll</span><span class="p">)</span>
-
-<span class="p">[</span><span class="n">ll</span><span class="o">.</span><span class="n">getAt</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">val</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ll</span><span class="p">))]</span>
-</pre></div>
-<div class="highlight"><pre><span></span>7 2
-3 0
-6 9
-2 2
-2 2
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
 </pre></div>
 
 <h1>Misunderstandings and mistakes</h1>
 <p>Many concepts if not understood well can lead to mistakes. This section
 emphasizes the concepts or points that I made mistakes about or had
-misunderstandings.</p>
+misunderstandings. In linked list, it seems a well-known trick to use a
+dummy variable to point to the beginning of the linked list.</p>
 <div class="highlight"><pre><span></span><span class="c1"># if cur:</span>
 <span class="c1">#     while cur:</span>
 <span class="c1">#         cur = cur.next</span>
