@@ -181,3 +181,57 @@ c = arr1[-1]
 plt.plot(arr0, c * np.array(arr0))
 plt.plot(arr0, np.array(times))
 plt.plot(arr0, c ** 1.2 * np.array(arr0) * np.log(np.array(arr0)))
+
+
+#' # The algorithm in Red Packet in WeChat
+class RedPacket(object):
+    def __init__(self, money=0, numOfPackets=0):
+        self.__moneyLeft = money
+        self.__packetLeft = numOfPackets
+    def getMoney(self):
+        return self.__moneyLeft
+    def getNumPackets(self):
+        return self.__packetLeft
+    def getRandomMoney(self):
+        if self.__packetLeft == 1:
+            self.__packetLeft -=1
+            tmp, self.__moneyLeft = self.__moneyLeft, 0
+            return tmp
+        assert self.__packetLeft > 1
+        import random
+        r = random.random()
+        minVal = 0.01
+        maxVal = self.__moneyLeft/self.__packetLeft * 2
+        money = r * maxVal
+        money = minVal if money < minVal else round(money, 2)
+        self.__packetLeft -= 1
+        self.__moneyLeft -= money
+        return money
+
+rslt = []
+for i in range(1000000):
+    aRedPacket = RedPacket(71, 27)
+    rslt.append([aRedPacket.getRandomMoney() for _ in range(27)])
+
+import pandas as pd
+rslt1 = pd.DataFrame(rslt)
+avgs = rslt1.mean(axis=0)
+stds = rslt1.std(axis=0)
+
+import matplotlib.pyplot as plt
+plt.figure()
+plt.bar(range(1, 28), avgs)
+plt.xlabel("Index of red packets")
+plt.ylabel("Yuan")
+plt.title("Average RMB per red packet by orders.")
+
+plt.figure()
+plt.bar(range(1, 28), stds)
+plt.xlabel("Index of red packets")
+plt.ylabel("Yuan")
+plt.title("Std of RMB per red packet by orders.")
+
+#' The chance that Leo got a Red Packet as small as or smaller than 0.37 is 
+#' not bad at all, it's about $7.12%$ based on the algorithm on-line.
+sum(rslt1[0] <= 0.37)/1000000
+

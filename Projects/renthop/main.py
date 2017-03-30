@@ -50,6 +50,8 @@ d_train[d_train['building_id'] == '53a5b119ba8f7b61d4e010512e0dfc85']
 # 4. The other information on the webpage
 # 5. Need to do web-scrapping to get additional information on the webpage.
 # 6. Figure out the way of generating the link for the page.
+# 7. Lightening of the photos. Convolutional neural networks.
+
 
 from collections import Counter
 features = Counter(word.strip(' ,.*;&').lower() for line in d_train['features'] for words in line for word in words.split())
@@ -88,7 +90,6 @@ plt.xticks(range(len(d)), [i[0] for i in d])
 plt.show()
 
 # Given the locations, find the cloest distance to subways etc, convenience stores.
-
 
 
 # List key words in descriptions
