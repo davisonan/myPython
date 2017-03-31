@@ -112,7 +112,6 @@ def isPalindrome(x):
 isPalindrome(101010101010101010101)
 # %timeit isPalindrome(101010101010101010101)
 
-
 #' # Shuffling
 #' This chunk of code is from leetcode.
 
@@ -122,11 +121,9 @@ isPalindrome(101010101010101010101)
 
 #' Another exercise was from a video on Udacity.
 
-
 #' # Combinations
 #' This chunk of code is for algorithms generating all combinations of an 
 #' array.
-
 
 #' # Class inheritance
 class parent(object):
@@ -182,7 +179,6 @@ plt.plot(arr0, c * np.array(arr0))
 plt.plot(arr0, np.array(times))
 plt.plot(arr0, c ** 1.2 * np.array(arr0) * np.log(np.array(arr0)))
 
-
 #' # The algorithm in Red Packet in WeChat
 class RedPacket(object):
     def __init__(self, money=0, numOfPackets=0):
@@ -213,25 +209,47 @@ for i in range(1000000):
     aRedPacket = RedPacket(71, 27)
     rslt.append([aRedPacket.getRandomMoney() for _ in range(27)])
 
+# rslt = []
+# for i in range(1000000):
+#     aRedPacket = RedPacket(71, 27)
+#     rslt.append([0 * aRedPacket.getRandomMoney() + aRedPacket.getMoney()/aRedPacket.getNumPackets() * 2 for _ in range(26)])
+
 import pandas as pd
 rslt1 = pd.DataFrame(rslt)
 avgs = rslt1.mean(axis=0)
 stds = rslt1.std(axis=0)
 
 import matplotlib.pyplot as plt
+
 plt.figure()
-plt.bar(range(1, 28), avgs)
+x = rslt1[0]
+n, bins, patches = plt.hist(x, 100, normed=1, facecolor='green', alpha=0.75)
+
+plt.figure()
+plt.bar(range(1, 27), avgs)
 plt.xlabel("Index of red packets")
 plt.ylabel("Yuan")
 plt.title("Average RMB per red packet by orders.")
 
 plt.figure()
-plt.bar(range(1, 28), stds)
+plt.bar(range(1, 27), stds)
 plt.xlabel("Index of red packets")
 plt.ylabel("Yuan")
 plt.title("Std of RMB per red packet by orders.")
 
 #' The chance that Leo got a Red Packet as small as or smaller than 0.37 is 
-#' not bad at all, it's about $7.12%$ based on the algorithm on-line.
+#' not bad at all, it's about $7.12%$ based on the algorithm on-line. There 
+#' ought to be a theoretical answer to that question.
+
 sum(rslt1[0] <= 0.37)/1000000
+
+#' There's a Monte carlo error in the above approach. For the first draw, it's
+#' a uniform distribution between 0.01 and the first maxVal which is $71/27*2=5.26$
+#' in this case. Therefore the theoretical probability of having a value as small 
+#' or smaller than 0.37 is $(0.37-0.01)/(5.26-0.01)=0.0686$.
+
+
+#' The individual distributions of payoffs are interesting as well. It would need 
+#' further study.
+
 
