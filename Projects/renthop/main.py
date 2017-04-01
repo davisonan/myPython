@@ -1,44 +1,40 @@
 # main.py
 
-import json
 import numpy as np
 import pandas as pd
-import xgboost as xgb
-import scikit_learn as sklearn
 import matplotlib.pyplot as plt
-from pprint import pprint
+from collections import Counter
+from itertools import product
+from sklearn.preprocessing import MultiLabelBinarizer
+from sklearn.model_selection import StratifiedKFold
 
 path = '/Users/hanya/Documents/01_Work/01_Projects/Kaggle/07_TwoSigmaJob/'
 
-with open(path + 'train.json') as df:
-    df_train = json.load(df)
-
-df_train.keys()
-
-df_train['description']
-df_train['building_id']
-df_train['photos']
-df_train['latitude']
-df_train['longitude']
-df_train['street_address']
-df_train['listing_id']
-df_train['interest_level']
-df_train['display_address']
-df_train['bedrooms']
-df_train['bathrooms']
-df_train['manager_id']
-df_train['price']
-df_train['created']
-df_train['features']
-
-
 d_train = pd.read_json(path + 'train.json')
 
+d_train.head()
 
 [key for key, val in df_train['building_id'].items() if val == '53a5b119ba8f7b61d4e010512e0dfc85']
 sorted(d_train.index)
 
 d_train[d_train['building_id'] == '53a5b119ba8f7b61d4e010512e0dfc85']
+
+def add_features(df):
+    fmt = lambda s: s.replace("\u00a0", "").strip().lower()
+    df["photo_count"] = df["photos"].apply(len)
+    df["street_address"] = df['street_address'].apply(fmt)
+    df["display_address"] = df["display_address"].apply(fmt)
+    df["desc_wordcount"] = df["description"].apply(len)
+    df["pricePerBed"] = df['price'] / df['bedrooms']
+    df["pricePerBath"] = df['price'] / df['bathrooms']
+    df["pricePerRoom"] = df['price'] / (df['bedrooms'] + df['bathrooms'])
+    df["bedPerBath"] = df['bedrooms'] / df['bathrooms']
+    df["bedBathDiff"] = df['bedrooms'] - df['bathrooms']
+    df["bedBathSum"] = df["bedrooms"] + df['bathrooms']
+    df["bedsPerc"] = df["bedrooms"] / (df['bedrooms'] + df['bathrooms'])
+
+    df = df.fillna(-1).replace(np.inf, -1)
+    return df
 
 # The first finding is the index in d_train is the building_id
 #
@@ -52,15 +48,16 @@ d_train[d_train['building_id'] == '53a5b119ba8f7b61d4e010512e0dfc85']
 # 6. Figure out the way of generating the link for the page.
 # 7. Lightening of the photos. Convolutional neural networks.
 
-
-from collections import Counter
 features = Counter(word.strip(' ,.*;&').lower() for line in d_train['features'] for words in line for word in words.split())
 features.most_common(100)
 
-features = Counter(word.lower() for line in d_train['features'] for word in line if 'war' in word.lower())
+descs = Counter(word.strip(' ,.*;&?!-').lower() for line in d_train['description'] for word in line.split())
+descs.most_common(100)
+
+# features = Counter(word.lower() for line in d_train['features'] for word in line if 'war' in word.lower())
 
 features['luxury']
-['prewar', 'pre-war', 'laundry', 'dishwasher', 'doorman', ]
+['prewar', 'pre-war', 'laundry', 'dishwasher', 'doorman']
 
 # Age: prewar, pre-war, new,
 # Transportation: subway, garage, train, walk, bicycle, bike,
@@ -74,6 +71,8 @@ features['luxury']
 # Wheelchair: wheelchair access, ramp
 # Views: Can be extracted from photos.
 
+# Condition: new, renovated, etc
+
 # Color of hardwood floors.
 
 ## Need to find better ways to summarize the above information.
@@ -83,7 +82,6 @@ features['luxury']
 
 # The distribution of prices sorted by frequencies in a descending order.
 d = Counter(d_train['price']).most_common(200)
-import matplotlib.pyplot as plt
 plt.figure()
 plt.bar(range(len(d)), [i[1] for i in d], align='center')
 plt.xticks(range(len(d)), [i[0] for i in d])
@@ -100,6 +98,7 @@ Counter(d_train['interest_level'])
 
 def f(x):
     return pd.Series({'avgPrice': np.mean(x['price']), 'n': len(x['price'])})
+
 d_train.groupby(['interest_level']).apply(f)
 
 #                    avgPrice        n
@@ -112,3 +111,51 @@ d_train.groupby(['interest_level']).apply(f)
 
 
 d_train.groupby(['interest_level', 'bathrooms', 'bedrooms']).apply(f).reset_index()
+
+d_train.iloc[2]['features']
+d_train.iloc[2]['description']
+
+
+iFeatures = [1 if i else 0 for i in d_train['features']]
+iDescriptions = [1 if i else 0 for i in d_train['description']]
+
+d_train['iFeature'] = iFeatures
+d_train['iDesc'] = iDescriptions
+
+a = d_train.groupby(['interest_level', 'iFeature', 'iDesc']).apply(f).reset_index()
+b = d_train.groupby(['interest_level']).agg(['count'])['description'].reset_index()
+c = pd.merge(a, b, on='interest_level')
+c['pct%'] = c['n']/c['count'] * 100
+
+
+d_train[['building_id', 'listing_id', 'manager_id']].T.apply(lambda x: x.nunique(), axis=1)
+
+
+features = pd.DataFrame({'feature': [j for i in d_train.features.values for j in i]})
+features['dummy'] = 1
+features.groupby('feature').count().sort_values('dummy', ascending=False)
+
+
+
+
+# Use Google API to plot apartments on GPS
+import json
+import pandas as pd
+import gpxpy as gpx
+import gpxpy.gpx
+gpx = gpxpy.gpx.GPX()
+
+for index, row in d_train.iterrows():
+    if row['interest_level'] == 'high':
+        gps_waypoint = gpxpy.gpx.GPXWaypoint(row['latitude'], row['longitude'], elevation=10)
+        gpx.waypoints.append(gps_waypoint)
+
+filename = "test.gpx"
+FILE = open(filename,"w")
+FILE.writelines(gpx.to_xml())
+FILE.close()
+print ('Created GPX:')
+
+
+#' # Clustering apartments based on their lat and lons
+#' See this [post](https://www.kaggle.com/luisblanche/two-sigma-connect-rental-listing-inquiries/neighborhoods-instead-of-lat-long).
