@@ -44,20 +44,38 @@ plt.ylabel('exp function')
 plt.title('exp function')
 
 
-
-# Legend
 plt.figure('lin quad')
 plt.clf()
-plt.plot(x, y1, label='linear')
-plt.plot(x, y2, label='quad')
+plt.plot(x, y1, 'b-', linewidth = 2, label='linear')
+plt.plot(x, y2, 'r--', linewidth = 2, label='quad')
 plt.legend(loc='upper left')
 plt.title('linear vs quad')
 
-
 plt.figure('cub exp')
 plt.clf()
-plt.plot(x, y3, label='cubic')
-plt.plot(x, y4, label='exp')
+plt.plot(x, y3, 'g+', linewidth = 1.5, label='cubic')
+plt.plot(x, y4, 'y*', linewidth = 0.5, label='exp')
 plt.legend()
 plt.title('cubic vs exp')
+
+
+plt.figure('lin quad')
+plt.clf()
+plt.subplot(121)
+plt.ylim(0, 900)
+plt.plot(x, y1, 'b-', label='linear', linewidth=2.0)
+plt.title('linear vs quad')
+plt.subplot(122)
+plt.ylim(0, 900)
+plt.plot(x, y2, 'r', label='quad', linewidth=3.0)
+
+
+plt.figure('cub exp log')
+plt.clf()
+plt.plot(x, y3, 'g--', label='cubic', linewidth = 2.0)
+plt.plot(x, y4, 'r', label='exponential', linewidth = 4.0)
+plt.yscale('log')
+plt.legend()
+plt.title('cub vs exp')
+
 
