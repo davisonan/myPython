@@ -173,18 +173,38 @@ class LinkedList(object):
 
     def hasCycle(self):
         """Return True if there's a cycle in the LinkedList."""
-        try:
-            slow = self.head
-            fast = self.head.next
-            while slow is not fast:
-                slow = slow.next
-                fast = fast.next.next
-            else:
-                return True
-        except:
+        if not (self.head or self.head.next): return False
+        slow = fast = self.head
+        # only need to monitor fast pointer for the following two nodes.
+        while fast.next and fast.next.next:
+            slow = slow.next
+            fast = fast.next.next
+            if slow is fast: return True
+        else:
             return False
 
+    def getCycleBeginAt(self):
+        """Get the start position of a cyle if there's any.
+        Return None if there's no cycle.
+        """
+        if not (self.head and self.head.next): return None
+        slow = fast = self.head
+        # only need to monitor fast pointer for the following two nodes.
+        while fast.next and fast.next.next:
+            slow = slow.next
+            fast = fast.next.next
+            if slow is fast:
+                slow = self.head
+                while slow is not fast:  # Monitor if slow is fast.
+                    slow = slow.next
+                    fast = fast.next
+                else:
+                    return slow
+        else:
+            return None
+
     def getRandomNode(self):
+        """Return the value of a random node chosen with equal probabilities."""
         count, rslt = 1, None
         cur = self.head
         while cur:
@@ -194,9 +214,19 @@ class LinkedList(object):
         return rslt.val
 
     def oddEvenReorder(self):
-
-
-
+        """Reorder the linkedlist with nodes at odd positions first and followed
+        by nodes at even positions. The relative order of odd nodes and even nodes
+        should be maintained."""
+        if self.head and self.head.next:
+            curOdd = self.head
+            headEven, curEven = self.head.next, self.head.next
+            while curOdd and curEven and curOdd.next and curEven.next:
+                curOdd.next = curEven.next
+                curOdd = curOdd.next
+                curEven.next = curOdd.next
+                curEven = curEven.next
+            curOdd.next = headEven
+        return self.head
 
 def main():
     import random
@@ -278,3 +308,13 @@ import random
 for i in range(1, 1000):
     if random.randint(1, i) == 1:
         print(i)
+
+#' I always have a little trouble in deciding the monitoring rules in while
+#' loops etc. The condition in while loops. There must be a set of rules to tell
+#' how we can come up with the while conditions.
+
+#' # How do we decide on conditions in a while loop?
+#' If I don't know what to put in the condition first, put True and keep writing
+#' until a point you'll have to write conditions to break out of the while loop.
+#' That very condition is what you'll need to put as the condition in the while
+#' loop.
