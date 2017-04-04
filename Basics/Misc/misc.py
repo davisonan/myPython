@@ -204,10 +204,18 @@ class RedPacket(object):
         self.__moneyLeft -= money
         return money
 
-rslt = []
-for i in range(1000000):
-    aRedPacket = RedPacket(71, 27)
-    rslt.append([aRedPacket.getRandomMoney() for _ in range(27)])
+rslts = []
+for iSim in range(10000):
+    rslt = []
+    for i in range(10000):
+        aRedPacket = RedPacket(71, 27)
+        rslt.append(aRedPacket.getRandomMoney())
+    rslts.append(rslt)
+
+probs = [np.mean([i <= 0.37 for i in rslt]) for rslt in rslts]
+
+import matplotlib.pyplot as plt
+plt.hist(probs, 50)
 
 # rslt = []
 # for i in range(1000000):
@@ -248,8 +256,45 @@ sum(rslt1[0] <= 0.37)/1000000
 #' in this case. Therefore the theoretical probability of having a value as small 
 #' or smaller than 0.37 is $(0.37-0.01)/(5.26-0.01)=0.0686$.
 
+#' The above analysis is actually wrong, because 0.01 is not the ending point since
+#' even though the distribution is cut-off at 0.01, at 0.01, it's a point-mass with 
+#' probability 0.01. Therefore, the above calculation is actually $0.37/5.26=0.0703$,
+#' which is quite close to the simulation result.
+
+#' After doing 10000 runs of simulations with each run having 10000 simulations, the 
+#' probability of getting a red packet in the first draw as small as or smaller than 
+#' $0.37 is a bell-shaped curve with mean 0.0713 and standard deviation 0.0026. So 
+#' the number I got the first time is surprisingly close to the true value. However,
+#' the theoretical result should be 0.0703 instead of 0.0712, but why am I getting 
+#' 0.0712? Can rounding error be the reason since every returned money amount is 
+#' rounded with 2 decimal points. And it turns out that it is the case. After having
+#' the rounding errors being taken care of, the mean is now $0.07034$ and the 
+#' standard error is 0.00256. Now, this study can come to an end. No, not yet, but
+#' why? Right, many values like 0.371 or 0.378 would be rounded to be 0.37 which would
+#' increase the probability by about 0.01 and this is exactly what we observed. To
+#' study a problem to this level of clarity is really not an easy thing.
 
 #' The individual distributions of payoffs are interesting as well. It would need 
 #' further study.
 
 
+#' # tf-idf
+#' In information retrieval, tf-idf, shoft for term frequency-inverse document 
+#' frequency, is a numerical statistic that is intended to reflect how important
+#' a word is to a document in a collection or corpus.
+
+import PyPDF2
+pdfReader = PyPDF2.PdfFileReader(open('Resume.pdf', 'rb'))
+
+pdfReader.isEncrypted
+
+pageObj = pdfReader.getPage(0)
+
+pageCntnt = pageObj.extractText()
+
+from collections import defaultdict
+
+d = defaultdict(int)
+for words in pageCntnt.split('\n'):
+    for word in words.split():
+        d[word.strip('().,-¥ ').lower()] += 1
