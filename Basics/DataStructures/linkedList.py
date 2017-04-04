@@ -58,8 +58,9 @@ class ListNode(object):
 #' - isPalindrome:
 #' - sort:
 #' - hasCycle:
+#' - getRandomNode:
 
-
+import random
 class LinkedList(object):
     def __init__(self, head=None):
         self.head = head
@@ -183,6 +184,19 @@ class LinkedList(object):
         except:
             return False
 
+    def getRandomNode(self):
+        count, rslt = 1, None
+        cur = self.head
+        while cur:
+            if random.randint(1, count) == 1:  # Important: inclusive.
+                rslt = cur
+            count, cur = count + 1, cur.next
+        return rslt.val
+
+    def oddEvenReorder(self):
+
+
+
 
 def main():
     import random
@@ -236,3 +250,31 @@ if __name__ == '__main__':
 #' a list does have the characteristics of a list, taking different types of
 #' objects, etc. The pointers are allocated with the same amount of memory,
 #' but the objects the pointers point to can be different, in CPython.
+
+#' These are the three ways of simulating for random nodes I've tried. The first
+#' one didn't pass all the test cases on leetcode. The second one is not correct
+#' either, the third one is the correct solution. The difference between the 2nd
+#' and 3rd is random.randint(a, b) returns an integer including a and b, however
+#' there's another function randint(a, b) by default in Python returning an
+#' an integer not including b. The first one should work and does work, however,
+#' it could pass the tests. I still wonder why.
+
+import random
+def runSim():
+    rslt = None
+    for i in range(1, 100):
+        if random.random() < 1/i:
+            rslt = i
+    return rslt
+
+rslts = Counter([runSim() for _ in range(100000)])
+
+import random
+for i in range(1, 1000):
+    if random.randint(0, i) == 0:
+        print(i)
+
+import random
+for i in range(1, 1000):
+    if random.randint(1, i) == 1:
+        print(i)
