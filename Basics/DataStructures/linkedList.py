@@ -139,6 +139,11 @@ class LinkedList(object):
             prev = curr
         self.head = prev
 
+    def reverseBetween(self, m, n):
+        """Reverse the linked list between m and n"""
+        
+
+
     def printForward(self):
         """Print the nodes' values forwards recursively.
             f() is a wrapper function for recursive calls.
