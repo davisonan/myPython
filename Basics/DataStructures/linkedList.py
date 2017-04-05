@@ -141,8 +141,7 @@ class LinkedList(object):
 
     def reverseBetween(self, m, n):
         """Reverse the linked list between m and n"""
-        
-
+        pass
 
     def printForward(self):
         """Print the nodes' values forwards recursively.
@@ -219,9 +218,9 @@ class LinkedList(object):
         return rslt.val
 
     def oddEvenReorder(self):
-        """Reorder the linkedlist with nodes at odd positions first and followed
-        by nodes at even positions. The relative order of odd nodes and even nodes
-        should be maintained."""
+        """Reorder the linkedlist with nodes at odd positions first and
+        followed by nodes at even positions. The relative order of odd
+        nodes and even nodes should be maintained."""
         if self.head and self.head.next:
             curOdd = self.head
             headEven, curEven = self.head.next, self.head.next
@@ -295,6 +294,8 @@ if __name__ == '__main__':
 #' it could pass the tests. I still wonder why.
 
 import random
+from collections import Counter
+
 def runSim():
     rslt = None
     for i in range(1, 100):

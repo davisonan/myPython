@@ -683,8 +683,10 @@ member methods:</p>
 <li>isPalindrome:</li>
 <li>sort:</li>
 <li>hasCycle:</li>
+<li>getRandomNode:</li>
 </ul>
-<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">LinkedList</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">random</span>
+<span class="k">class</span> <span class="nc">LinkedList</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">head</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">head</span> <span class="o">=</span> <span class="n">head</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">length</span> <span class="o">=</span> <span class="mi">0</span>
@@ -763,6 +765,10 @@ member methods:</p>
             <span class="n">prev</span> <span class="o">=</span> <span class="n">curr</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">head</span> <span class="o">=</span> <span class="n">prev</span>
 
+    <span class="k">def</span> <span class="nf">reverseBetween</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Reverse the linked list between m and n&quot;&quot;&quot;</span>
+        <span class="k">pass</span>
+
     <span class="k">def</span> <span class="nf">printForward</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Print the nodes&#39; values forwards recursively.</span>
 <span class="sd">            f() is a wrapper function for recursive calls.</span>
@@ -797,17 +803,64 @@ member methods:</p>
 
     <span class="k">def</span> <span class="nf">hasCycle</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Return True if there&#39;s a cycle in the LinkedList.&quot;&quot;&quot;</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">slow</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">head</span>
-            <span class="n">fast</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">head</span><span class="o">.</span><span class="n">next</span>
-            <span class="k">while</span> <span class="n">slow</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">fast</span><span class="p">:</span>
-                <span class="n">slow</span> <span class="o">=</span> <span class="n">slow</span><span class="o">.</span><span class="n">next</span>
-                <span class="n">fast</span> <span class="o">=</span> <span class="n">fast</span><span class="o">.</span><span class="n">next</span><span class="o">.</span><span class="n">next</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="k">return</span> <span class="bp">True</span>
-        <span class="k">except</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">head</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">head</span><span class="o">.</span><span class="n">next</span><span class="p">):</span> <span class="k">return</span> <span class="bp">False</span>
+        <span class="n">slow</span> <span class="o">=</span> <span class="n">fast</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">head</span>
+        <span class="c1"># only need to monitor fast pointer for the following two</span>
+<span class="n">nodes</span><span class="o">.</span>
+        <span class="k">while</span> <span class="n">fast</span><span class="o">.</span><span class="n">next</span> <span class="ow">and</span> <span class="n">fast</span><span class="o">.</span><span class="n">next</span><span class="o">.</span><span class="n">next</span><span class="p">:</span>
+            <span class="n">slow</span> <span class="o">=</span> <span class="n">slow</span><span class="o">.</span><span class="n">next</span>
+            <span class="n">fast</span> <span class="o">=</span> <span class="n">fast</span><span class="o">.</span><span class="n">next</span><span class="o">.</span><span class="n">next</span>
+            <span class="k">if</span> <span class="n">slow</span> <span class="ow">is</span> <span class="n">fast</span><span class="p">:</span> <span class="k">return</span> <span class="bp">True</span>
+        <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">False</span>
 
+    <span class="k">def</span> <span class="nf">getCycleBeginAt</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get the start position of a cyle if there&#39;s any.</span>
+<span class="sd">        Return None if there&#39;s no cycle.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">head</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">head</span><span class="o">.</span><span class="n">next</span><span class="p">):</span> <span class="k">return</span> <span class="bp">None</span>
+        <span class="n">slow</span> <span class="o">=</span> <span class="n">fast</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">head</span>
+        <span class="c1"># only need to monitor fast pointer for the following two</span>
+<span class="n">nodes</span><span class="o">.</span>
+        <span class="k">while</span> <span class="n">fast</span><span class="o">.</span><span class="n">next</span> <span class="ow">and</span> <span class="n">fast</span><span class="o">.</span><span class="n">next</span><span class="o">.</span><span class="n">next</span><span class="p">:</span>
+            <span class="n">slow</span> <span class="o">=</span> <span class="n">slow</span><span class="o">.</span><span class="n">next</span>
+            <span class="n">fast</span> <span class="o">=</span> <span class="n">fast</span><span class="o">.</span><span class="n">next</span><span class="o">.</span><span class="n">next</span>
+            <span class="k">if</span> <span class="n">slow</span> <span class="ow">is</span> <span class="n">fast</span><span class="p">:</span>
+                <span class="n">slow</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">head</span>
+                <span class="k">while</span> <span class="n">slow</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">fast</span><span class="p">:</span>  <span class="c1"># Monitor if slow is fast.</span>
+                    <span class="n">slow</span> <span class="o">=</span> <span class="n">slow</span><span class="o">.</span><span class="n">next</span>
+                    <span class="n">fast</span> <span class="o">=</span> <span class="n">fast</span><span class="o">.</span><span class="n">next</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">slow</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">None</span>
+
+    <span class="k">def</span> <span class="nf">getRandomNode</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return the value of a random node chosen with equal</span>
+<span class="sd">probabilities.&quot;&quot;&quot;</span>
+        <span class="n">count</span><span class="p">,</span> <span class="n">rslt</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="bp">None</span>
+        <span class="n">cur</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">head</span>
+        <span class="k">while</span> <span class="n">cur</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">count</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>  <span class="c1"># Important: inclusive.</span>
+                <span class="n">rslt</span> <span class="o">=</span> <span class="n">cur</span>
+            <span class="n">count</span><span class="p">,</span> <span class="n">cur</span> <span class="o">=</span> <span class="n">count</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">cur</span><span class="o">.</span><span class="n">next</span>
+        <span class="k">return</span> <span class="n">rslt</span><span class="o">.</span><span class="n">val</span>
+
+    <span class="k">def</span> <span class="nf">oddEvenReorder</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Reorder the linkedlist with nodes at odd positions first</span>
+<span class="sd">and</span>
+<span class="sd">        followed by nodes at even positions. The relative order of odd</span>
+<span class="sd">        nodes and even nodes should be maintained.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">head</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">head</span><span class="o">.</span><span class="n">next</span><span class="p">:</span>
+            <span class="n">curOdd</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">head</span>
+            <span class="n">headEven</span><span class="p">,</span> <span class="n">curEven</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">head</span><span class="o">.</span><span class="n">next</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">head</span><span class="o">.</span><span class="n">next</span>
+            <span class="k">while</span> <span class="n">curOdd</span> <span class="ow">and</span> <span class="n">curEven</span> <span class="ow">and</span> <span class="n">curOdd</span><span class="o">.</span><span class="n">next</span> <span class="ow">and</span> <span class="n">curEven</span><span class="o">.</span><span class="n">next</span><span class="p">:</span>
+                <span class="n">curOdd</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">curEven</span><span class="o">.</span><span class="n">next</span>
+                <span class="n">curOdd</span> <span class="o">=</span> <span class="n">curOdd</span><span class="o">.</span><span class="n">next</span>
+                <span class="n">curEven</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">curOdd</span><span class="o">.</span><span class="n">next</span>
+                <span class="n">curEven</span> <span class="o">=</span> <span class="n">curEven</span><span class="o">.</span><span class="n">next</span>
+            <span class="n">curOdd</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">headEven</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">head</span>
 
 <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
     <span class="kn">import</span> <span class="nn">random</span>
@@ -861,11 +914,64 @@ the time proportional to the length of the linked list. However though,
 a list does have the characteristics of a list, taking different types of
 objects, etc. The pointers are allocated with the same amount of memory,
 but the objects the pointers point to can be different, in CPython.</p>
+<p>These are the three ways of simulating for random nodes I've tried. The first
+one didn't pass all the test cases on leetcode. The second one is not correct
+either, the third one is the correct solution. The difference between the 2nd
+and 3rd is random.randint(a, b) returns an integer including a and b, however
+there's another function randint(a, b) by default in Python returning an
+an integer not including b. The first one should work and does work, however,
+it could pass the tests. I still wonder why.</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Counter</span>
+
+<span class="k">def</span> <span class="nf">runSim</span><span class="p">():</span>
+    <span class="n">rslt</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="o">/</span><span class="n">i</span><span class="p">:</span>
+            <span class="n">rslt</span> <span class="o">=</span> <span class="n">i</span>
+    <span class="k">return</span> <span class="n">rslt</span>
+
+<span class="n">rslts</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">([</span><span class="n">runSim</span><span class="p">()</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100000</span><span class="p">)])</span>
+
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1000</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1000</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+</pre></div>
+<div class="highlight"><pre><span></span>2
+5
+14
+25
+48
+55
+258
+379
+1
+5
+83
+165
+351
+415
+</pre></div>
+
+<p>I always have a little trouble in deciding the monitoring rules in while
+loops etc. The condition in while loops. There must be a set of rules to tell
+how we can come up with the while conditions.</p>
+<h1>How do we decide on conditions in a while loop?</h1>
+<p>If I don't know what to put in the condition first, put True and keep writing
+until a point you'll have to write conditions to break out of the while loop.
+That very condition is what you'll need to put as the condition in the while
+loop.</p>
     <HR/>
     <div class="footer">
       <p>Published from <a href="linkedList.py">linkedList.py</a>
     using <a href="http://mpastell.com/pweave">Pweave</a> 0.25
-    on 28-03-2017.<p></div>
+    on 04-04-2017.<p></div>
 
             </div>
         </div>

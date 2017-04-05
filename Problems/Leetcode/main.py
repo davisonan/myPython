@@ -2223,3 +2223,23 @@ class Solution(object):
         return f(root, False)
 
 
+# 350. Intersection of Two Arrays II
+class Solution(object):
+    def intersect(self, nums1, nums2):
+        """
+        :type nums1: List[int]
+        :type nums2: List[int]
+        :rtype: List[int]
+        """
+        rslt = []
+        d1, d2 = {}, {}
+        for i in nums1:
+            d1[i] = d1.get(i, 0) + 1
+        for j in nums2:
+            d2[j] = d2.get(j, 0) + 1
+        for key, val in d1.items():
+            cnt = min(d2.get(key, 0), val)
+            if cnt > 0:
+                rslt.extend([key] * cnt)
+        return rslt
+
