@@ -2243,3 +2243,55 @@ class Solution(object):
                 rslt.extend([key] * cnt)
         return rslt
 
+
+# 153. Find Minimum in Rotated Sorted Array
+class Solution(object):
+    def findMin(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        if len(nums) == 1: return nums[0]
+        l, r = 0, len(nums)-1
+        m = (l + r)//2
+        while l < r:
+            if nums[m-1] < nums[m] < nums[m+1] and nums[m] > nums[0]:
+                l = m + 1
+                m = (l + r)//2
+            elif nums[m-1] < nums[m] < nums[m+1] and nums[m] < nums[0]:
+                r = m - 1
+                m = (l + r)//2
+            elif nums[m-1] < nums[m] and nums[m] > nums[m+1]:
+                return nums[m+1]
+            elif nums[m-1] > nums[m] and nums[m] < nums[m+1]:
+                return nums[m]
+
+l2 = [3, 4, 5, 6, 0, 1, 2]
+l2 = [8, 9, 0, 1, 2, 3, 4, 5, 6, 7]
+l2 = [1, 2, 3]
+sol = Solution()
+sol.findMin(l2)
+
+# Solution online:
+class Solution(object):
+    def findMin(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        i = 0
+        j = len(nums) - 1
+        while i < j:
+            m = (j + i) // 2
+            if nums[m] > nums[j]:
+                i = m + 1
+            else:
+                j = m
+        return nums[i]
+
+sol = Solution()
+l2 = [8, 9, 0, 1, 2, 3, 4, 5, 6, 7]
+l2 = [0, 1, 2, 3]
+sol.findMin(l2)
+
+
