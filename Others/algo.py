@@ -82,9 +82,9 @@ test()
 ##### Microsoft #####
 # Find the minimum of distance of two words in a article.
 # Solution 1:
-# Create two lists of positions of words and find 
+# Create two lists of positions of words and find
 # all the distances of two lits and find the minimum.
-# Note: This is a solution, but not an impressive one 
+# Note: This is a solution, but not an impressive one
 # in an interview. You can pass, but you wouldn't shine.
 def findMinDist1(s, w1, w2):
     l = s.split()
@@ -101,13 +101,13 @@ def findMinDist1(s, w1, w2):
     print(minDist, len(l1) * len(l2))
 
 # Solution 2: The minimum finding part can be done better.
-# Use two iterators for the two arrays. When one number in 
-# one array is already smaller than the current number in 
-# the other one, move to the next few until it's getting 
-# bigger. Because the minimum distance could only happen 
+# Use two iterators for the two arrays. When one number in
+# one array is already smaller than the current number in
+# the other one, move to the next few until it's getting
+# bigger. Because the minimum distance could only happen
 # around the numbers that are close in two arrays.
 def findMinDist2(s, w1, w2):
-    l = s.split()   
+    l = s.split()
     l1, l2 = [], []
     for idx in range(len(l)):
         word = l[idx]
@@ -167,20 +167,20 @@ for i in range(7):
     m1.append(row)
 
 m1 = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
-# [[1, 2, 3], 
-#  [4, 5, 6], 
+# [[1, 2, 3],
+#  [4, 5, 6],
 #  [7, 8, 9]]
 list(reversed(list(zip(*m1[::-1]))))  # Mirrored
-# [(9, 6, 3), 
-#  (8, 5, 2), 
+# [(9, 6, 3),
+#  (8, 5, 2),
 #  (7, 4, 1)]
 list(zip(*m1[::-1]))  # Clockwise
-# [(7, 4, 1), 
-#  (8, 5, 2), 
+# [(7, 4, 1),
+#  (8, 5, 2),
 #  (9, 6, 3)]
 list(reversed(list(zip(*m1))))  # Counte-clockwise
-# [(3, 6, 9), 
-#  (2, 5, 8), 
+# [(3, 6, 9),
+#  (2, 5, 8),
 #  (1, 4, 7)]
 
 
@@ -217,7 +217,7 @@ def bs(l, x):
 
 testlist = [0, 1, 2, 8, 13, 17, 19, 32, 42]
 bs(testlist, 13)
-# Comment: The +1 and -1 at positions 1 and 2 are critical for the success of 
+# Comment: The +1 and -1 at positions 1 and 2 are critical for the success of
 # this algorithsm.
 # This algorithm is quicker and more efficient than the recursive version.
 
@@ -247,9 +247,9 @@ def find_prime(n):
             factors.append(d)
         j = (j+1) % 2
         if j == 0: i += 1
-        if i == 0: 
+        if i == 0:
             d = 3
-        else: 
+        else:
             d = 6 * i + [-1, 1][j]
         if d * d > n and n > 1:
             factors.append(n)
@@ -267,3 +267,21 @@ def fib1(n):
         yield b
 
 
+##### Binary search #####
+def binarySearch(arr, x):
+	i, j = 0, len(arr)-1
+	while i <= j: # 1
+		mid = (i+j)//2 # 2
+		print(i, mid, j)
+		if arr[mid] == x:
+			return True
+		elif arr[mid] > x:
+			j = mid - 1 # 3
+		else:
+			i = mid + 1 # 4
+	return False
+
+arr = [1, 2, 3, 4, 5, 7, 8, 9, 12, 14, 16, 18]
+print(binarySearch(arr, 6))
+# Comments: the four key points are labeled. Keep these four rules in mind if
+# you don't get the full logic.

@@ -2282,14 +2282,18 @@ class Solution(object):
         i = 0
         j = len(nums) - 1
         while i < j:
-            m = (j + i) // 2
-            if nums[m] > nums[j]:
-                i = m + 1
-            else:
+            m = (j + i)//2
+            if nums[m] < nums[j]:
                 j = m
+            else:
+                i = m + 1
         return nums[i]
 
 sol = Solution()
 l2 = [8, 9, 0, 1, 2, 3, 4, 5, 6, 7]
-l2 = [0, 1, 2, 3]
+# l2 = [0, 1, 2, 3]
 sol.findMin(l2)
+
+# Comment: Find the first x that p(x) is True. Problems 
+# can also be find the last x that p(x) is True.
+
