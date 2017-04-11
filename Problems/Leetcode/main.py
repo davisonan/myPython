@@ -2297,3 +2297,197 @@ sol.findMin(l2)
 # Comment: Find the first x that p(x) is True. Problems 
 # can also be find the last x that p(x) is True.
 
+
+# 189. Rotate Array
+class Solution(object):
+    def rotate(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: void Do not return anything, modify nums in-place instead.
+        """
+        n = len(nums)
+        nums[:] = nums[-(k%n):] + nums[:-(k%n)]  
+        # nums = nums[-k:] + nums[:-k]
+    
+    def rotate2(self, nums, k):
+        nums.reverse()
+        k = k % len(nums)
+        nums[:k] = nums[:k][::-1]
+        nums[k:] = nums[k:][::-1]
+
+
+sol = Solution()
+nums = list(range(20))
+k = 5
+sol.rotate(nums, k + 20)
+sol.rotate2(nums, k + 20)
+
+
+# 26. Remove Duplicates from Sorted Array
+class Solution(object):
+    def removeDuplicates(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        if len(nums) == 0: return 0
+        i = j = 0
+        m, n = 1, len(nums)
+        while i < n:
+            if nums[i] != nums[j]:
+                nums[m] = nums[i]
+                m += 1
+                j = i
+            i += 1
+        return m
+
+    def removeDuplicates2(self, nums):
+        n = len(nums)
+        if n < 2: return n
+        i, m = 1, 1
+        while i < n:
+            if nums[i] != nums[i-1]:
+                nums[m] = nums[i]
+                m += 1
+            i += 1
+        return m
+
+# Comment: two pointers, one moves faster, the other stays at the first new value;
+# The count is used to update the values in-place.
+
+# Comment: The second solution is using one pointer and one counter. More concise.
+
+# 80. Remove Duplicates from Sorted Array II
+class Solution(object):
+    def removeDuplicates(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        n = len(nums)
+        if n < 3: return n
+        i, j, m = 1, 0, 1
+        while i < n:
+            if nums[i] == nums[i-1]:
+                j += 1
+                if j < 2: 
+                    m += 1
+            else:
+                nums[]
+
+# 525. Contiguous Array
+class Solution(object):
+    def findMaxLength(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        d = {0: 0}
+        key, maxL = 0, 0
+        for i in range(len(nums)):
+            key += nums[i] or -1
+            if key not in d:
+                d[key] = i+1  # Make index 1-based
+            else:
+                maxL = max(maxL, i+1-d[key])
+        return maxL
+
+sol = Solution()
+sol.findMaxLength([0, 1, 0, 1])
+
+
+# 421. Maximum XOR of Two Numbers in an Array
+class Solution(object):
+    def findMaximumXOR(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        d = {}
+        for i in nums:
+            bstr = bin(i)[2:]
+            n = len(bstr)
+            if n in d:
+                d.add(bstr)
+            else:
+                d[n] = set([bstr])
+
+        maxL = max(d.keys())
+        i = 1
+
+        while True:
+            s0 = set([elem[i] != '1' for elem in d[maxL]])
+            s1 = set(d[maxL-i])            
+            if len(s0) > 1 and len(s1) > 1:
+
+
+
+
+# 108. Convert Sorted Array to Binary Search Tree
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+class Solution(object):
+    def sortedArrayToBST(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: TreeNode
+        """
+        if len(nums) == 0: return None
+        n = len(nums)
+        mid = n//2
+        root = TreeNode(nums[mid])
+        root.left = self.sortedArrayToBST(nums[:mid])
+        root.right = self.sortedArrayToBST(nums[mid+1:])
+        return root
+
+
+# 530. Minimum Absolute Difference in BST
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution(object):
+    def getMinimumDifference(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+        nums = self.inOrder(root)
+        return min([abs(nums[i+1] - nums[i]) for i in range(len(nums)-1)])
+        
+    def inOrder(self, root):
+        if root:
+            return self.inOrder(root.left) + [root.val] + self.inOrder(root.right)
+        else:
+            return []  # 1
+
+# Comment: Pos 1 is important, otherwise, function would return a None value by 
+# default, and a None value + list is not defined, however, [] + [1] = [1], an 
+# empty list adds a non-empty list is the non-empty list.
+
+# 557. Reverse Words in a String III
+class Solution(object):
+    def reverseWords(self, s):
+        """
+        :type s: str
+        :rtype: str
+        """
+        words = s.split()
+        rslt = ''
+        for word in words: rslt += word[::-1] + ' '  # Pos 1
+        return rslt[:-1]  # Pos 2
+
+# Comment: Made one mistake by not adding the ' ' space at 
+# Pos 1. Also at Pos 2, don't forget to remove the last space
+# at the end.
+
+
+

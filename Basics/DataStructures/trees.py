@@ -44,7 +44,7 @@ class BST(object):
         pass
 
     def add(self, newNode):
-
+        pass
 
     def total(self):
         def f1(node):
@@ -94,3 +94,26 @@ class BST(object):
 
 
 bst1 = BST(6)
+
+class Solution(object):
+    def sortedArrayToBST(self, nums):
+        n = len(nums)
+        if n == 0: return None
+        mid = n//2
+        root = Node(nums[mid])
+        root.left = self.sortedArrayToBST(nums[:mid])
+        root.right = self.sortedArrayToBST(nums[mid+1:])
+        return root
+
+sol = Solution()
+nums = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+root = sol.sortedArrayToBST(nums)
+
+
+def printBST(root):
+    if root is None: return
+    print(root.val)
+    printBST(root.left)
+    printBST(root.right)
+
+printBST(root)
