@@ -35,7 +35,6 @@ class aListStack(object):
         else:
             raise ValueError("No value in the stack.")
 
-
 class aLinkedListStack(object):
     """This is a stack implemented with a linked list internally."""
 
