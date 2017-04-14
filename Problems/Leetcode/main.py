@@ -2511,4 +2511,37 @@ def partition(arr, lo, hi):
 arr = [6, 4, 1, 3, 7, 5, 8, 9, 2]
 quickSort(arr, 0, len(arr)-1)
 
+# 541. Reverse String II
+class Solution(object):
+    def reverseStr(self, s, k):
+        """
+        :type s: str
+        :type k: int
+        :rtype: str
+        """
+        n = len(s)
+        if n < k: return s[::-1]
+        s0 = ''
+        n1, n2 = divmod(n, 2 * k)
+        n1 = n1 + (0 if n2 < k else 1)
+        s0 = [s[i*(2*k):i*(2*k)+k][::-1] + s[i*(2*k)+k:(i+1)*(2*k)] for i in range(n1)]
+        if n2 < k: s0.append(s[n1*(2*k):][::-1])
+        return ''.join(s0)
+
+    def reverseStr2(self, s, k):
+        s = list(s)
+        for i in range(0, len(s), 2*k):
+            s[i:i+k] = s[i:i+k][::-1]
+        return ''.join(s)
+
+sol = Solution()
+s = 'abcdefghijklmn'
+k = 3
+sol.reverseStr(s, k)
+sol.reverseStr2(s, k)
+# Comment: A string doesn't take assignment.
+# Solutions 2 is a better use of index and for loop than I did. I knew the special cases
+# could be merged with the main body, but didn't have the knowledge or experience to do
+# so. A really nice and concise solution.
+
 
