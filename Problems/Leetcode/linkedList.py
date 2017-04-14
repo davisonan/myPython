@@ -3,9 +3,9 @@
 #' % 2017/03/20
 
 #' # Background
-#' This writeup consists of the tree-based problems in leetcode. 
+#' This writeup consists of the tree-based problems in leetcode.
 
-#' In linked list, it seems a stnadard approach to use a dummy variable to 
+#' In linked list, it seems a stnadard approach to use a dummy variable to
 #' point to the beginning of the linked list.
 
 #' # List Node class
@@ -77,4 +77,3 @@ class Solution(object):
             pa = headB if pa is None else pa.next
             pb = headA if pb is None else pb.next
         return pa
-

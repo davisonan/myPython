@@ -46,6 +46,10 @@ class BST(object):
     def add(self, newNode):
         pass
 
+    def getMaxDepth(self):
+        if root is None: return 0
+        return 1 + max(self.getMaxDepth(self.root.left), self.getMaxDepth(self.root.right))
+
     def total(self):
         def f1(node):
             if node == None: return 0
@@ -91,7 +95,6 @@ class BST(object):
     def calDiameter(self):
         """Calculate the diamter of the tree defined as the longest path between
         any two nodes in the tree."""
-
 
 bst1 = BST(6)
 

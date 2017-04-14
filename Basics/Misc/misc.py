@@ -298,3 +298,33 @@ d = defaultdict(int)
 for words in pageCntnt.split('\n'):
     for word in words.split():
         d[word.strip('().,-¥ ').lower()] += 1
+
+
+#' # arguments
+#' The *args will give you all function parameters as a tuple:
+def f1(*x):
+    for i in x: print(i)
+
+f1(1,2,3)
+
+#' The **kwargs will give you all keyword arguments except 
+#' for those corresponding to a formal parameter as a dictionary.
+def f2(**kwargs):
+    for a in kwargs:
+        print(a, kwargs[a])
+
+f2(bar='name', age=27, address='here')
+
+def f3(*args, **kwargs):
+    for a in args:
+        print(a)
+    for a in kwargs:
+        print(a, kwargs[a])
+
+f3(1, 2, 3, bar='name', age=27, address='here')
+
+#' use * to unpack argument lists.
+first, *rest = [1, 2, 3, 4]
+first, *l, last = [1, 2, 3, 4]
+first, *rest = [1, 1, 2, 3]
+
