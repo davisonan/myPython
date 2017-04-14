@@ -2545,3 +2545,33 @@ sol.reverseStr2(s, k)
 # so. A really nice and concise solution.
 
 
+# 447. Number of Boomerangs
+class Solution(object):
+    def numberOfBoomerangs(self, points):
+        """
+        :type points: List[List[int]]
+        :rtype: int
+        """
+        def dis(a, b):
+            dx = a[0]-b[0]
+            dy = a[1]-b[1]
+            return dx*dx+dy*dy
+        
+        num = 0
+        for p in points:
+            cDict = {}
+            for q in points:
+                d = dis(p, q)
+                cDict[d] = cDict.get(d, 0) + 1
+            for val in cDict.values(): num += val * (val - 1)
+        
+        return num
+
+sol = Solution()
+sol.numberOfBoomerangs([[0,0],[1,0],[2,0]])
+
+# Comment: This is a solution I found on-line. One, always get a clear
+# understanding of the problem. This is the key. Second, don't be afraid 
+# of getting a silly solution. No solution is silly if it can solve the 
+# problem.
+
