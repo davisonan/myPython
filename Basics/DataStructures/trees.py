@@ -48,7 +48,8 @@ class BST(object):
 
     def getMaxDepth(self):
         if root is None: return 0
-        return 1 + max(self.getMaxDepth(self.root.left), self.getMaxDepth(self.root.right))
+        return 1 + max(self.getMaxDepth(self.root.left),
+                       self.getMaxDepth(self.root.right))
 
     def total(self):
         def f1(node):

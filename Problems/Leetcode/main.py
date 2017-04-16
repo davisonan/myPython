@@ -2637,7 +2637,7 @@ class Solution(object):
 
 # 101. Symmetric Tree
 # Definition for a binary tree node.
-# class TreeNode(object):
+# class Node(object):
 #     def __init__(self, x):
 #         self.val = x
 #         self.left = None
@@ -2663,17 +2663,41 @@ class Solution(object):
 
         f1(root, arr1)
         f2(root, arr2)
+
         for i, j in zip(arr1, arr2):
             if i != j: return False
         return True
 
 root = Node(1)
 root.left = Node(2)
-root.left.left = Node(3)
-root.left.right = Node(5)
+# root.left.left = Node(3)
+root.left.right = Node(3)
 root.right = Node(2)
 root.right.right = Node(3)
-root.right.left = Node(4)
+# root.right.left = Node(4)
 
 sol = Solution()
 sol.isSymmetric(root)
+
+# Comment: this solution couldn't identify the second case.
+
+# 551. Student Attendance Record I
+class Solution(object):
+    def checkRecord(self, s):
+        """
+        :type s: str
+        :rtype: bool
+        """
+        nA, nL = 0, 0
+        for i in s:
+            if i == 'A': nA += 1
+            if i == 'L': nL += 1
+            if i != 'L': nL = 0
+            if nA > 1: return False
+            if nL > 2: return False
+        return True
+
+# Comment: The key trap in the problem is more than two continuous 'L', so you
+# can't simply use nL > 2 as the only condition. An easy trick to set nL at 0
+# whenever the letter is not 'L', this way, as long as nL > 2, you know more
+# than 2 'L's have occurred.
