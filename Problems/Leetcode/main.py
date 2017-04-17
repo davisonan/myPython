@@ -2701,3 +2701,108 @@ class Solution(object):
 # can't simply use nL > 2 as the only condition. An easy trick to set nL at 0
 # whenever the letter is not 'L', this way, as long as nL > 2, you know more
 # than 2 'L's have occurred.
+
+
+# 374. Guess Number Higher or Lower
+# The guess API is already defined for you.
+# @param num, your guess
+# @return -1 if my number is lower, 1 if my number is higher, otherwise return 0
+# def guess(num):
+
+# The guess API is already defined for you.
+# @param num, your guess
+# @return -1 if my number is lower, 1 if my number is higher, otherwise return 0
+# def guess(num):
+
+class Solution(object):
+    def guessNumber(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        l, r = 1, n
+        while l <= r:
+            mid = (l+r)//2
+            rslt = guess(mid)
+            if rslt == -1:
+                r = mid - 1
+            elif rslt == 1:
+                l = mid + 1
+            else:
+                return mid
+
+# Comment: here my number is the number on the opposite side, not the literal
+# my number.
+
+
+class Solution(object):
+    def getMoneyAmount(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        l, r = 1, n
+        rslt = 0
+        while l <= r:
+            mid = (l+r)//2
+            l = mid + 1
+            rslt += mid
+        return rslt - mid
+
+sol = Solution()
+sol.getMoneyAmount(4)
+
+
+# 507. Perfect Number
+class Solution(object):
+    def checkPerfectNumber(self, num):
+        """
+        :type num: int
+        :rtype: bool
+        """
+        if num < 5: return False  # Pos 2
+        total = 0
+        for i in range(1, int(math.floor(math.sqrt(num)))+1):
+            div = num/i  # Pos 3
+            if div == int(div):
+                print(i, div)
+                total += i + int(div)
+
+        return (total - num) == num  # Pos 1
+
+sol = Solution()
+for i in range(1000):
+    if sol.checkPerfectNumber(i):
+        print(i)
+
+sol.checkPerfectNumber(496)
+
+# Comment: Pos 2: 6 = 1 + 2 + 3; Pos 3: num/i can be integer division for Python
+# 2.
+
+
+
+class Solution(object):
+    def nthUglyNumber(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        ugly = [1]
+        i2, i3, i5 = 0, 0, 0
+        while n > 1:
+            u2, u3, u5 = 2 * ugly[i2], 3 * ugly[i3], 5 * ugly[i5]
+            umin = min((u2, u3, u5))
+            print(u2, u3, u5)
+            if umin == u2:
+                i2 += 1
+            if umin == u3:
+                i3 += 1
+            if umin == u5:
+                i5 += 1
+            ugly.append(umin)
+            n -= 1
+        return ugly[-1]
+
+sol = Solution()
+sol.nthUglyNumber(10)
