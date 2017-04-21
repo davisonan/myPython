@@ -4,7 +4,6 @@ from PyPDF2 import PdfFileReader
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 
-
 pdfFileObj = open('Resume (Xu Tian).pdf', 'rb')
 resume = PdfFileReader(pdfFileObj)
 

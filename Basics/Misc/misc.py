@@ -328,3 +328,28 @@ first, *rest = [1, 2, 3, 4]
 first, *l, last = [1, 2, 3, 4]
 first, *rest = [1, 1, 2, 3]
 
+
+def a():
+    print("a executed")
+    return []
+
+def b(x=a()):  # Pos 1
+    x.append(5)
+    x.append(1)
+    print(x)
+
+b()
+b()
+b()
+
+b.__name__
+b.__defaults__
+b.__code__
+b.__defaults__[0][:]
+# Comment: Pos 1, when the default value of a function is 
+# an empty list, it will be only called once and it's stored
+# in the function. The [link](http://effbot.org/zone/default-values.htm) here
+# gives a good explanation. The problem is when def is executed,
+# the default arguments are evaluated in the def. 
+
+
