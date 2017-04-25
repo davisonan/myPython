@@ -353,3 +353,14 @@ b.__defaults__[0][:]
 # the default arguments are evaluated in the def. 
 
 
+
+#' The ~ opeartor can be used to access from the end.
+arr = [1, 2, 3, 4, 5]
+arr[~1]  # 4
+arr[-1]  # 5
+
+# Another use of tilder operator
+def is_palindromic(s):
+    return all([s[i] == s[~i] for i in range(int(len(s)//2))])  
+
+

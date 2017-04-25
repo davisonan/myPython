@@ -2806,3 +2806,33 @@ class Solution(object):
 
 sol = Solution()
 sol.nthUglyNumber(10)
+
+
+
+# 462. Minimum Moves to Equal Array Elements II
+class Solution(object):
+    def minMoves2(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        nums.sort()
+        return sum(nums[~i] - nums[i] for i in range(int(len(nums)//2)))
+
+# This link has the theory why the median works:
+# https://math.stackexchange.com/questions/113270/the-median-minimizes-the-sum-of-absolute-deviations
+
+
+# 421. Maximum XOR of Two Numbers in an Array
+nums = [3, 10, 5, 25, 2, 8]
+def findMaximumXOR(nums):
+    answer = 0
+    for i in range(32)[::-1]:
+        answer <<= 1
+        prefixes = {num >> i for num in nums}
+        answer += any([answer^1^p in prefixes for p in prefixes])
+        print(answer, prefixes)
+    return answer
+
+findMaximumXOR(nums)
+# Comment: Could not understand it at all.
